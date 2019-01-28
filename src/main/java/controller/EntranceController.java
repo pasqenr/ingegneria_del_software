@@ -39,8 +39,4 @@ public class EntranceController {
     public OrdersModel getOrdersModel() {
         return ordersModel;
     }
-
-    public static void main(String[] args) {
-        System.out.println(new EntranceController().getOrdersModel());
-    }
 }
