@@ -21,7 +21,7 @@ public class DatabaseWrapper {
 
     public void connect() {
         try {
-            String url = "jdbc:sqlite:/home/pasqenr/gitlab/ingegneria_del_software/src/main/resources/magazzino.sqlite";
+            String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "/src/main/resources/magazzino.sqlite";
 
             this.conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
