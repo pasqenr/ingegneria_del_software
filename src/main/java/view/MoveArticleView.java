@@ -82,7 +82,16 @@ public class MoveArticleView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void moveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moveButtonActionPerformed
-        // TODO add your handling code here:
+        String articleCode = (String)articlesComboBox.getSelectedItem();
+        String positionId = (String)positionsComboBox.getSelectedItem();
+
+        boolean positionHasChanged = moveArticleController.moveArticlePositionByCodes(articleCode, positionId);
+
+        if (positionHasChanged) {
+            moveArticleController.update();
+            articlesComboBox.setModel(moveArticleController.getArticleCodesComboBoxModel());
+            positionsComboBox.setModel(moveArticleController.getFreePositionComboBoxModel());
+        }
     }//GEN-LAST:event_moveButtonActionPerformed
 
     public static void main(String[] args) {
