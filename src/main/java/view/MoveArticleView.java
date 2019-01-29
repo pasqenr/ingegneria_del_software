@@ -2,6 +2,7 @@ package view;
 
 import controller.MoveArticleController;
 import javax.swing.*;
+import java.awt.*;
 
 public class MoveArticleView extends javax.swing.JFrame {
     private MoveArticleController moveArticleController;
@@ -10,6 +11,13 @@ public class MoveArticleView extends javax.swing.JFrame {
         moveArticleController = new MoveArticleController();
 
         initComponents();
+
+        // Center the frame
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = toolkit.getScreenSize();
+        int x = (screenSize.width - getWidth()) / 2;
+        int y = (screenSize.height - getHeight()) / 2;
+        setLocation(x, y);
     }
 
     /**
