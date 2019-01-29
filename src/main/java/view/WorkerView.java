@@ -4,6 +4,7 @@ import model.UserModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class WorkerView extends JFrame {
     public WorkerView(UserModel user) {
@@ -47,6 +48,7 @@ public class WorkerView extends JFrame {
         );
 
         moveArticleButton.setText("Move article");
+        moveArticleButton.addActionListener(this::moveArticleButtonActionPerformed);
 
         GroupLayout articlesPanelLayout = new GroupLayout(articlesPanel);
         articlesPanel.setLayout(articlesPanelLayout);
@@ -142,6 +144,10 @@ public class WorkerView extends JFrame {
         int x = (screenSize.width - getWidth()) / 2;
         int y = (screenSize.height - getHeight()) / 2;
         setLocation(x, y);
+    }
+
+    private void moveArticleButtonActionPerformed(ActionEvent event) {
+        SwingUtilities.invokeLater(() -> new MoveArticleView().setVisible(true));
     }
 
     public static void main(String[] args) {
