@@ -33,6 +33,25 @@ public class ArticleController {
         return codes;
     }
 
+    public ArticleModel findArticleByCode(String articleCode) {
+        ArticleModel article = null;
+
+        for (ArticleModel a : articles) {
+            if (articleCode.equals(a.getCode())) {
+                article = a;
+            }
+        }
+
+        return article;
+    }
+
+    /**
+     * Fetch fresh data from the database and update the internal state
+     */
+    public void update() {
+        articles = fetchAllArticles();
+    }
+
     private List<ArticleModel> fetchAllArticles() {
         List<ArticleModel> articlesList = new ArrayList<>();
         DatabaseWrapper db = new DatabaseWrapper();
