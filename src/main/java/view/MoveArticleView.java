@@ -36,6 +36,7 @@ public class MoveArticleView extends javax.swing.JFrame {
         moveButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Move article");
 
         aritclesLabel.setText("Articles");
 
