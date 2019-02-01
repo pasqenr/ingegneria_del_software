@@ -1,6 +1,7 @@
 package controller;
 
 import database.DatabaseWrapper;
+import model.ArticleModel;
 import model.PositionModel;
 
 import javax.swing.*;
@@ -61,6 +62,10 @@ public class MoveArticleController {
     public void update() {
         articleController.update();
         positionController.update();
+    }
+
+    public ArticleModel getArticleByCode(String articleCode) {
+        return articleController.getArticleByCode(articleCode);
     }
 
     private String[] positionModelsToStrings(List<PositionModel> positionModels) {
