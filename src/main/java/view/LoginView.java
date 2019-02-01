@@ -73,7 +73,7 @@ public class LoginView {
             if (loginController.isLogged(user)) {
                 System.out.println("Logged");
                 System.out.println(user);
-                SwingUtilities.invokeLater(() -> new WorkerView(user));
+                SwingUtilities.invokeLater(() -> new WorkerView(user).setVisible(true));
                 f.dispose();
             } else {
                 System.out.println("Not logged");
