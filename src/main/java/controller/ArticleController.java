@@ -52,6 +52,10 @@ public class ArticleController {
         articles = fetchAllArticles();
     }
 
+    public ArticleModel getArticleByCode(String code) {
+        return articles.stream().filter(article1 -> article1.getCode().equals(code)).findFirst().orElse(null);
+    }
+
     private List<ArticleModel> fetchAllArticles() {
         List<ArticleModel> articlesList = new ArrayList<>();
         DatabaseWrapper db = new DatabaseWrapper();
