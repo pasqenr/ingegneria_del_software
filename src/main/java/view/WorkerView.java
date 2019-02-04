@@ -62,6 +62,11 @@ public class WorkerView extends javax.swing.JFrame {
         emailTextField.setBorder(null);
 
         outOrdersButton.setText("Insert order");
+        outOrdersButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outOrdersButtonActionPerformed(evt);
+            }
+        });
 
         moveArticleButton.setText("Move article");
         moveArticleButton.addActionListener(new java.awt.event.ActionListener() {
@@ -131,6 +136,10 @@ public class WorkerView extends javax.swing.JFrame {
     private void inOrdersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inOrdersButtonActionPerformed
         SwingUtilities.invokeLater(() -> new InsertEntranceView().setVisible(true));
     }//GEN-LAST:event_inOrdersButtonActionPerformed
+
+    private void outOrdersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outOrdersButtonActionPerformed
+        SwingUtilities.invokeLater(() -> new InsertLeaveView().setVisible(true));
+    }//GEN-LAST:event_outOrdersButtonActionPerformed
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new WorkerView(new
