@@ -27,8 +27,6 @@ public class DatabaseWrapper implements AutoCloseable {
         return conn;
     }
 
-    // TODO: Should support the dependency injection of the database path
-    // TODO: Should implement Singleton pattern and return the old connection if it isn't null
     private void connect(String url) {
         try {
             conn = DriverManager.getConnection(url);
