@@ -1,8 +1,11 @@
 package model;
 
+import controller.ArticleTypeController;
+import controller.PositionController;
 import database.DatabaseWrapper;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ArticleModel extends Model implements Comparable {
@@ -58,6 +61,54 @@ public class ArticleModel extends Model implements Comparable {
 
     public void setPosition(PositionModel position) {
         this.position = position;
+    }
+
+    public static ArticleModel find(String code) {
+        ArticleModel article = null;
+        DatabaseWrapper db = new DatabaseWrapper();
+        String query = "SELECT a.codice, a.tipo_articolo, a.prezzo, a.data_produzione, a.posizione " +
+                "FROM articolo a " +
+                "WHERE a.codice LIKE ?";
+        PreparedStatement stmt;
+
+        try {
+            stmt = db.getCon().prepareStatement(query);
+            stmt.setString(1, code);
+            ResultSet rs = stmt.executeQuery();
+
+            rs.next();
+
+            article = buildSingleFromResult(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        db.close();
+
+        return article;
+    }
+
+    private static ArticleModel buildSingleFromResult(ResultSet rs) {
+        String code = null;
+        ArticleType articleType = null;
+        String price = null;
+        String productionDate = null;
+        PositionModel position = null;
+
+        try {
+            code = rs.getString("codice");
+            String articleName = rs.getString("tipo_articolo");
+            price = rs.getString("prezzo");
+            productionDate = rs.getString("data_produzione");
+            String positionCode = rs.getString("posizione");
+
+            articleType = new ArticleTypeController().findArticleTypeByName(articleName);
+            position = new PositionController().findPositionByCode(positionCode);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return new ArticleModel(code, articleType, price, productionDate, position);
     }
 
     @Override
