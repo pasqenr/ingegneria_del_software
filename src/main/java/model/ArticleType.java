@@ -44,4 +44,30 @@ public class ArticleType {
     public void setSport(SportModel sport) {
         this.sport = sport;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (! (o instanceof  ArticleType)) {
+            return false;
+        }
+
+        ArticleType articleType = (ArticleType)o;
+
+        return name.equals(articleType.name) &&
+                name.equals(articleType.description) &&
+                materials.equals(articleType.materials) &&
+                sport.equals(articleType.sport);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+
+        result = 31 * result + name.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + materials.hashCode();
+        result = 31 * result + sport.hashCode();
+
+        return result;
+    }
 }
