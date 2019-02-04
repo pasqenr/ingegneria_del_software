@@ -2,7 +2,7 @@ package database;
 
 import java.sql.*;
 
-public class DatabaseWrapper {
+public class DatabaseWrapper implements AutoCloseable {
     private Connection conn = null;
 
     public DatabaseWrapper() {
@@ -19,6 +19,8 @@ public class DatabaseWrapper {
         return this.conn;
     }
 
+    // TODO: Should support the dependency injection of the database path
+    // TODO: Should implement Singleton pattern and return the old connection if it isn't null
     public void connect() {
         try {
             String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "/src/main/resources/magazzino.sqlite";
@@ -43,16 +45,17 @@ public class DatabaseWrapper {
         return rs;
     }
 
+    @Override
     public void close() {
         try {
-            if (this.conn != null) {
-                this.conn.close();
+            if (conn != null) {
+                conn.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        this.conn = null;
+        conn = null;
     }
 
     public void commit() {
