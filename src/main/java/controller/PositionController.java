@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PositionController {
+public class PositionController extends Controller {
     private List<PositionModel> freePositions;
     private List<PositionModel> usedPositions;
 
@@ -27,9 +27,7 @@ public class PositionController {
         return usedPositions;
     }
 
-    /**
-     * Force lists update, that is, fetch fresh data from the database.
-     */
+    @Override
     public void update() {
         freePositions = new ArrayList<>(retrieveFreePositions());
         usedPositions = new ArrayList<>(retrieveUsedPositions());
@@ -48,6 +46,31 @@ public class PositionController {
     private List<PositionModel> retrieveUsedPositions() {
         String query = "SELECT a.posizione AS posizione " +
                 "FROM articolo a";
+
+        return retrievePosition(query);
+    }
+
+    public PositionModel findPositionByCode(String positionCode) {
+        if (freePositions == null) {
+            freePositions = retrieveFreePositions();
+        }
+
+        List<PositionModel> positions = freePositions;
+        PositionModel retPosition;
+
+        retPosition = positions.stream().filter(position -> position.getRawPosition().equals(positionCode))
+                .findFirst()
+                .orElse(null);
+
+        if (retPosition != null) {
+            positions.remove(retPosition);
+        }
+
+        return retPosition;
+    }
+
+    private List<PositionModel> fetchAllPositions() {
+        String query = "SELECT p.id_posizione AS posizione FROM posizione p";
 
         return retrievePosition(query);
     }
