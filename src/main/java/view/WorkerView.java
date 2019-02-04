@@ -50,6 +50,11 @@ public class WorkerView extends javax.swing.JFrame {
         articlesLabel.setText("Articles");
 
         inOrdersButton.setText("Insert entrance");
+        inOrdersButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inOrdersButtonActionPerformed(evt);
+            }
+        });
 
         loggedAsLabel.setText("Logged as:");
 
@@ -122,6 +127,10 @@ public class WorkerView extends javax.swing.JFrame {
     private void moveArticleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moveArticleButtonActionPerformed
         SwingUtilities.invokeLater(() -> new MoveArticleView().setVisible(true));
     }//GEN-LAST:event_moveArticleButtonActionPerformed
+
+    private void inOrdersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inOrdersButtonActionPerformed
+        SwingUtilities.invokeLater(() -> new InsertEntranceView().setVisible(true));
+    }//GEN-LAST:event_inOrdersButtonActionPerformed
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new WorkerView(new
