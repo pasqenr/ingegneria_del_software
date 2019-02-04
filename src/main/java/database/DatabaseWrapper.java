@@ -3,13 +3,17 @@ package database;
 import java.sql.*;
 
 public class DatabaseWrapper implements AutoCloseable {
-    private Connection conn = null;
+    private static Connection conn = null;
 
     public DatabaseWrapper(String url) {
+        if (conn != null) {
+            return;
+        }
+
         connect(url);
 
         try {
-            this.conn.setAutoCommit(false);
+            conn.setAutoCommit(false);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -20,14 +24,14 @@ public class DatabaseWrapper implements AutoCloseable {
     }
 
     public Connection getCon() {
-        return this.conn;
+        return conn;
     }
 
     // TODO: Should support the dependency injection of the database path
     // TODO: Should implement Singleton pattern and return the old connection if it isn't null
-    public void connect(String url) {
+    private void connect(String url) {
         try {
-            this.conn = DriverManager.getConnection(url);
+            conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -38,7 +42,7 @@ public class DatabaseWrapper implements AutoCloseable {
         ResultSet rs = null;
 
         try {
-            stmt = this.conn.createStatement();
+            stmt = conn.createStatement();
             rs = stmt.executeQuery(query);
         } catch (SQLException e) {
             e.printStackTrace();
