@@ -5,8 +5,8 @@ import java.sql.*;
 public class DatabaseWrapper implements AutoCloseable {
     private Connection conn = null;
 
-    public DatabaseWrapper() {
-        connect();
+    public DatabaseWrapper(String url) {
+        connect(url);
 
         try {
             this.conn.setAutoCommit(false);
@@ -15,16 +15,18 @@ public class DatabaseWrapper implements AutoCloseable {
         }
     }
 
+    public DatabaseWrapper() {
+        this("jdbc:sqlite:" + System.getProperty("user.dir") + "/src/main/resources/magazzino.sqlite");
+    }
+
     public Connection getCon() {
         return this.conn;
     }
 
     // TODO: Should support the dependency injection of the database path
     // TODO: Should implement Singleton pattern and return the old connection if it isn't null
-    public void connect() {
+    public void connect(String url) {
         try {
-            String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "/src/main/resources/magazzino.sqlite";
-
             this.conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
             e.printStackTrace();
