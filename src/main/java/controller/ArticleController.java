@@ -34,6 +34,7 @@ public class ArticleController {
     }
 
     public ArticleModel findArticleByCode(String articleCode) {
+        update();
         ArticleModel article = null;
 
         for (ArticleModel a : articles) {
@@ -58,12 +59,10 @@ public class ArticleController {
 
     private List<ArticleModel> fetchAllArticles() {
         List<ArticleModel> articlesList = new ArrayList<>();
-        DatabaseWrapper db = new DatabaseWrapper();
-        ResultSet rs;
 
-        String query = "SELECT a.codice, a.tipo_articolo, a.prezzo, a.data_produzione, a.posizione FROM articolo a";
-
-        try {
+        try (DatabaseWrapper db = new DatabaseWrapper()) {
+            ResultSet rs;
+            String query = "SELECT a.codice, a.tipo_articolo, a.prezzo, a.data_produzione, a.posizione FROM articolo a";
             rs = db.rawQuery(query);
 
             while (rs.next()) {
@@ -80,8 +79,6 @@ public class ArticleController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            db.close();
         }
 
         return articlesList;
