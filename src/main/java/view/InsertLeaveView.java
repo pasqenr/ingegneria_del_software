@@ -301,8 +301,6 @@ public class InsertLeaveView extends javax.swing.JFrame {
             }
         }
 
-        System.err.println("matchCounter: " + matchCounter + ", tableCodes: " + tableCodes);
-
         return matchCounter == tableCodes.length;
     }
 
