@@ -11,7 +11,7 @@ import java.util.List;
 public class CourierModel extends Model {
     private String name;
 
-    CourierModel(String name) {
+    public CourierModel(String name) {
         this.name = name;
     }
 
