@@ -122,8 +122,47 @@ public class OrderModel extends Model {
         return new OrderModel(orderNumber, date, store, courier);
     }
 
+    public static int getLastId() {
+        DatabaseWrapper db = new DatabaseWrapper();
+        String query = "SELECT o.numero_bolla FROM ordine o ORDER BY o.numero_bolla DESC LIMIT 1";
+        PreparedStatement stmt;
+        int lastOrderNumber = 0;
+
+        try {
+            stmt = db.getCon().prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+
+            lastOrderNumber = rs.getInt("numero_bolla");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        db.close();
+
+        return lastOrderNumber;
+    }
+
     @Override
     public boolean store() {
-        return false;
+        DatabaseWrapper db = new DatabaseWrapper();
+        String query = "INSERT INTO ordine (numero_bolla, data, negozio, spedizioniere) VALUES (?, ?, ?, ?)";
+        PreparedStatement stmt;
+
+        try {
+            stmt = db.getCon().prepareStatement(query);
+            stmt.setInt(1, orderNumber);
+            stmt.setString(2, date);
+            stmt.setString(3, store.getCode());
+            stmt.setString(4, courier.getName());
+            stmt.execute();
+            db.getCon().commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        db.close();
+
+        return true;
     }
 }
