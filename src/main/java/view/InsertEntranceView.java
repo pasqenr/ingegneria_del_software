@@ -198,7 +198,7 @@ public class InsertEntranceView extends javax.swing.JFrame {
                 return;
             }
 
-            PositionModel position = positionController.findPositionByCode(articlePositions[i]);
+            PositionModel position = positionController.findFreePositionByCode(articlePositions[i]);
 
             if (position == null) {
                 JOptionPane.showMessageDialog(this,
