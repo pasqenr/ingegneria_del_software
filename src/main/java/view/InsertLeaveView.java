@@ -1,6 +1,7 @@
 package view;
 
 import controller.ArticleController;
+import controller.InsertLeaveController;
 import model.ArticleModel;
 import model.CourierModel;
 import model.StoreModel;
@@ -9,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class InsertLeaveView extends javax.swing.JFrame {
@@ -235,13 +235,23 @@ public class InsertLeaveView extends javax.swing.JFrame {
             return;
         }
 
+        Arrays.stream(articleCodes).forEach(System.out::println);
+
+
         List<ArticleModel> articles = new ArrayList<>();
 
         for (String articleCode : articleCodes) {
             articles.add(ArticleModel.find(articleCode));
         }
 
-        // TODO: check the remaining fields and add all to the right table
+        int orderNumber = Integer.valueOf(orderNumberTextField.getText());
+        String date = dateTextField.getText();
+        StoreModel store = StoreModel.findByName(((String)storeNameComboBox.getSelectedItem()));
+        CourierModel courier = CourierModel.find(((String)courierComboBox.getSelectedItem()));
+
+        articles.forEach(System.out::println);
+
+        InsertLeaveController.addOrder(orderNumber, articles, date, store, courier);
 
         JOptionPane.showMessageDialog(this,
                 "Good",
