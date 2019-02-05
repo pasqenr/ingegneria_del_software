@@ -50,7 +50,7 @@ public class PositionController extends Controller {
         return retrievePosition(query);
     }
 
-    public PositionModel findPositionByCode(String positionCode) {
+    public PositionModel findFreePositionByCode(String positionCode) {
         if (freePositions == null) {
             freePositions = retrieveFreePositions();
         }
@@ -92,5 +92,13 @@ public class PositionController extends Controller {
         db.close();
 
         return fetchedFreePositions;
+    }
+
+    public PositionModel findPositionByCode(String positionCode) {
+        List<PositionModel> positions = fetchAllPositions();
+
+        return positions.stream().filter(position -> position.getRawPosition().equals(positionCode))
+                .findFirst()
+                .orElse(null);
     }
 }
