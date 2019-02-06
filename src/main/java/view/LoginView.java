@@ -3,7 +3,6 @@ package view;
 import controller.LoginController;
 import model.UserModel;
 import javax.swing.*;
-import java.awt.*;
 
 public class LoginView {
     public LoginView() {
@@ -55,14 +54,8 @@ public class LoginView {
         );
 
         f.pack();
+        f.setLocationRelativeTo(null);
         f.setVisible(true);
-
-        // Center the frame
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension screenSize = toolkit.getScreenSize();
-        int x = (screenSize.width - f.getWidth()) / 2;
-        int y = (screenSize.height - f.getHeight()) / 2;
-        f.setLocation(x, y);
 
         // Set listeners
         loginButton.addActionListener(actionEvent -> {
@@ -71,12 +64,24 @@ public class LoginView {
                     charArrayToString(passwordTextField.getPassword()));
 
             if (loginController.isLogged(user)) {
-                System.out.println("Logged");
-                System.out.println(user);
-                SwingUtilities.invokeLater(() -> new WorkerView(user).setVisible(true));
+                switch (user.getRole()) {
+                    case "Magazziniere":
+                        SwingUtilities.invokeLater(() -> new WorkerView(user).setVisible(true));
+                        break;
+                    case "Responsabile":
+                        SwingUtilities.invokeLater(() -> new ManagerView(user).setVisible(true));
+                        break;
+                    case "Segreteria":
+                        SwingUtilities.invokeLater(() -> new SecretaryView(user).setVisible(true));
+                        break;
+                }
+
                 f.dispose();
             } else {
-                System.out.println("Not logged");
+                JOptionPane.showMessageDialog(f,
+                        "Wrong login data",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
     }
