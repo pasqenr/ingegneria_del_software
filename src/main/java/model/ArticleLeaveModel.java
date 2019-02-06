@@ -6,10 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ArticleOrderModel extends Model {
+public class ArticleLeaveModel extends Model {
     public static void storeAll(List<ArticleModel> articles, int orderNumber) {
         DatabaseWrapper db = new DatabaseWrapper();
-        String query = "INSERT INTO ordine_articolo (codice_articolo, numero_bolla) VALUES (?, ?)";
+        String query = "INSERT INTO uscita_articolo (codice_articolo, numero_bolla) VALUES (?, ?)";
         PreparedStatement stmt;
 
         for (ArticleModel article : articles) {
