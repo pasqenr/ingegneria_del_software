@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArticleType {
+public class ArticleType extends Model {
     private String name;
     private String description;
     private String materials;
@@ -132,5 +132,34 @@ public class ArticleType {
         result = 31 * result + sport.hashCode();
 
         return result;
+    }
+
+    @Override
+    public boolean store() {
+        DatabaseWrapper db = new DatabaseWrapper();
+        String query = "INSERT INTO tipo_articolo (nome, descrizione, materiali, sport) VALUES " +
+                "(?, ?, ?, ?)";
+        PreparedStatement stmt;
+
+        try {
+            stmt = db.getCon().prepareStatement(query);
+            stmt.setString(1, name);
+            stmt.setString(2, description);
+            stmt.setString(3, materials);
+            stmt.setString(4, sport.getName());
+            stmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            db.getCon().commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        db.close();
+
+        return true;
     }
 }
