@@ -4,6 +4,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Implement the Cipher as an Hash.
+ */
 public class HashCipher extends Cipher {
     @Override
     public String encrypt(String plainText) {
@@ -27,6 +30,12 @@ public class HashCipher extends Cipher {
         return hashedString.toLowerCase().equals(encryptedText.toLowerCase());
     }
 
+    /**
+     * Convert a byte array to its String representation.
+     *
+     * @param digest The byte array.
+     * @return The String associated to the digest.
+     */
     private String toHexString(byte[] digest) {
         StringBuilder hexString = new StringBuilder();
 
