@@ -146,8 +146,8 @@ public class PlaceOrderView extends javax.swing.JFrame {
         final int ARTICLE_TYPE_COLUMN = 0;
         final int AMOUNT_COLUMN = 1;
 
-        String[] articleTypesNames = TableController.fetchColumnsFromTable(articleTypeTable, ARTICLE_TYPE_COLUMN);
-        String[] amounts = TableController.fetchColumnsFromTable(articleTypeTable, AMOUNT_COLUMN);
+        String[] articleTypesNames = TableController.fetchRowsFromTable(articleTypeTable, ARTICLE_TYPE_COLUMN);
+        String[] amounts = TableController.fetchRowsFromTable(articleTypeTable, AMOUNT_COLUMN);
 
         if (articleTypesNames == null || amounts == null) {
             return;

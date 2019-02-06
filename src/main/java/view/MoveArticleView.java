@@ -137,7 +137,7 @@ public class MoveArticleView extends javax.swing.JFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         String articleCode = articleCodeTextField.getText();
-        article = moveArticleController.getArticleByCode(articleCode);
+        article = ArticleModel.find(articleCode);
 
         if (article != null) {
             articleOldPositionTextField.setText(article.getPosition().getRawPosition());

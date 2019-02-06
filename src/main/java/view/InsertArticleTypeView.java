@@ -107,10 +107,10 @@ public class InsertArticleTypeView extends javax.swing.JFrame {
         final int ARTICLE_MATERIALS_COLUMN = 2;
         final int ARTICLE_SPORT_COLUMN = 3;
 
-        String[] articleTypesNames = TableController.fetchColumnsFromTable(articleTypeTable, ARTICLE_NAME_COLUMN);
-        String[] articleTypeDescriptions = TableController.fetchColumnsFromTable(articleTypeTable, ARTICLE_DESCRIPTION_COLUMN);
-        String[] articleTypeMaterials = TableController.fetchColumnsFromTable(articleTypeTable, ARTICLE_MATERIALS_COLUMN);
-        String[] articleTypeSports = TableController.fetchColumnsFromTable(articleTypeTable, ARTICLE_SPORT_COLUMN);
+        String[] articleTypesNames = TableController.fetchRowsFromTable(articleTypeTable, ARTICLE_NAME_COLUMN);
+        String[] articleTypeDescriptions = TableController.fetchRowsFromTable(articleTypeTable, ARTICLE_DESCRIPTION_COLUMN);
+        String[] articleTypeMaterials = TableController.fetchRowsFromTable(articleTypeTable, ARTICLE_MATERIALS_COLUMN);
+        String[] articleTypeSports = TableController.fetchRowsFromTable(articleTypeTable, ARTICLE_SPORT_COLUMN);
 
         if (articleTypesNames == null || articleTypeDescriptions == null || articleTypeMaterials == null ||
                 articleTypeSports == null) {

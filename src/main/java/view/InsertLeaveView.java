@@ -226,7 +226,7 @@ public class InsertLeaveView extends javax.swing.JFrame {
             return;
         }
 
-        String[] articleCodes = TableController.fetchColumnsFromTable(articlesTable,
+        String[] articleCodes = TableController.fetchRowsFromTable(articlesTable,
                 ColumnPosition.ARTICLE_CODE.getValue());
 
         if (articleCodes == null) {

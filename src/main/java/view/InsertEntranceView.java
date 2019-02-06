@@ -12,7 +12,6 @@ import java.util.List;
 
 public class InsertEntranceView extends javax.swing.JFrame {
     private PositionController positionController;
-    private InsertEntranceController insertEntranceController;
 
     private enum ColumnPosition {
         ARTICLE (0),
@@ -31,7 +30,6 @@ public class InsertEntranceView extends javax.swing.JFrame {
      */
     public InsertEntranceView() {
         positionController = new PositionController();
-        insertEntranceController = new InsertEntranceController();
 
         initComponents();
     }
@@ -140,11 +138,11 @@ public class InsertEntranceView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createEntranceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createEntranceButtonActionPerformed
-        String[] articleCodes = TableController.fetchColumnsFromTable(articlesTable, ColumnPosition.ARTICLE.getValue());
-        String[] articleTypes = TableController.fetchColumnsFromTable(articlesTable, ColumnPosition.ARTICLE_TYPE.getValue());
-        String[] articlePrices = TableController.fetchColumnsFromTable(articlesTable, ColumnPosition.PRICE.getValue());
-        String[] articleProductionDates = TableController.fetchColumnsFromTable(articlesTable, ColumnPosition.PRODUCTION_DATE.getValue());
-        String[] articlePositions = TableController.fetchColumnsFromTable(articlesTable, ColumnPosition.POSITION.getValue());
+        String[] articleCodes = TableController.fetchRowsFromTable(articlesTable, ColumnPosition.ARTICLE.getValue());
+        String[] articleTypes = TableController.fetchRowsFromTable(articlesTable, ColumnPosition.ARTICLE_TYPE.getValue());
+        String[] articlePrices = TableController.fetchRowsFromTable(articlesTable, ColumnPosition.PRICE.getValue());
+        String[] articleProductionDates = TableController.fetchRowsFromTable(articlesTable, ColumnPosition.PRODUCTION_DATE.getValue());
+        String[] articlePositions = TableController.fetchRowsFromTable(articlesTable, ColumnPosition.POSITION.getValue());
 
         if (articleCodes == null || articleTypes == null || articlePrices == null ||  articleProductionDates == null ||
                 articlePositions == null) {
@@ -206,7 +204,7 @@ public class InsertEntranceView extends javax.swing.JFrame {
         boolean articleCodesAreValid = checkIsAlreadyStoredArticleCode(articleCodes);
 
         if (articleCodesAreValid) {
-            insertEntranceController.insertArticlesAsEntrance(articles);
+            InsertEntranceController.insertArticlesAsEntrance(articles);
 
             JOptionPane.showMessageDialog(this,
                     "Articles inserted",
