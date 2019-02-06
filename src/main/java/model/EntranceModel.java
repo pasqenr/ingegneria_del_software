@@ -30,6 +30,33 @@ public class EntranceModel extends Model implements Comparable {
         return code;
     }
 
+    public static EntranceModel find(int code) {
+        EntranceModel entrance = null;
+        DatabaseWrapper db = new DatabaseWrapper();
+        String query = "SELECT i.codice, i.data FROM ingresso i WHERE i.codice = ?";
+        PreparedStatement stmt;
+
+        try {
+            stmt = db.getCon().prepareStatement(query);
+            stmt.setInt(1, code);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int foundCode = rs.getInt("codice");
+                String foundDate = rs.getString("data");
+                entrance = new EntranceModel(foundCode, foundDate);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        db.close();
+
+        return entrance;
+    }
+
     public static int getGreatestCode() {
         int greatestCode = -1;
         DatabaseWrapper db = new DatabaseWrapper();
