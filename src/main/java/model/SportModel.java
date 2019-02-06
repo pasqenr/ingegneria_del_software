@@ -1,5 +1,11 @@
 package model;
 
+import database.DatabaseWrapper;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class SportModel {
     private String name;
 
@@ -13,6 +19,29 @@ public class SportModel {
 
     public String getName() {
         return name;
+    }
+
+    public static SportModel find(String name) {
+        SportModel sport = null;
+        DatabaseWrapper db = new DatabaseWrapper();
+        String query = "SELECT s.nome FROM sport s WHERE s.nome LIKE ?";
+        PreparedStatement stmt;
+
+        try {
+            stmt = db.getCon().prepareStatement(query);
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+
+            rs.next();
+            String sportName = rs.getString("nome");
+            sport = new SportModel(sportName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        db.close();
+
+        return sport;
     }
 
     @Override
