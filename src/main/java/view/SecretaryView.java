@@ -92,7 +92,7 @@ public class SecretaryView extends javax.swing.JFrame {
     }//GEN-LAST:event_insertArticleTypeButtonActionPerformed
 
     private void ordersFulfillmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersFulfillmentButtonActionPerformed
-        // TODO add your handling code here:
+        SwingUtilities.invokeLater(() -> new OrdersFulfillmentView().setVisible(true));
     }//GEN-LAST:event_ordersFulfillmentButtonActionPerformed
 
     /**
