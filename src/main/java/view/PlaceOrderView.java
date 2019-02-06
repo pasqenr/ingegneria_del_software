@@ -1,8 +1,12 @@
 package view;
 
+import controller.OrderController;
+import controller.TableController;
+import model.ArticleType;
 import model.StoreModel;
 
 import javax.swing.*;
+import java.util.List;
 
 public class PlaceOrderView extends javax.swing.JFrame {
     private StoreModel store;
@@ -76,7 +80,7 @@ public class PlaceOrderView extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -140,8 +144,46 @@ public class PlaceOrderView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void orderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderButtonActionPerformed
-        // TODO add your handling code here:
+        final int ARTICLE_TYPE_COLUMN = 0;
+        final int AMOUNT_COLUMN = 1;
+
+        String[] articleTypesNames = TableController.fetchColumnsFromTable(articleTypeTable, ARTICLE_TYPE_COLUMN);
+        String[] amounts = TableController.fetchColumnsFromTable(articleTypeTable, AMOUNT_COLUMN);
+
+        if (articleTypesNames == null || amounts == null) {
+            return;
+        }
+
+        boolean areArticleTypesStored = areArticleTypesStored(articleTypesNames);
+
+        if (!areArticleTypesStored) {
+            JOptionPane.showMessageDialog(this,
+                    "Some article type isn't in the database",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+
+            return;
+        }
+
+        String orderCode = orderCodeTextField.getText();
+        String date = dateTextField.getText();
+        OrderController.addOrder(orderCode, date, store, articleTypesNames, amounts);
     }//GEN-LAST:event_orderButtonActionPerformed
+
+    private boolean areArticleTypesStored(String[] articleTypes) {
+        int matches = 0;
+        List<ArticleType> articleTypeList = ArticleType.findAll();
+
+        for (ArticleType articleType : articleTypeList) {
+            for (String articleCode : articleTypes) {
+                if (articleType.getName().equals(articleCode)) {
+                    matches++;
+                }
+            }
+        }
+
+        return (matches - articleTypes.length) == 0;
+    }
 
     /**
      * @param args the command line arguments
