@@ -1,21 +1,16 @@
 package view;
 
-import controller.ArticleController;
-import controller.ArticleTypeController;
-import controller.InsertEntranceController;
-import controller.PositionController;
+import controller.*;
 import model.ArticleModel;
 import model.ArticleType;
 import model.PositionModel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class InsertEntranceView extends javax.swing.JFrame {
-    private static final int ROW_NUM = 20;
     private ArticleTypeController articleTypeController;
     private PositionController positionController;
     private InsertEntranceController insertEntranceController;
@@ -41,13 +36,6 @@ public class InsertEntranceView extends javax.swing.JFrame {
         insertEntranceController = new InsertEntranceController();
 
         initComponents();
-
-        // Center the frame
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension screenSize = toolkit.getScreenSize();
-        int x = (screenSize.width - getWidth()) / 2;
-        int y = (screenSize.height - getHeight()) / 2;
-        setLocation(x, y);
     }
 
     /**
@@ -150,14 +138,15 @@ public class InsertEntranceView extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void createEntranceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createEntranceButtonActionPerformed
-        String[] articleCodes = fetchColumnsFromTable(ColumnPosition.ARTICLE);
-        String[] articleTypes = fetchColumnsFromTable(ColumnPosition.ARTICLE_TYPE);
-        String[] articlePrices = fetchColumnsFromTable(ColumnPosition.PRICE);
-        String[] articleProductionDates = fetchColumnsFromTable(ColumnPosition.PRODUCTION_DATE);
-        String[] articlePositions = fetchColumnsFromTable(ColumnPosition.POSITION);
+        String[] articleCodes = TableController.fetchColumnsFromTable(articlesTable, ColumnPosition.ARTICLE.getValue());
+        String[] articleTypes = TableController.fetchColumnsFromTable(articlesTable, ColumnPosition.ARTICLE_TYPE.getValue());
+        String[] articlePrices = TableController.fetchColumnsFromTable(articlesTable, ColumnPosition.PRICE.getValue());
+        String[] articleProductionDates = TableController.fetchColumnsFromTable(articlesTable, ColumnPosition.PRODUCTION_DATE.getValue());
+        String[] articlePositions = TableController.fetchColumnsFromTable(articlesTable, ColumnPosition.POSITION.getValue());
 
         if (articleCodes == null || articleTypes == null || articlePrices == null ||  articleProductionDates == null ||
                 articlePositions == null) {
@@ -169,7 +158,7 @@ public class InsertEntranceView extends javax.swing.JFrame {
         }
 
         // Check that all the columns have the same lengths, that is, have the same amount of rows (elements)
-        if (!checkEqualLenghts(new int[] {
+        if (!checkEqualLengths(new int[] {
                 articleCodes.length,
                 articleTypes.length,
                 articlePrices.length,
@@ -234,37 +223,8 @@ public class InsertEntranceView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_createEntranceButtonActionPerformed
 
-    private boolean checkEqualLenghts(int[] lengths) {
+    private boolean checkEqualLengths(int[] lengths) {
         return Arrays.stream(lengths).allMatch(length -> length == lengths[0]);
-    }
-
-    private String[] fetchColumnsFromTable(ColumnPosition columnPosition) {
-        List<String> columnData = new ArrayList<>();
-
-        for (int row = 0; row < ROW_NUM; row++) {
-            Object current = articlesTable.getValueAt(row, columnPosition.getValue());
-
-            if (current != null) {
-                columnData.add((String) current);
-            }
-        }
-
-        final int fetchedRowsNumber = columnData.size();
-
-        /*
-          If the list is empty then also the table was empty, let's return that to the caller
-         */
-        if (fetchedRowsNumber == 0) {
-            return null;
-        }
-
-        String[] stringColumnData = new String[fetchedRowsNumber];
-
-        for (int i = 0; i < fetchedRowsNumber; i++) {
-            stringColumnData[i] = columnData.get(i);
-        }
-
-        return  stringColumnData;
     }
 
     private boolean checkIsAlreadyStoredArticleCode(String[] tableCodes) {

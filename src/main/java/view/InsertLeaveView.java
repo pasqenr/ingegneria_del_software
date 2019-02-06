@@ -2,15 +2,14 @@ package view;
 
 import controller.ArticleController;
 import controller.InsertLeaveController;
+import controller.TableController;
 import model.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InsertLeaveView extends javax.swing.JFrame {
-    private static final int ROW_NUM = 20;
     private List<StoreModel> storesList;
     private List<CourierModel> courierList;
     private DefaultComboBoxModel<String> storesComboBoxModel;
@@ -32,15 +31,7 @@ public class InsertLeaveView extends javax.swing.JFrame {
         courierList = CourierModel.findAll();
 
         initModels();
-
         initComponents();
-
-        // Center the frame
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension screenSize = toolkit.getScreenSize();
-        int x = (screenSize.width - getWidth()) / 2;
-        int y = (screenSize.height - getHeight()) / 2;
-        setLocation(x, y);
     }
 
     private void initModels() {
@@ -210,7 +201,9 @@ public class InsertLeaveView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,6 +211,7 @@ public class InsertLeaveView extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void insertOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertOrderButtonActionPerformed
@@ -233,7 +227,8 @@ public class InsertLeaveView extends javax.swing.JFrame {
             return;
         }
 
-        String[] articleCodes = fetchColumnsFromTable(ColumnPosition.ARTICLE_CODE);
+        String[] articleCodes = TableController.fetchColumnsFromTable(articlesTable,
+                ColumnPosition.ARTICLE_CODE.getValue());
 
         if (articleCodes == null) {
             JOptionPane.showMessageDialog(this,
@@ -273,35 +268,6 @@ public class InsertLeaveView extends javax.swing.JFrame {
                 "Good",
                 JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_insertOrderButtonActionPerformed
-
-    private String[] fetchColumnsFromTable(InsertLeaveView.ColumnPosition columnPosition) {
-        List<String> columnData = new ArrayList<>();
-
-        for (int row = 0; row < ROW_NUM; row++) {
-            Object current = articlesTable.getValueAt(row, columnPosition.getValue());
-
-            if (current != null) {
-                columnData.add((String) current);
-            }
-        }
-
-        final int fetchedRowsNumber = columnData.size();
-
-        /*
-          If the list is empty then also the table was empty, let's return that to the caller
-         */
-        if (fetchedRowsNumber == 0) {
-            return null;
-        }
-
-        String[] stringColumnData = new String[fetchedRowsNumber];
-
-        for (int i = 0; i < fetchedRowsNumber; i++) {
-            stringColumnData[i] = columnData.get(i);
-        }
-
-        return  stringColumnData;
-    }
 
     private boolean checkIsAlreadyStoredArticleCode(String[] tableCodes) {
         ArticleController articleController = new ArticleController();
