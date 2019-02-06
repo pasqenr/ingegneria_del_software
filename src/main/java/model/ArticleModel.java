@@ -1,6 +1,5 @@
 package model;
 
-import controller.ArticleTypeController;
 import controller.PositionController;
 import database.DatabaseWrapper;
 
@@ -102,7 +101,7 @@ public class ArticleModel extends Model implements Comparable {
             productionDate = rs.getString("data_produzione");
             String positionCode = rs.getString("posizione");
 
-            articleType = new ArticleTypeController().findArticleTypeByName(articleName);
+            articleType = ArticleType.find(articleName);
             position = new PositionController().findPositionByCode(positionCode);
         } catch (SQLException e) {
             e.printStackTrace();

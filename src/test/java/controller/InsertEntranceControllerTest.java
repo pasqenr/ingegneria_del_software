@@ -12,7 +12,6 @@ class InsertEntranceControllerTest {
 
     @Test
     void insertArticlesAsEntranceTest() {
-        ArticleTypeController articleTypeController = new ArticleTypeController();
         PositionController positionController = new PositionController();
         InsertEntranceController insertEntranceController = new InsertEntranceController();
 
@@ -24,8 +23,8 @@ class InsertEntranceControllerTest {
         List<ArticleModel> articles = new ArrayList<>();
 
         for (int i = 0; i < articleCodes.length; i++) {
-            ArticleType articleType = articleTypeController.findArticleTypeByName(articleTypes[i]);
-            PositionModel position = positionController.findPositionByCode(articlePositions[i]);
+            ArticleType articleType = ArticleType.find(articleTypes[i]);
+            PositionModel position = positionController.findFreePositionByCode(articlePositions[i]);
 
             assertNotNull(articleType);
             assertNotNull(position);

@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class InsertEntranceView extends javax.swing.JFrame {
-    private ArticleTypeController articleTypeController;
     private PositionController positionController;
     private InsertEntranceController insertEntranceController;
 
@@ -31,7 +30,6 @@ public class InsertEntranceView extends javax.swing.JFrame {
      * Creates new form InsertEntranceView
      */
     public InsertEntranceView() {
-        articleTypeController = new ArticleTypeController();
         positionController = new PositionController();
         insertEntranceController = new InsertEntranceController();
 
@@ -176,7 +174,7 @@ public class InsertEntranceView extends javax.swing.JFrame {
         List<ArticleModel> articles = new ArrayList<>();
 
         for (int i = 0; i < articleCodes.length; i++) {
-            ArticleType articleType = articleTypeController.findArticleTypeByName(articleTypes[i]);
+            ArticleType articleType = ArticleType.find(articleTypes[i]);
 
             if (articleType == null) {
                 JOptionPane.showMessageDialog(this,
