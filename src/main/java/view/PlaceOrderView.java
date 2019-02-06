@@ -1,12 +1,11 @@
 package view;
 
+import controller.InsertArticleTypeController;
 import controller.OrderController;
 import controller.TableController;
-import model.ArticleType;
 import model.StoreModel;
 
 import javax.swing.*;
-import java.util.List;
 
 public class PlaceOrderView extends javax.swing.JFrame {
     private StoreModel store;
@@ -154,7 +153,7 @@ public class PlaceOrderView extends javax.swing.JFrame {
             return;
         }
 
-        boolean areArticleTypesStored = areArticleTypesStored(articleTypesNames);
+        boolean areArticleTypesStored = InsertArticleTypeController.areArticleTypesAlreadyStored(articleTypesNames);
 
         if (!areArticleTypesStored) {
             JOptionPane.showMessageDialog(this,
@@ -169,21 +168,6 @@ public class PlaceOrderView extends javax.swing.JFrame {
         String date = dateTextField.getText();
         OrderController.addOrder(orderCode, date, store, articleTypesNames, amounts);
     }//GEN-LAST:event_orderButtonActionPerformed
-
-    private boolean areArticleTypesStored(String[] articleTypes) {
-        int matches = 0;
-        List<ArticleType> articleTypeList = ArticleType.findAll();
-
-        for (ArticleType articleType : articleTypeList) {
-            for (String articleCode : articleTypes) {
-                if (articleType.getName().equals(articleCode)) {
-                    matches++;
-                }
-            }
-        }
-
-        return (matches - articleTypes.length) == 0;
-    }
 
     /**
      * @param args the command line arguments
