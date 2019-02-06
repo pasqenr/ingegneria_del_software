@@ -6,12 +6,17 @@ import model.EntranceModel;
 
 import java.util.List;
 
-public class InsertEntranceController extends Controller {
-    private EntranceArticleModel entranceArticleModel;
+/**
+ * Manage entrance insertion in the warehouse.
+ */
+public class InsertEntranceController {
 
-    public InsertEntranceController() {}
-
-    public void insertArticlesAsEntrance(List<ArticleModel> articles) {
+    /**
+     * Insert a list of Article with the associated entrance.
+     *
+     * @param articles A list of Article.
+     */
+    public static void insertArticlesAsEntrance(List<ArticleModel> articles) {
         // Create a new entrance
         EntranceModel entrance = createNewEntrance();
 
@@ -19,29 +24,35 @@ public class InsertEntranceController extends Controller {
         articles.forEach(ArticleModel::store);
 
         // Insert article entrance
-        entranceArticleModel = new EntranceArticleModel(articles, entrance);
+        EntranceArticleModel entranceArticleModel = new EntranceArticleModel(articles, entrance);
         entranceArticleModel.store();
     }
 
-    private EntranceModel createNewEntrance() {
+    /**
+     * Insert a new entrance and return the last entrance inserted.
+     *
+     * @return The last instance inserted.
+     */
+    private static EntranceModel createNewEntrance() {
         insertEntrance();
 
         return fetchLastEntrance();
     }
 
-    private void insertEntrance() {
+    /**
+     * Create a new Entrance in the database.
+     */
+    private static void insertEntrance() {
         EntranceModel entrance = new EntranceModel();
         entrance.store();
     }
 
-    private EntranceModel fetchLastEntrance() {
+    /**
+     * @return The last Entrance in the database.
+     */
+    private static EntranceModel fetchLastEntrance() {
         int greatestCode = EntranceModel.getGreatestCode();
 
         return EntranceModel.find(greatestCode);
-    }
-
-    @Override
-    public void update() {
-        System.err.println("Update function non implemented in " + this.getClass().getSimpleName());
     }
 }
