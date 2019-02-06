@@ -57,10 +57,11 @@ public class OrderModel extends Model {
             ResultSet rs = stmt.executeQuery();
             db.getCon().commit();
 
-            rs.next();
-            String date = rs.getString("data");
-            StoreModel store = StoreModel.find(rs.getString("negozio"));
-            order = new OrderModel(code, date, store);
+            if (rs.next()) {
+                String date = rs.getString("data");
+                StoreModel store = StoreModel.find(rs.getString("negozio"));
+                order = new OrderModel(code, date, store);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
