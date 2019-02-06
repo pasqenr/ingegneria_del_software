@@ -117,7 +117,7 @@ public class ArticleType {
         ArticleType articleType = (ArticleType)o;
 
         return name.equals(articleType.name) &&
-                name.equals(articleType.description) &&
+                description.equals(articleType.description) &&
                 materials.equals(articleType.materials) &&
                 sport.equals(articleType.sport);
     }
