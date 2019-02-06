@@ -37,7 +37,7 @@ public class InsertEntranceController extends Controller {
     private EntranceModel fetchLastEntrance() {
         int greatestCode = EntranceModel.getGreatestCode();
 
-        return EntranceController.getEntranceByCode(greatestCode);
+        return EntranceModel.find(greatestCode);
     }
 
     @Override

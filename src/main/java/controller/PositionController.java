@@ -7,10 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PositionController extends Controller {
+/**
+ * Manage the positions inside the warehouse.
+ */
+public class PositionController {
     private List<PositionModel> freePositions;
-    private List<PositionModel> usedPositions;
 
+    /**
+     * @return The free positions.
+     */
     public List<PositionModel> getFreePositions() {
         if (freePositions == null) {
             freePositions = new ArrayList<>(retrieveFreePositions());
@@ -19,20 +24,16 @@ public class PositionController extends Controller {
         return freePositions;
     }
 
-    public List<PositionModel> getUsedPositions() {
-        if (usedPositions == null) {
-            usedPositions = new ArrayList<>(retrieveUsedPositions());
-        }
-
-        return usedPositions;
-    }
-
-    @Override
+    /**
+     * Update the internal cache of positions.
+     */
     public void update() {
         freePositions = new ArrayList<>(retrieveFreePositions());
-        usedPositions = new ArrayList<>(retrieveUsedPositions());
     }
 
+    /**
+     * @return A list of free Position.
+     */
     private List<PositionModel> retrieveFreePositions() {
         String query = "SELECT p.id_posizione AS posizione " +
                 "FROM posizione p " +
@@ -43,13 +44,12 @@ public class PositionController extends Controller {
         return retrievePosition(query);
     }
 
-    private List<PositionModel> retrieveUsedPositions() {
-        String query = "SELECT a.posizione AS posizione " +
-                "FROM articolo a";
-
-        return retrievePosition(query);
-    }
-
+    /**
+     * Returns the Position with the positionCode.
+     *
+     * @param positionCode A valid position code.
+     * @return The Position associated to the positionCode.
+     */
     public PositionModel findFreePositionByCode(String positionCode) {
         if (freePositions == null) {
             freePositions = retrieveFreePositions();
@@ -69,12 +69,21 @@ public class PositionController extends Controller {
         return retPosition;
     }
 
+    /**
+     * @return A list of all the Position.
+     */
     private List<PositionModel> fetchAllPositions() {
         String query = "SELECT p.id_posizione AS posizione FROM posizione p";
 
         return retrievePosition(query);
     }
 
+    /**
+     * Retrieve the positions based on the query passed as parameter.
+     *
+     * @param positionQuery A position query to select the wanted positions.
+     * @return The list of Position returned by the positionQuery.
+     */
     private List<PositionModel> retrievePosition(String positionQuery) {
         DatabaseWrapper db = new DatabaseWrapper();
         List<PositionModel> fetchedFreePositions = new ArrayList<>();
@@ -94,6 +103,12 @@ public class PositionController extends Controller {
         return fetchedFreePositions;
     }
 
+    /**
+     * Return the Position identified by the positionCode.
+     *
+     * @param positionCode A valid position code.
+     * @return The Position identified by the positionCode.
+     */
     public PositionModel findPositionByCode(String positionCode) {
         List<PositionModel> positions = fetchAllPositions();
 

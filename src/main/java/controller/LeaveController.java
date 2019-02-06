@@ -8,9 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Manage the leaves table visualization.
+ */
 public class LeaveController {
     private LeaveOrdersModel ordersModel;
 
+    /**
+     * Create a new LeaveController.
+     */
     public LeaveController() {
         DatabaseWrapper db = new DatabaseWrapper();
 
@@ -20,7 +26,13 @@ public class LeaveController {
         db.close();
     }
 
-    static public ResultSet fetchEntranceOrders(DatabaseWrapper db) {
+    /**
+     * Fetch from the database the orders that will populate the <code>ordersModel</code> table.
+     *
+     * @param db A <code>DatabaseWrapper</code> instance.
+     * @return The <code>ResultSet</code> of the orders used to populate <code>ordersModel</code> table.
+     */
+    private static ResultSet fetchEntranceOrders(DatabaseWrapper db) {
         ResultSet rs = null;
 
         String query =
@@ -49,6 +61,9 @@ public class LeaveController {
         return rs;
     }
 
+    /**
+     * @return A <code>OrdersModel</code> that can be used to generate a <code>TableModel</code>.
+     */
     public OrdersModel getOrdersModel() {
         return ordersModel;
     }

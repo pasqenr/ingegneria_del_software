@@ -5,8 +5,19 @@ import model.SportModel;
 
 import java.util.List;
 
+/**
+ * Manage the insertion of a list of ArticleType
+ */
 public class InsertArticleTypeController {
 
+    /**
+     * Add all the ArticleType that can build using the parameters information.
+     *
+     * @param articleTypesNames An array of valid ArticleType names.
+     * @param articleTypeDescriptions An array of ArticleType description.
+     * @param articleTypeMaterials An array of ArticleType materials.
+     * @param articleTypeSports An array of valid Sport names.
+     */
     public static void addAll(String[] articleTypesNames,
                               String[] articleTypeDescriptions,
                               String[] articleTypeMaterials,
@@ -22,6 +33,13 @@ public class InsertArticleTypeController {
         }
     }
 
+    /**
+     * Check if the ArticleType list built using the articleTypes array of names is valid. That is, they are not
+     * already stored in the database.
+     *
+     * @param articleTypes An array of ArticleType names.
+     * @return <code>true</code> if all the names are valid, <code>false</code> otherwise.
+     */
     public static boolean areArticleTypesAlreadyStored(String[] articleTypes) {
         int matches = 0;
         List<ArticleType> articleTypeList = ArticleType.findAll();

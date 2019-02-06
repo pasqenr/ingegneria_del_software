@@ -4,9 +4,21 @@ import model.*;
 
 import java.util.List;
 
-public class InsertLeaveController extends Controller {
+/**
+ * Manage the insertion of a leave from the warehouse.
+ */
+public class InsertLeaveController {
 
-
+    /**
+     * Insert a new leave in the database.
+     *
+     * @param leaveNumber The identifier of the leave.
+     * @param orderCode A valid Order code.
+     * @param articles A list of Article.
+     * @param date The date of the leave.
+     * @param store The store where send the articles
+     * @param courier The courier that will carry the articles.
+     */
     public static void addLeave(int leaveNumber,
                                 String orderCode,
                                 List<ArticleModel> articles,
@@ -25,7 +37,4 @@ public class InsertLeaveController extends Controller {
         FulfillmentModel fulfillment = new FulfillmentModel(orderCode, lastLeaveNumber);
         fulfillment.store();
     }
-
-    @Override
-    public void update() {}
 }

@@ -8,9 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Manage a Order Fulfillment.
+ */
 public class OrderFulfillmentController {
     private DefaultTableModel tableModel;
 
+    /**
+     * Create a new OrderFulfillmentController.
+     */
     public OrderFulfillmentController() {
         tableModel = new DefaultTableModel();
         tableModel.addColumn("leave_number");
@@ -19,6 +25,11 @@ public class OrderFulfillmentController {
         tableModel.addColumn("courier");
     }
 
+    /**
+     * Populate the rows of the internal TableModel with the orders fulfillment found in the database.
+     *
+     * @param order A valid Order from which search the fulfillment.
+     */
     public void populateTableModel(OrderModel order) {
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT u.numero_bolla, u.data, n.nome AS negozio, s.nome AS spedizioniere " +
@@ -48,6 +59,9 @@ public class OrderFulfillmentController {
         db.close();
     }
 
+    /**
+     * @return The internal TableModel.
+     */
     public DefaultTableModel getTableModel() {
         return tableModel;
     }

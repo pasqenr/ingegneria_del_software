@@ -10,25 +10,47 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Manage the movement of articles inside the warehouse.
+ */
 public class MoveArticleController {
     private PositionController positionController;
 
+    /**
+     * Create a new MoveArticleController.
+     */
     public MoveArticleController() {
         positionController = new PositionController();
     }
 
+    /**
+     * @return Return an array with the codes of the free positions in the warehouse.
+     */
     public String[] getFreePositions() {
         return positionModelsToStrings(positionController.getFreePositions());
     }
 
+    /**
+     * @return A ComboBoxModel with the free positions.
+     */
     public DefaultComboBoxModel<String> getFreePositionComboBoxModel() {
         return new DefaultComboBoxModel<>(getFreePositions());
     }
 
+    /**
+     * @return A ComboBoxModel with all the positions.
+     */
     public DefaultComboBoxModel<String> getArticleCodesComboBoxModel() {
         return new DefaultComboBoxModel<>(ArticleModel.getArticlesCodes());
     }
 
+    /**
+     * Move the position of an article.
+     *
+     * @param articleCode A valid Article code.
+     * @param positionId A valid position identifier.
+     * @return <code>true</code> if the articles was moved, <code>false</code> otherwise.
+     */
     public boolean moveArticlePositionByCodes(String articleCode, String positionId) {
         DatabaseWrapper db = new DatabaseWrapper();
         Connection con = db.getCon();
@@ -57,14 +79,19 @@ public class MoveArticleController {
         return affectedRows != 0;
     }
 
+    /**
+     * Update the cached positions.
+     */
     public void update() {
         positionController.update();
     }
 
-    public ArticleModel getArticleByCode(String articleCode) {
-        return ArticleModel.find(articleCode);
-    }
-
+    /**
+     * Returns an array of positions codes from a list of PositionModel.
+     *
+     * @param positionModels A list of PositionModel.
+     * @return An array of PositionModel codes.
+     */
     private String[] positionModelsToStrings(List<PositionModel> positionModels) {
         int i = 0;
 

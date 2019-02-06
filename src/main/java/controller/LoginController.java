@@ -7,10 +7,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Manage the user login.
+ */
 public class LoginController {
-    private UserModel user;
-
-    public UserModel login(String email, String password) {
+    /**
+     * Check for a match in the database for a pair of email and password. The user can have a store associated or
+     * nothing.
+     *
+     * @param email The user email
+     * @param password The user password.
+     * @return A valid <code>User</code> if there's a match, <code>null</code> otherwise.
+     */
+    public static UserModel login(String email, String password) {
+        UserModel user = null;
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT u.email, u.password, u.ruolo, u.negozio FROM utente u " +
                 "WHERE email LIKE ?" +
@@ -43,7 +53,11 @@ public class LoginController {
         return user;
     }
 
-    public boolean isLogged(UserModel user) {
+    /**
+     * @param user A user.
+     * @return <code>true</code> if the user is logged and valid, <code>false</code> otherwise.
+     */
+    public static boolean isLogged(UserModel user) {
         return user != null;
     }
 }
