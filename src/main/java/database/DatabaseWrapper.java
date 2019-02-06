@@ -3,13 +3,9 @@ package database;
 import java.sql.*;
 
 public class DatabaseWrapper implements AutoCloseable {
-    private static Connection conn = null;
+    private Connection conn = null;
 
     public DatabaseWrapper(String url) {
-        if (conn != null) {
-            return;
-        }
-
         connect(url);
 
         try {
