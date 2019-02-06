@@ -1,6 +1,7 @@
 package controller;
 
 import database.DatabaseWrapper;
+import model.StoreModel;
 import model.UserModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +12,7 @@ public class LoginController {
 
     public UserModel login(String email, String password) {
         DatabaseWrapper db = new DatabaseWrapper();
-        String query = "SELECT email, password, ruolo FROM utente " +
+        String query = "SELECT u.email, u.password, u.ruolo, u.negozio FROM utente u " +
                 "WHERE email LIKE ?" +
                 "AND password LIKE ?" +
                 "LIMIT 1";
@@ -25,8 +26,13 @@ public class LoginController {
             if (rs.next()) {
                 String userEmail = rs.getString("email");
                 String role = rs.getString("ruolo");
+                String storeName = rs.getString("negozio");
 
-                user = new UserModel(userEmail, role);
+                if (storeName == null) {
+                    user = new UserModel(userEmail, role);
+                } else {
+                    user = new UserModel(userEmail, role, StoreModel.find(storeName));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
