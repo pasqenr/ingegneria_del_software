@@ -24,18 +24,18 @@ public class LeaveController {
         ResultSet rs = null;
 
         String query =
-                "SELECT o.numero_bolla, " +
-                        "o.data AS data_ordine, " +
+                "SELECT u.numero_bolla, " +
+                        "u.data AS data_ordine, " +
                         "n.nome AS negozio, " +
-                        "o.spedizioniere, " +
+                        "u.spedizioniere, " +
                         "a.codice AS codice_articolo, " +
                         "ta.nome, a.prezzo " +
                         "FROM tipo_articolo AS ta " +
                         "JOIN articolo a on ta.nome = a.tipo_articolo " +
-                        "JOIN ordine_articolo oa on a.codice = oa.codice_articolo " +
-                        "JOIN ordine o on oa.numero_bolla = o.numero_bolla " +
-                        "JOIN negozio n on o.negozio = n.nome " +
-                        "ORDER BY o.numero_bolla";
+                        "JOIN uscita_articolo ua on a.codice = ua.codice_articolo " +
+                        "JOIN uscita u on ua.numero_bolla = u.numero_bolla " +
+                        "JOIN negozio n on u.negozio = n.nome " +
+                        "ORDER BY u.numero_bolla";
 
         PreparedStatement stmt;
 
