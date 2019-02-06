@@ -7,18 +7,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class OrdersModel {
+public class OrdersModel {
     private String[] columnNames;
     private Object[][] data;
+    private boolean isCodeInt;
 
-    public OrdersModel(String[] columnNames, ResultSet rs) {
+    public OrdersModel(String[] columnNames, ResultSet rs, boolean isCodeInt) {
         this.columnNames = columnNames;
+        this.isCodeInt = isCodeInt;
 
         try {
             populateDataTable(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public OrdersModel(String[] columnNames, ResultSet rs) {
+        this(columnNames, rs, true);
     }
 
     public Object[][] getRawTable() {
@@ -29,7 +35,7 @@ public abstract class OrdersModel {
         return new DefaultTableModel(data, columnNames);
     }
 
-    public void populateDataTable(ResultSet rs) throws SQLException {
+    private void populateDataTable(ResultSet rs) throws SQLException {
         int totalRows = 0;
         List<List<Object>> results = new ArrayList<>();
 
@@ -37,7 +43,7 @@ public abstract class OrdersModel {
             List<Object> columns = new ArrayList<>();
 
             for (int c = 0; c < columnNames.length; c++) {
-                if (c == 0) {
+                if (c == 0 && isCodeInt) {
                     columns.add(rs.getInt(columnNames[c]));
                 } else {
                     columns.add(rs.getString(columnNames[c]));
