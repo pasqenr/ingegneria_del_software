@@ -226,8 +226,7 @@ public class InsertEntranceView extends javax.swing.JFrame {
     }
 
     private boolean checkIsAlreadyStoredArticleCode(String[] tableCodes) {
-        ArticleController articleController = new ArticleController();
-        String[] storedCodes = articleController.getArticlesCodes();
+        String[] storedCodes = ArticleModel.getArticlesCodes();
 
         for (String tableCode : tableCodes) {
             for (String storedCode : storedCodes) {

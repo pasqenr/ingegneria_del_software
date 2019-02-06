@@ -24,7 +24,6 @@ public class EntranceArticleController extends Controller {
 
     private List<EntranceArticleModel> fetchAll() {
         List<EntranceArticleModel> entranceArticles = new ArrayList<>();
-        ArticleController articleController = new ArticleController();
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT ia.codice_articolo, ia.codice_ingresso FROM ingresso_articolo ia";
         PreparedStatement stmt;
@@ -46,9 +45,9 @@ public class EntranceArticleController extends Controller {
                 if (hasCodeChanged(lastEntranceCode, entranceCode)) { // Insert new EntranceArticleModel
                     addPreviousArticlesWithSameCode(entranceArticles, fetchedArticles, lastEntranceCode);
                     fetchedArticles.clear();
-                    fetchedArticles.add(articleController.getArticleByCode(articleCode));
+                    fetchedArticles.add(ArticleModel.find(articleCode));
                 } else { // Store new articles with the same entranceCode
-                    fetchedArticles.add(articleController.getArticleByCode(articleCode));
+                    fetchedArticles.add(ArticleModel.find(articleCode));
                 }
 
                 lastEntranceCode = entranceCode;

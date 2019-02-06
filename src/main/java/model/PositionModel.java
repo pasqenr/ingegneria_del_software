@@ -17,9 +17,9 @@ public class PositionModel {
             return false;
         }
 
-        PositionModel article = (PositionModel)o;
+        PositionModel position = (PositionModel)o;
 
-        return pos.equals(article.pos);
+        return pos.equals(position.pos);
     }
 
     @Override

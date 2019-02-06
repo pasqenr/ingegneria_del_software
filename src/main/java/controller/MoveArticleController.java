@@ -12,11 +12,9 @@ import java.util.List;
 
 public class MoveArticleController {
     private PositionController positionController;
-    private ArticleController articleController;
 
     public MoveArticleController() {
         positionController = new PositionController();
-        articleController = new ArticleController();
     }
 
     public String[] getFreePositions() {
@@ -28,7 +26,7 @@ public class MoveArticleController {
     }
 
     public DefaultComboBoxModel<String> getArticleCodesComboBoxModel() {
-        return new DefaultComboBoxModel<>(articleController.getArticlesCodes());
+        return new DefaultComboBoxModel<>(ArticleModel.getArticlesCodes());
     }
 
     public boolean moveArticlePositionByCodes(String articleCode, String positionId) {
@@ -60,12 +58,11 @@ public class MoveArticleController {
     }
 
     public void update() {
-        articleController.update();
         positionController.update();
     }
 
     public ArticleModel getArticleByCode(String articleCode) {
-        return articleController.getArticleByCode(articleCode);
+        return ArticleModel.find(articleCode);
     }
 
     private String[] positionModelsToStrings(List<PositionModel> positionModels) {

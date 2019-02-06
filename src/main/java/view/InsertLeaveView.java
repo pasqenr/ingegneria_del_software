@@ -1,6 +1,5 @@
 package view;
 
-import controller.ArticleController;
 import controller.InsertLeaveController;
 import controller.TableController;
 import model.*;
@@ -270,8 +269,7 @@ public class InsertLeaveView extends javax.swing.JFrame {
     }//GEN-LAST:event_insertOrderButtonActionPerformed
 
     private boolean checkIsAlreadyStoredArticleCode(String[] tableCodes) {
-        ArticleController articleController = new ArticleController();
-        String[] storedCodes = articleController.getArticlesCodes();
+        String[] storedCodes = ArticleModel.getArticlesCodes();
         int matchCounter = 0;
 
         for (String tableCode : tableCodes) {

@@ -37,10 +37,9 @@ class InsertEntranceControllerTest {
         }
 
         insertEntranceController.insertArticlesAsEntrance(articles);
-        ArticleController articleController = new ArticleController();
 
-        ArticleModel article1 = articleController.getArticleByCode(articleCodes[0]);
-        ArticleModel article2 = articleController.getArticleByCode(articleCodes[1]);
+        ArticleModel article1 = ArticleModel.find(articleCodes[0]);
+        ArticleModel article2 = ArticleModel.find(articleCodes[1]);
 
         assertNotNull(article1);
         assertNotNull(article2);

@@ -6,6 +6,8 @@ import database.DatabaseWrapper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArticleModel extends Model implements Comparable {
     private String code;
@@ -87,6 +89,29 @@ public class ArticleModel extends Model implements Comparable {
         return article;
     }
 
+    public static List<ArticleModel> findAll() {
+        List<ArticleModel> articlesList = new ArrayList<>();
+        DatabaseWrapper db = new DatabaseWrapper();
+        String query = "SELECT a.codice, a.tipo_articolo, a.prezzo, a.data_produzione, a.posizione FROM articolo a";
+        PreparedStatement stmt;
+
+        try {
+            stmt = db.getCon().prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                ArticleModel article = buildSingleFromResult(rs);
+                articlesList.add(article);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        db.close();
+
+        return articlesList;
+    }
+
     private static ArticleModel buildSingleFromResult(ResultSet rs) {
         String code = null;
         ArticleType articleType = null;
@@ -108,6 +133,19 @@ public class ArticleModel extends Model implements Comparable {
         }
 
         return new ArticleModel(code, articleType, price, productionDate, position);
+    }
+
+    public static String[] getArticlesCodes() {
+        List<ArticleModel> articles = ArticleModel.findAll();
+        String[] codes = new String[articles.size()];
+
+        int i = 0;
+        for (ArticleModel a : articles) {
+            codes[i] = a.getCode();
+            i++;
+        }
+
+        return codes;
     }
 
     @Override
