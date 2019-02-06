@@ -46,7 +46,7 @@ class InsertEntranceControllerTest {
         assertEquals(article1.getPosition().getRawPosition(), articlePositions[0]);
         assertEquals(article2.getPosition().getRawPosition(), articlePositions[1]);
 
-        EntranceModel entrance = EntranceController.getEntranceByCode(EntranceModel.getGreatestCode());
+        EntranceModel entrance = EntranceModel.find(EntranceModel.getGreatestCode());
 
         assertEquals(EntranceModel.getGreatestCode(), 2);
         assertNotNull(entrance);
