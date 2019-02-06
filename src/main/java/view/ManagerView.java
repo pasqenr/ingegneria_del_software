@@ -100,7 +100,7 @@ public class ManagerView extends javax.swing.JFrame {
     }//GEN-LAST:event_placeOrderButtonActionPerformed
 
     private void orderHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderHistoryButtonActionPerformed
-        // TODO add your handling code here:
+        SwingUtilities.invokeLater(() -> new OrderHistoryView(user.getStore()).setVisible(true));
     }//GEN-LAST:event_orderHistoryButtonActionPerformed
 
     /**
