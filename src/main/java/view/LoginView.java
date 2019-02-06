@@ -59,11 +59,10 @@ public class LoginView {
 
         // Set listeners
         loginButton.addActionListener(actionEvent -> {
-            LoginController loginController = new LoginController();
-            UserModel user = loginController.login(emailTextField.getText(),
+            UserModel user = LoginController.login(emailTextField.getText(),
                     charArrayToString(passwordTextField.getPassword()));
 
-            if (loginController.isLogged(user)) {
+            if (LoginController.isLogged(user)) {
                 switch (user.getRole()) {
                     case "Magazziniere":
                         SwingUtilities.invokeLater(() -> new WorkerView(user).setVisible(true));
