@@ -1,5 +1,13 @@
 package model;
 
+import database.DatabaseWrapper;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArticleType {
     private String name;
     private String description;
@@ -43,6 +51,61 @@ public class ArticleType {
 
     public void setSport(SportModel sport) {
         this.sport = sport;
+    }
+
+    public static ArticleType find(String name) {
+        ArticleType articleType = null;
+        DatabaseWrapper db = new DatabaseWrapper();
+        String query = "SELECT ta.nome, ta.descrizione, ta.materiali, ta.sport " +
+                "FROM tipo_articolo ta " +
+                "WHERE ta.nome LIKE ?";
+        PreparedStatement stmt;
+
+        try {
+            stmt = db.getCon().prepareStatement(query);
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+
+            rs.next();
+            String description = rs.getString("descrizione");
+            String materials = rs.getString("materiali");
+            SportModel sport = new SportModel(rs.getString("sport"));
+
+            articleType = new ArticleType(name, description, materials, sport);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        db.close();
+
+        return articleType;
+    }
+
+    public static List<ArticleType> findAll() {
+        List<ArticleType> articleTypes = new ArrayList<>();
+        DatabaseWrapper db = new DatabaseWrapper();
+        String query = "SELECT ta.nome, ta.descrizione, ta.materiali, ta.sport FROM tipo_articolo ta";
+        PreparedStatement stmt;
+
+        try {
+            stmt = db.getCon().prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("nome");
+                String description = rs.getString("descrizione");
+                String materials = rs.getString("materiali");
+                SportModel sport = new SportModel(rs.getString("sport"));
+
+                articleTypes.add(new ArticleType(name, description, materials, sport));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        db.close();
+
+        return articleTypes;
     }
 
     @Override
