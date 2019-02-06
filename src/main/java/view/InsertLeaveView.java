@@ -263,7 +263,7 @@ public class InsertLeaveView extends javax.swing.JFrame {
         InsertLeaveController.addLeave(leaveNumber, orderCode, articles, date, store, courier);
 
         JOptionPane.showMessageDialog(this,
-                "Good",
+                "Leave inserted",
                 "Good",
                 JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_insertOrderButtonActionPerformed
