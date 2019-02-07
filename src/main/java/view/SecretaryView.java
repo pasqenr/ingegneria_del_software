@@ -9,6 +9,8 @@ public class SecretaryView extends javax.swing.JFrame {
 
     /**
      * Creates new form SecretaryView
+     *
+     * @param user The user.
      */
     public SecretaryView(UserModel user) {
         this.user = user;
