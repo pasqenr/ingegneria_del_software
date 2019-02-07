@@ -1,7 +1,6 @@
 package controller;
 
 import database.DatabaseWrapper;
-import model.LeaveOrdersModel;
 import model.OrdersModel;
 
 import java.sql.PreparedStatement;
@@ -12,7 +11,7 @@ import java.sql.SQLException;
  * Manage the leaves table visualization.
  */
 public class LeaveController {
-    private LeaveOrdersModel ordersModel;
+    private OrdersModel ordersModel;
 
     /**
      * Create a new LeaveController.
@@ -21,7 +20,13 @@ public class LeaveController {
         DatabaseWrapper db = new DatabaseWrapper();
 
         ResultSet rs = fetchEntranceOrders(db);
-        ordersModel = new LeaveOrdersModel(rs);
+        ordersModel = new OrdersModel(new String[] {
+                "numero_bolla",
+                "data_ordine",
+                "codice_articolo",
+                "nome",
+                "prezzo"
+        }, rs);
 
         db.close();
     }
