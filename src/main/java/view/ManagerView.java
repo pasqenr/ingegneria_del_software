@@ -11,6 +11,8 @@ public class ManagerView extends javax.swing.JFrame {
 
     /**
      * Creates new form ManagerView
+     *
+     * @param user The User.
      */
     public ManagerView(UserModel user) {
         this.user = user;

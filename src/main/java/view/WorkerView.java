@@ -9,6 +9,8 @@ public class WorkerView extends javax.swing.JFrame {
 
     /**
      * Creates new form WorkerView
+     *
+     * @param user An User.
      */
     public WorkerView(UserModel user) {
         initComponents();

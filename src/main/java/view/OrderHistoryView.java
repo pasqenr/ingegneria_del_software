@@ -11,6 +11,8 @@ public class OrderHistoryView extends javax.swing.JFrame {
 
     /**
      * Creates new form OrderHistoryView
+     *
+     * @param store A Store.
      */
     public OrderHistoryView(StoreModel store) {
         this.store = store;

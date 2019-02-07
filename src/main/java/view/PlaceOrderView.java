@@ -12,6 +12,8 @@ public class PlaceOrderView extends javax.swing.JFrame {
 
     /**
      * Creates new form PlaceOrderView
+     *
+     * @param store A Store.
      */
     public PlaceOrderView(StoreModel store) {
         this.store = store;
