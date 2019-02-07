@@ -31,7 +31,8 @@ public class InsertLeaveController {
 
         // Add all the articles to the leave
         int lastLeaveNumber = LeaveModel.getLastId();
-        ArticleLeaveModel.storeAll(articles, lastLeaveNumber);
+        ArticleLeaveModel articleLeave = new ArticleLeaveModel(articles, lastLeaveNumber);
+        articleLeave.store();
 
         // Add the fulfillment of the order
         FulfillmentModel fulfillment = new FulfillmentModel(orderCode, lastLeaveNumber);
