@@ -6,8 +6,26 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Represent the entity ArticleLeave, table <code>uscita_articolo</code>.
+ */
 public class ArticleLeaveModel extends Model {
-    public static void storeAll(List<ArticleModel> articles, int orderNumber) {
+    private List<ArticleModel> articles;
+    private int orderNumber;
+
+    /**
+     * Create a new ArticleLeave.
+     *
+     * @param articles A list of Article.
+     * @param orderNumber A valid order number.
+     */
+    public ArticleLeaveModel(List<ArticleModel> articles, int orderNumber) {
+        this.articles = articles;
+        this.orderNumber = orderNumber;
+    }
+
+    @Override
+    public boolean store() {
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "INSERT INTO uscita_articolo (codice_articolo, numero_bolla) VALUES (?, ?)";
         PreparedStatement stmt;
@@ -25,10 +43,7 @@ public class ArticleLeaveModel extends Model {
         }
 
         db.close();
-    }
 
-    @Override
-    public boolean store() {
-        return false;
+        return true;
     }
 }

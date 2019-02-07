@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represent an Article, table <code>articolo</code>.
+ */
 public class ArticleModel extends Model implements Comparable {
     private String code;
     private ArticleType articleType;
@@ -16,6 +19,15 @@ public class ArticleModel extends Model implements Comparable {
     private String productionDate;
     private PositionModel position;
 
+    /**
+     * Create a new Article.
+     *
+     * @param code An Article identifier.
+     * @param articleType A valid ArticleType.
+     * @param price A valid price.
+     * @param productionDate A valid production date.
+     * @param position A valid Position.
+     */
     public ArticleModel(String code, ArticleType articleType, String price, String productionDate, PositionModel position) {
         this.code = code;
         this.articleType = articleType;
@@ -24,46 +36,82 @@ public class ArticleModel extends Model implements Comparable {
         this.position = position;
     }
 
+    /**
+     * @return The code.
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     * @param code The new code.
+     */
     public void setCode(String code) {
         this.code = code;
     }
 
+    /**
+     * @return The ArticleType.
+     */
     public ArticleType getArticleType() {
         return articleType;
     }
 
+    /**
+     * @param articleType The new ArticleType.
+     */
     public void setArticleType(ArticleType articleType) {
         this.articleType = articleType;
     }
 
+    /**
+     * @return The price as String.
+     */
     public String getPrice() {
         return price;
     }
 
+    /**
+     * @param price The new price as String.
+     */
     public void setPrice(String price) {
         this.price = price;
     }
 
+    /**
+     * @return The production date.
+     */
     public String getProductionDate() {
         return productionDate;
     }
 
+    /**
+     * @param productionDate The new production date.
+     */
     public void setProductionDate(String productionDate) {
         this.productionDate = productionDate;
     }
 
+    /**
+     * @return The Article Position.
+     */
     public PositionModel getPosition() {
         return position;
     }
 
+    /**
+     * @param position The new Article Position.
+     */
     public void setPosition(PositionModel position) {
         this.position = position;
     }
 
+    /**
+     * Returns the Article identified by code.
+     *
+     * @param code A valid article code.
+     * @return The Article identified by the code.
+     */
     public static ArticleModel find(String code) {
         ArticleModel article = null;
         DatabaseWrapper db = new DatabaseWrapper();
@@ -112,6 +160,12 @@ public class ArticleModel extends Model implements Comparable {
         return articlesList;
     }
 
+    /**
+     * Create only one Article using the data found in rs. The cursor is moved forward.
+     *
+     * @param rs The ResultSet containing the Article or Articles fetched from the database.
+     * @return A new Article.
+     */
     private static ArticleModel buildSingleFromResult(ResultSet rs) {
         String code = null;
         ArticleType articleType = null;
