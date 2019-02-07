@@ -9,10 +9,28 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represent an Entrance, table <code>ingresso</code>.
+ */
 public class EntranceModel extends Model implements Comparable {
     private int code;
     private String date;
 
+    /**
+     * Create a new Entrance. Should not be used because the code is <code>AUTOINCREMENT</code>.
+     *
+     * @param code The code.
+     * @param date The date.
+     */
+    private EntranceModel(int code, String date) {
+        this.code = code;
+        this.date = date;
+    }
+
+    /**
+     * Create a new Entrance. The table has a code identifier that is set as <code>AUTOINCREMENT</code> so
+     * an Entrance can be created without arguments.
+     */
     public EntranceModel() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -21,15 +39,19 @@ public class EntranceModel extends Model implements Comparable {
         date = dateTimeFormatter.format(localDateTime);
     }
 
-    public EntranceModel(int code, String date) {
-        this.code = code;
-        this.date = date;
-    }
-
+    /**
+     * @return The code.
+     */
     public int getCode() {
         return code;
     }
 
+    /**
+     * Returns the Entrance identified by the code.
+     *
+     * @param code A valid Entrance code.
+     * @return The Entrance identified by code.
+     */
     public static EntranceModel find(int code) {
         EntranceModel entrance = null;
         DatabaseWrapper db = new DatabaseWrapper();
@@ -57,6 +79,11 @@ public class EntranceModel extends Model implements Comparable {
         return entrance;
     }
 
+    /**
+     * Returns the greatest code, that is, the code of the last inserted Entrance.
+     *
+     * @return The code of the newest Entrance.
+     */
     public static int getGreatestCode() {
         int greatestCode = -1;
         DatabaseWrapper db = new DatabaseWrapper();

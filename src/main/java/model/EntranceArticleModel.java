@@ -7,10 +7,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represente an EntranceArticle, table <code>ingresso_articolo</code>.
+ */
 public class EntranceArticleModel extends Model {
     private List<ArticleModel> articles;
     private EntranceModel entrance;
 
+    /**
+     * Create a new EntranceArticle.
+     *
+     * @param articles A list of Articles.
+     * @param entrance An Entrance.
+     */
     public EntranceArticleModel(List<ArticleModel> articles, EntranceModel entrance) {
         this.articles = new ArrayList<>(articles);
         this.entrance = entrance;
@@ -27,6 +36,12 @@ public class EntranceArticleModel extends Model {
         return result;
     }
 
+    /**
+     * Store a single Article.
+     *
+     * @param article The Article to store.
+     * @return <code>true</code> if the Article was stored, <code>false</code> otherwise.
+     */
     private boolean storeSingleArticle(ArticleModel article) {
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "INSERT INTO ingresso_articolo (codice_articolo, codice_ingresso) VALUES (?, ?)";

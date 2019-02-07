@@ -8,12 +8,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represent ArticleType, table <code>tipo_articolo</code>.
+ */
 public class ArticleType extends Model {
     private String name;
     private String description;
     private String materials;
     private SportModel sport;
 
+    /**
+     * Create a new ArticleType.
+     *
+     * @param name A valid ArticleType name,.
+     * @param description A description.
+     * @param materials The materials.
+     * @param sport A valid Sport.
+     */
     public ArticleType(String name, String description, String materials, SportModel sport) {
         this.name = name;
         this.description = description;
@@ -21,38 +32,68 @@ public class ArticleType extends Model {
         this.sport = sport;
     }
 
+    /**
+     * @return The name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param name The new name.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @return The description.
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * @param description The new description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * @return The materials.
+     */
     public String getMaterials() {
         return materials;
     }
 
+    /**
+     * @param materials The new materials.
+     */
     public void setMaterials(String materials) {
         this.materials = materials;
     }
 
+    /**
+     * @return The sport.
+     */
     public SportModel getSport() {
         return sport;
     }
 
+    /**
+     * @param sport The new sport.
+     */
     public void setSport(SportModel sport) {
         this.sport = sport;
     }
 
+    /**
+     * Find the ArticleType identified by the unique name.
+     *
+     * @param name The name of the ArticleType.
+     * @return The ArticleType identified by name.
+     */
     public static ArticleType find(String name) {
         ArticleType articleType = null;
         DatabaseWrapper db = new DatabaseWrapper();
@@ -81,6 +122,11 @@ public class ArticleType extends Model {
         return articleType;
     }
 
+    /**
+     * Returns all the Articles.
+     *
+     * @return The list of all the Articles stored in the database.
+     */
     public static List<ArticleType> findAll() {
         List<ArticleType> articleTypes = new ArrayList<>();
         DatabaseWrapper db = new DatabaseWrapper();
