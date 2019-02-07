@@ -1,7 +1,6 @@
 package controller;
 
 import database.DatabaseWrapper;
-import model.EntranceOrdersModel;
 import model.OrdersModel;
 
 import java.sql.ResultSet;
@@ -10,7 +9,7 @@ import java.sql.ResultSet;
  * Manage the entrances' table visualization.
  */
 public class EntranceController {
-    private EntranceOrdersModel ordersModel;
+    private OrdersModel ordersModel;
 
     /**
      * Create a new <code>EntranceController</code>.
@@ -19,7 +18,14 @@ public class EntranceController {
         DatabaseWrapper db = new DatabaseWrapper();
 
         ResultSet rs = fetchEntranceOrders(db);
-        ordersModel = new EntranceOrdersModel(rs);
+        ordersModel = new OrdersModel(new String[]{
+                "codice_ingresso",
+                "data_ingresso",
+                "codice_articolo",
+                "nome",
+                "prezzo",
+                "posizione"
+        }, rs);
 
         db.close();
     }
