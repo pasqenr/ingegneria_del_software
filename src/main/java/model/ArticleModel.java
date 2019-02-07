@@ -189,6 +189,11 @@ public class ArticleModel extends Model implements Comparable {
         return new ArticleModel(code, articleType, price, productionDate, position);
     }
 
+    /**
+     * Returns an array of Strings of the codes of all the Articles in the database.
+     *
+     * @return An array of Article codes.
+     */
     public static String[] getArticlesCodes() {
         List<ArticleModel> articles = ArticleModel.findAll();
         String[] codes = new String[articles.size()];
