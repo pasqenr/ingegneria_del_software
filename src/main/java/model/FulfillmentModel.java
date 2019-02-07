@@ -5,10 +5,19 @@ import database.DatabaseWrapper;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Represent a (order) Fulfillment, table <code>evasione</code>.
+ */
 public class FulfillmentModel extends Model {
     private String orderCode;
     private int leaveNumber;
 
+    /**
+     * Create a new Fulfillment.
+     *
+     * @param orderCode An unique Order code.
+     * @param leaveNumber An unique Leave number.
+     */
     public FulfillmentModel(String orderCode, int leaveNumber) {
         this.orderCode = orderCode;
         this.leaveNumber = leaveNumber;

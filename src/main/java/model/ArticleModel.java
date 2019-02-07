@@ -137,6 +137,11 @@ public class ArticleModel extends Model implements Comparable {
         return article;
     }
 
+    /**
+     * Returns all the Articles.
+     *
+     * @return A list of all the Articles in the database.
+     */
     public static List<ArticleModel> findAll() {
         List<ArticleModel> articlesList = new ArrayList<>();
         DatabaseWrapper db = new DatabaseWrapper();

@@ -6,21 +6,41 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Represent a Sport, table <code>sport</code>.
+ */
 public class SportModel {
     private String name;
 
+    /**
+     * Create a new Sport.
+     *
+     * @param name A valid Sport name.
+     */
     public SportModel(String name) {
         this.name = name;
     }
 
+    /**
+     * @param name The new Sport name.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @return The Sport name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Find the Sport identified by the unique name.
+     *
+     * @param name The name of the Sport.
+     * @return The Sport identified by name.
+     */
     public static SportModel find(String name) {
         SportModel sport = null;
         DatabaseWrapper db = new DatabaseWrapper();

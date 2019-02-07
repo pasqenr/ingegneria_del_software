@@ -6,11 +6,21 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Represent a OrderTypeArticle, table <code>ordine_tipo_articolo</code>.
+ */
 public class OrderTypeArticleModel extends Model {
     private OrderModel order;
     private List<ArticleType> articleTypes;
     private List<Integer> amounts;
 
+    /**
+     * Create a new OrderTypeArticle.
+     *
+     * @param order A Order.
+     * @param articleTypes A list of ArticleTypes.
+     * @param amounts A list of amounts for each ArticleType.
+     */
     public OrderTypeArticleModel(OrderModel order, List<ArticleType> articleTypes, List<Integer> amounts) {
         this.order = order;
         this.articleTypes = articleTypes;

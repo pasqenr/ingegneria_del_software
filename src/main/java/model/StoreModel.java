@@ -8,12 +8,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represent a Store, table <code>negozio</code>.
+ */
 public class StoreModel extends Model {
     private String code;
     private String name;
     private String address;
     private String city;
 
+    /**
+     * Create a new Store.
+     *
+     * @param code The Store unique code.
+     * @param name The name.
+     * @param address The address.
+     * @param city The city.
+     */
     public StoreModel(String code, String name, String address, String city) {
         this.code = code;
         this.name = name;
@@ -21,38 +32,68 @@ public class StoreModel extends Model {
         this.city = city;
     }
 
+    /**
+     * @param code The new code.
+     */
     public void setCode(String code) {
         this.code = code;
     }
 
+    /**
+     * @return The code.
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     * @param name The new name.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @return The name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param address The new address.
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * @return The address.
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * @param city The new city.
+     */
     public void setCity(String city) {
         this.city = city;
     }
 
+    /**
+     * @return The city.
+     */
     public String getCity() {
         return city;
     }
 
+    /**
+     * Find the Store identified by the unique code.
+     *
+     * @param code The unique code of the Store.
+     * @return The Store identified by code.
+     */
     public static StoreModel find(String code) {
         String query = "SELECT n.codice_fiscale, n.nome, n.indirizzo, n.citta " +
                 "FROM negozio n " +
@@ -61,6 +102,12 @@ public class StoreModel extends Model {
         return findBy(query, code);
     }
 
+    /**
+     * Find the Store identified by some name.
+     *
+     * @param name A Store name.
+     * @return The Store with that name.
+     */
     public static StoreModel findByName(String name) {
         String query = "SELECT n.codice_fiscale, n.nome, n.indirizzo, n.citta " +
                 "FROM negozio n " +
@@ -69,6 +116,13 @@ public class StoreModel extends Model {
         return findBy(query, name);
     }
 
+    /**
+     * Group the method to retrieve information using a query.
+     *
+     * @param query A query to fetch Store information.
+     * @param field The field on which do the match.
+     * @return A Store that matches or <code>null</code> if not results are given.
+     */
     private static StoreModel findBy(String query, String field) {
         StoreModel store = null;
         DatabaseWrapper db = new DatabaseWrapper();
@@ -91,6 +145,11 @@ public class StoreModel extends Model {
         return store;
     }
 
+    /**
+     * Returns all the Stores.
+     *
+     * @return A list of all the Stores in the database.
+     */
     public static List<StoreModel> findAll() {
         List<StoreModel> stores = new ArrayList<>();
         DatabaseWrapper db = new DatabaseWrapper();
@@ -114,6 +173,12 @@ public class StoreModel extends Model {
         return stores;
     }
 
+    /**
+     * Create only one Store using the data found in rs. The cursor is moved forward.
+     *
+     * @param rs The ResultSet containing the Store or Stores fetched from the database.
+     * @return A new Store.
+     */
     private static StoreModel buildSingleFromResult(ResultSet rs) {
         String code = null;
         String name = null;

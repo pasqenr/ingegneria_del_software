@@ -8,12 +8,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represent a Leave, table <code>uscita</code>.
+ */
 public class LeaveModel extends Model {
     private int leaveNumber;
     private String date;
     private StoreModel store;
     private CourierModel courier;
 
+    /**
+     * Create a new Leave.
+     *
+     * @param leaveNumber An unique Leave number.
+     * @param date A valid date.
+     * @param store A Store.
+     * @param courier A Courier.
+     */
     public LeaveModel(int leaveNumber, String date, StoreModel store, CourierModel courier) {
         this.leaveNumber = leaveNumber;
         this.date = date;
@@ -21,38 +32,68 @@ public class LeaveModel extends Model {
         this.courier = courier;
     }
 
+    /**
+     * @return The unique Leave number.
+     */
     public int getLeaveNumber() {
         return leaveNumber;
     }
 
+    /**
+     * @param leaveNumber The new unique Leave number.
+     */
     public void setLeaveNumber(int leaveNumber) {
         this.leaveNumber = leaveNumber;
     }
 
+    /**
+     * @param date The new date.
+     */
     public void setDate(String date) {
         this.date = date;
     }
 
+    /**
+     * @return The date.
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     * @param store The new Store.
+     */
     public void setStore(StoreModel store) {
         this.store = store;
     }
 
+    /**
+     * @return The Store.
+     */
     public StoreModel getStore() {
         return store;
     }
 
+    /**
+     * @param courier The new Courier.
+     */
     public void setCourier(CourierModel courier) {
         this.courier = courier;
     }
 
+    /**
+     * @return The Courier.
+     */
     public CourierModel getCourier() {
         return courier;
     }
 
+    /**
+     * Find the Leave identified by the unique leaveNumber.
+     *
+     * @param leaveNumber The unique number of the Leave.
+     * @return The Leave with that leaveNumber.
+     */
     public static LeaveModel find(int leaveNumber) {
         LeaveModel order = null;
         DatabaseWrapper db = new DatabaseWrapper();
@@ -78,6 +119,11 @@ public class LeaveModel extends Model {
         return order;
     }
 
+    /**
+     * Returns all the Leaves.
+     *
+     * @return A list of all the Leaves in the database.
+     */
     public static List<LeaveModel> findAll() {
         List<LeaveModel> orders = new ArrayList<>();
         DatabaseWrapper db = new DatabaseWrapper();
@@ -101,6 +147,12 @@ public class LeaveModel extends Model {
         return orders;
     }
 
+    /**
+     * Create only one Leave using the data found in rs. The cursor is moved forward.
+     *
+     * @param rs The ResultSet containing the Leave or Leaves fetched from the database.
+     * @return A new Leave.
+     */
     private static LeaveModel buildSingleFromResult(ResultSet rs) {
         int leaveNumber = 0;
         String date = null;
@@ -122,6 +174,11 @@ public class LeaveModel extends Model {
         return new LeaveModel(leaveNumber, date, store, courier);
     }
 
+    /**
+     * Returns the last inserted number of the Leaves.
+     *
+     * @return The number of the newest Leave in the database.
+     */
     public static int getLastId() {
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT o.numero_bolla FROM uscita o ORDER BY o.numero_bolla DESC LIMIT 1";

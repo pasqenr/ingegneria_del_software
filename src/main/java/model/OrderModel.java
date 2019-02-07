@@ -6,45 +6,75 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Represent an Order, table <code>ordine</code>.
+ */
 public class OrderModel extends Model {
     private String code;
     private String date;
     private StoreModel store;
 
+    /**
+     * Create a new Order.
+     *
+     * @param code An unique code.
+     * @param date A valid date.
+     * @param store A Store.
+     */
     public OrderModel(String code, String date, StoreModel store) {
         this.code = code;
         this.date = date;
         this.store = store;
     }
 
-    public OrderModel(String code, String date, String storeCode) {
-        this(code, date, StoreModel.find(storeCode));
-    }
-
+    /**
+     * @return The code.
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     * @param code The new code.
+     */
     public void setCode(String code) {
         this.code = code;
     }
 
+    /**
+     * @return The date.
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     * @param date The new date.
+     */
     public void setDate(String date) {
         this.date = date;
     }
 
+    /**
+     * @return The Store.
+     */
     public StoreModel getStore() {
         return store;
     }
 
+    /**
+     * @param store The new Store.
+     */
     public void setStore(StoreModel store) {
         this.store = store;
     }
 
+    /**
+     * Find the Order identified by the unique code.
+     *
+     * @param code The unique code of the Order.
+     * @return The Order identified by code.
+     */
     public static OrderModel find(String code) {
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT o.codice, o.data, o.negozio FROM ordine o WHERE o.codice LIKE ?";
