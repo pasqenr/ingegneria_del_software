@@ -25,7 +25,7 @@ public class OrderHistoryController {
         DatabaseWrapper db = new DatabaseWrapper();
 
         ResultSet rs = fetchOrders(db);
-        ordersModel = new OrdersModel(new String[] { "codice_ordine", "data_ordine", "nome_articolo" },
+        ordersModel = new OrdersModel(new String[] { "codice_ordine", "data_ordine", "tipo_articolo" },
                 rs,
                 false);
 
