@@ -3,8 +3,11 @@ package view;
 import model.UserModel;
 
 import javax.swing.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class SecretaryView extends javax.swing.JFrame {
+    private ResourceBundle i18n;
     private UserModel user;
 
     /**
@@ -13,6 +16,7 @@ public class SecretaryView extends javax.swing.JFrame {
      * @param user The user.
      */
     public SecretaryView(UserModel user) {
+        i18n = ResourceBundle.getBundle("SecretaryView", Locale.getDefault());
         this.user = user;
 
         initComponents();
@@ -33,22 +37,22 @@ public class SecretaryView extends javax.swing.JFrame {
         ordersFulfillmentButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Secretary");
+        setTitle(i18n.getString("title"));
 
-        loggedAsLabel.setText("Logged as:");
+        loggedAsLabel.setText(i18n.getString("logged_as"));
 
         emailTextField.setEditable(false);
         emailTextField.setText(user.getEmail());
         emailTextField.setBorder(null);
 
-        insertArticleTypeButton.setText("Insert article type");
+        insertArticleTypeButton.setText(i18n.getString("insert_article_type"));
         insertArticleTypeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 insertArticleTypeButtonActionPerformed(evt);
             }
         });
 
-        ordersFulfillmentButton.setText("Orders fulfillment");
+        ordersFulfillmentButton.setText(i18n.getString("orders_fulfillment"));
         ordersFulfillmentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ordersFulfillmentButtonActionPerformed(evt);
