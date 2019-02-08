@@ -4,9 +4,11 @@ import model.StoreModel;
 import model.UserModel;
 
 import javax.swing.*;
-import java.awt.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class ManagerView extends javax.swing.JFrame {
+    private ResourceBundle i18n;
     private UserModel user;
 
     /**
@@ -15,16 +17,10 @@ public class ManagerView extends javax.swing.JFrame {
      * @param user The User.
      */
     public ManagerView(UserModel user) {
+        i18n = ResourceBundle.getBundle("ManagerView", Locale.getDefault());
         this.user = user;
 
         initComponents();
-
-        // Center the frame
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension screenSize = toolkit.getScreenSize();
-        int x = (screenSize.width - getWidth()) / 2;
-        int y = (screenSize.height - getHeight()) / 2;
-        setLocation(x, y);
     }
 
     /**
@@ -42,22 +38,25 @@ public class ManagerView extends javax.swing.JFrame {
         orderHistoryButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Manager");
+        setTitle(i18n.getString("title")
+        );
 
-        loggedAsLabel.setText("Logged as:");
+        loggedAsLabel.setText(i18n.getString("logged_as"));
 
         emailTextField.setEditable(false);
         emailTextField.setText(user.getEmail());
         emailTextField.setBorder(null);
 
-        placeOrderButton.setText("Place order");
+        placeOrderButton.setText(i18n.getString("place_order")
+        );
         placeOrderButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 placeOrderButtonActionPerformed(evt);
             }
         });
 
-        orderHistoryButton.setText("Order history");
+        orderHistoryButton.setText(i18n.getString("order_history")
+        );
         orderHistoryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 orderHistoryButtonActionPerformed(evt);
@@ -95,6 +94,7 @@ public class ManagerView extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void placeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placeOrderButtonActionPerformed
