@@ -4,14 +4,18 @@ import controller.OrderFulfillmentController;
 import model.OrderModel;
 
 import javax.swing.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class OrdersFulfillmentView extends javax.swing.JFrame {
+    private ResourceBundle i18n;
     private OrderFulfillmentController orderFulfillmentController;
 
     /**
      * Creates new form OrdersFulfillmentView
      */
     public OrdersFulfillmentView() {
+        i18n = ResourceBundle.getBundle("OrdersFulfillmentView", Locale.getDefault());
         orderFulfillmentController = new OrderFulfillmentController();
 
         initComponents();
@@ -33,11 +37,12 @@ public class OrdersFulfillmentView extends javax.swing.JFrame {
         leaveTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Orders fulfillment");
+        setTitle(i18n.getString("title")
+        );
 
-        orderCodeLabel.setText("Order code:");
+        orderCodeLabel.setText(i18n.getString("order_code"));
 
-        showButton.setText("Show");
+        showButton.setText(i18n.getString("search"));
         showButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showButtonActionPerformed(evt);
@@ -61,7 +66,7 @@ public class OrdersFulfillmentView extends javax.swing.JFrame {
                         .addComponent(orderCodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(showButton)
-                        .addGap(0, 177, Short.MAX_VALUE)))
+                        .addGap(0, 116, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -87,8 +92,8 @@ public class OrdersFulfillmentView extends javax.swing.JFrame {
 
         if (order == null) {
             JOptionPane.showMessageDialog(this,
-                    "Order not found",
-                    "Error",
+                    i18n.getString("error_order_not_found"),
+                    i18n.getString("error_order_not_found_title"),
                     JOptionPane.ERROR_MESSAGE);
 
             return;
