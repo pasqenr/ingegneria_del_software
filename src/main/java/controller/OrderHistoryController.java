@@ -42,7 +42,7 @@ public class OrderHistoryController {
         ResultSet rs = null;
         PreparedStatement stmt;
         String query = "SELECT o.codice AS codice_ordine, o.data AS data_ordine, " +
-                "ota.nome_tipo_articolo AS nome_articolo " +
+                "ota.nome_tipo_articolo AS tipo_articolo " +
                 "FROM ordine o " +
                 "JOIN ordine_tipo_articolo ota ON o.codice = ota.codice_ordine " +
                 "JOIN negozio n ON o.negozio = n.codice_fiscale " +
