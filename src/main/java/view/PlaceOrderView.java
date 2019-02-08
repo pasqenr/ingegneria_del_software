@@ -165,8 +165,8 @@ public class PlaceOrderView extends javax.swing.JFrame {
 
         if (!areArticleTypesStored) {
             JOptionPane.showMessageDialog(this,
-                    "Some article type isn't in the database",
-                    "Error",
+                    i18n.getString("error_no_article_type"),
+                    i18n.getString("error_title"),
                     JOptionPane.ERROR_MESSAGE);
 
             return;
@@ -174,6 +174,7 @@ public class PlaceOrderView extends javax.swing.JFrame {
 
         String orderCode = orderCodeTextField.getText();
         String date = dateTextField.getText();
+
         OrderController.addOrder(orderCode, date, store, articleTypesNames, amounts);
     }//GEN-LAST:event_orderButtonActionPerformed
 
