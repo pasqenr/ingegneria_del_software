@@ -3,18 +3,21 @@ package view;
 import controller.LoginController;
 import model.UserModel;
 import javax.swing.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class LoginView {
     public LoginView() {
         JFrame f = new JFrame();
+        ResourceBundle i18n = ResourceBundle.getBundle("LoginView", Locale.getDefault());
 
-        JButton loginButton = new JButton("Submit");
+        JButton loginButton = new JButton(i18n.getString("submit"));
         JTextField emailTextField = new JTextField();
         JPasswordField passwordTextField = new JPasswordField();
-        JLabel labelEmail = new JLabel("Email");
-        JLabel labelPassword = new JLabel("Password");
+        JLabel labelEmail = new JLabel(i18n.getString("email"));
+        JLabel labelPassword = new JLabel(i18n.getString("password"));
 
-        f.setTitle("Login");
+        f.setTitle(i18n.getString("title"));
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         GroupLayout layout = new GroupLayout(f.getContentPane());
@@ -78,8 +81,8 @@ public class LoginView {
                 f.dispose();
             } else {
                 JOptionPane.showMessageDialog(f,
-                        "Wrong login data",
-                        "Error",
+                        i18n.getString("wrong_login_data"),
+                        i18n.getString("wrong_login_data_title"),
                         JOptionPane.ERROR_MESSAGE);
             }
         });
