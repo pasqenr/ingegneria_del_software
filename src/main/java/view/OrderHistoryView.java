@@ -4,8 +4,11 @@ import controller.OrderHistoryController;
 import model.StoreModel;
 
 import javax.swing.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class OrderHistoryView extends javax.swing.JFrame {
+    private ResourceBundle i18n;
     private StoreModel store;
     private OrderHistoryController orderHistoryController;
 
@@ -15,6 +18,7 @@ public class OrderHistoryView extends javax.swing.JFrame {
      * @param store A Store.
      */
     public OrderHistoryView(StoreModel store) {
+        i18n = ResourceBundle.getBundle("OrderHistoryView", Locale.getDefault());
         this.store = store;
         this.orderHistoryController = new OrderHistoryController(store);
 
@@ -36,9 +40,11 @@ public class OrderHistoryView extends javax.swing.JFrame {
         orderHistoryTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Order history");
+        setTitle(i18n.getString("title")
+        );
 
-        storeLabel.setText("Store:");
+        storeLabel.setText(i18n.getString("store")
+        );
 
         storeTextField.setEditable(false);
         storeTextField.setText(store.getName());
@@ -60,7 +66,7 @@ public class OrderHistoryView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(storeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(storeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                        .addComponent(storeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                         .addGap(151, 151, 151))))
         );
         layout.setVerticalGroup(
