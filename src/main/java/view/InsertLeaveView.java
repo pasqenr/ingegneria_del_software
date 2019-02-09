@@ -7,8 +7,11 @@ import model.*;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class InsertLeaveView extends javax.swing.JFrame {
+    private ResourceBundle i18n;
     private List<StoreModel> storesList;
     private List<CourierModel> courierList;
     private DefaultComboBoxModel<String> storesComboBoxModel;
@@ -26,6 +29,7 @@ public class InsertLeaveView extends javax.swing.JFrame {
      * Creates new form InsertLeaveView
      */
     public InsertLeaveView() {
+        i18n = ResourceBundle.getBundle("InsertLeaveView", Locale.getDefault());
         storesList = StoreModel.findAll();
         courierList = CourierModel.findAll();
 
@@ -61,23 +65,23 @@ public class InsertLeaveView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         orderCodeLabel = new javax.swing.JLabel();
-        orderNumberTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         articlesTable = new javax.swing.JTable();
         storeNumberLabel = new javax.swing.JLabel();
         dateLabel = new javax.swing.JLabel();
         courierLabel = new javax.swing.JLabel();
         storeNameComboBox = new javax.swing.JComboBox<>();
-        dateTextField = new javax.swing.JTextField();
         courierComboBox = new javax.swing.JComboBox<>();
         insertOrderButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         leaveNumberTextField = new javax.swing.JTextField();
+        dateTextField = new javax.swing.JTextField();
+        orderNumberTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Insert leave");
+        setTitle(i18n.getString("title"));
 
-        orderCodeLabel.setText("Order code:");
+        orderCodeLabel.setText(i18n.getString("label_order_code"));
 
         articlesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -103,7 +107,7 @@ public class InsertLeaveView extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "Article code"
+                "codice_articolo"
             }
         ) {
             Class[] types = new Class [] {
@@ -116,24 +120,24 @@ public class InsertLeaveView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(articlesTable);
 
-        storeNumberLabel.setText("Store name:");
+        storeNumberLabel.setText(i18n.getString("label_store_name"));
 
-        dateLabel.setText("Date:");
+        dateLabel.setText(i18n.getString("label_date"));
 
-        courierLabel.setText("Courier:");
+        courierLabel.setText(i18n.getString("label_courier"));
 
         storeNameComboBox.setModel(storesComboBoxModel);
 
         courierComboBox.setModel(courierComboBoxModel);
 
-        insertOrderButton.setText("Insert order");
+        insertOrderButton.setText(i18n.getString("button_insert"));
         insertOrderButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 insertOrderButtonActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Leave number:");
+        jLabel1.setText(i18n.getString("label_leave_number"));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,48 +146,50 @@ public class InsertLeaveView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(orderCodeLabel)
-                            .addGap(34, 34, 34)
-                            .addComponent(orderNumberTextField))
-                        .addComponent(insertOrderButton, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(courierLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(storeNumberLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(storeNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dateLabel)
+                            .addComponent(courierLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dateTextField)
+                            .addComponent(courierComboBox, 0, 139, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(orderCodeLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(orderNumberTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                             .addComponent(leaveNumberTextField)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(dateLabel)
-                        .addGap(65, 65, 65)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(courierComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(insertOrderButton)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(storeNumberLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(storeNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(orderCodeLabel)
-                    .addComponent(orderNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(orderNumberTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(leaveNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(storeNumberLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(storeNameComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(storeNumberLabel)
+                    .addComponent(storeNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dateLabel)
                     .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -200,9 +206,9 @@ public class InsertLeaveView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,20 +226,20 @@ public class InsertLeaveView extends javax.swing.JFrame {
 
         if (order == null) {
             JOptionPane.showMessageDialog(this,
-                    "Order not found",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+                i18n.getString("error_order_not_found"),
+                i18n.getString("error_title"),
+                JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         String[] articleCodes = TableController.fetchRowsFromTable(articlesTable,
-                ColumnPosition.ARTICLE_CODE.getValue());
+            ColumnPosition.ARTICLE_CODE.getValue());
 
         if (articleCodes == null) {
             JOptionPane.showMessageDialog(this,
-                    "Empty table",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+                i18n.getString("error_empty_table"),
+                i18n.getString("error_title"),
+                JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -241,9 +247,9 @@ public class InsertLeaveView extends javax.swing.JFrame {
 
         if (!allCodesStored) {
             JOptionPane.showMessageDialog(this,
-                    "Some article codes are not found in the database",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+                i18n.getString("error_article_codes_not_found"),
+                i18n.getString("error_title"),
+                JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -263,9 +269,9 @@ public class InsertLeaveView extends javax.swing.JFrame {
         InsertLeaveController.addLeave(leaveNumber, orderCode, articles, date, store, courier);
 
         JOptionPane.showMessageDialog(this,
-                "Leave inserted",
-                "Good",
-                JOptionPane.INFORMATION_MESSAGE);
+            i18n.getString("info_leave_inserted"),
+            i18n.getString("info_title"),
+            JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_insertOrderButtonActionPerformed
 
     private boolean checkIsAlreadyStoredArticleCode(String[] tableCodes) {

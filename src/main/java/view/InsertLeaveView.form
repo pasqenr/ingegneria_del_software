@@ -3,7 +3,9 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="Insert leave"/>
+    <Property name="title" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+      <Connection code="i18n.getString(&quot;title&quot;)" type="code"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -24,9 +26,9 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <Component id="jPanel1" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -42,39 +44,44 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="orderCodeLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="orderNumberTextField" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="dateLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="courierLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="insertOrderButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="courierLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="storeNumberLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="storeNameComboBox" min="-2" pref="152" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="leaveNumberTextField" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="dateTextField" max="32767" attributes="0"/>
+                              <Component id="courierComboBox" pref="139" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="dateLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="courierComboBox" min="-2" pref="152" max="-2" attributes="0"/>
-                              <Component id="dateTextField" min="-2" pref="152" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="orderCodeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="orderNumberTextField" pref="144" max="32767" attributes="0"/>
+                              <Component id="leaveNumberTextField" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="insertOrderButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="306" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="storeNumberLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="storeNameComboBox" min="-2" pref="139" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -82,23 +89,23 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="orderCodeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="orderNumberTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="orderCodeLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="orderNumberTextField" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="leaveNumberTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="15" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="251" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="storeNumberLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="storeNameComboBox" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="storeNumberLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="storeNameComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="dateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="dateTextField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -118,10 +125,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="orderCodeLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Order code:"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="i18n.getString(&quot;label_order_code&quot;)" type="code"/>
+            </Property>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="orderNumberTextField">
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
@@ -134,7 +141,7 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="1" rowCount="20">
-                    <Column editable="true" title="Article code" type="java.lang.String"/>
+                    <Column editable="true" title="codice_articolo" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -170,17 +177,23 @@
         </Container>
         <Component class="javax.swing.JLabel" name="storeNumberLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Store name:"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="i18n.getString(&quot;label_store_name&quot;)" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="dateLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Date:"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="i18n.getString(&quot;label_date&quot;)" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="courierLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Courier:"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="i18n.getString(&quot;label_courier&quot;)" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="storeNameComboBox">
@@ -192,8 +205,6 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
-        </Component>
-        <Component class="javax.swing.JTextField" name="dateTextField">
         </Component>
         <Component class="javax.swing.JComboBox" name="courierComboBox">
           <Properties>
@@ -207,7 +218,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="insertOrderButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Insert order"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="i18n.getString(&quot;button_insert&quot;)" type="code"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="insertOrderButtonActionPerformed"/>
@@ -215,10 +228,16 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Leave number:"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="i18n.getString(&quot;label_leave_number&quot;)" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="leaveNumberTextField">
+        </Component>
+        <Component class="javax.swing.JTextField" name="dateTextField">
+        </Component>
+        <Component class="javax.swing.JTextField" name="orderNumberTextField">
         </Component>
       </SubComponents>
     </Container>
