@@ -11,6 +11,7 @@ import java.util.*;
 public class InsertEntranceView extends javax.swing.JFrame {
     private ResourceBundle i18n;
     private PositionController positionController;
+    private InsertEntranceController insertEntranceController;
 
     /**
      * Creates new form InsertEntranceView
@@ -18,6 +19,7 @@ public class InsertEntranceView extends javax.swing.JFrame {
     public InsertEntranceView() {
         i18n = ResourceBundle.getBundle("InsertEntranceView", Locale.getDefault());
         positionController = new PositionController();
+        insertEntranceController = new InsertEntranceController();
 
         initComponents();
     }
@@ -141,7 +143,7 @@ public class InsertEntranceView extends javax.swing.JFrame {
         }
 
         // Check that all the columns have the same lengths, that is, have the same amount of rows (elements)
-        if (!checkEqualLengths(new int[] {
+        if (!insertEntranceController.checkEqualLengths(new int[] {
                 articleCodes.length,
                 articleTypes.length,
                 articlePrices.length,
@@ -188,7 +190,7 @@ public class InsertEntranceView extends javax.swing.JFrame {
                     position));
         }
 
-        boolean articleCodesAreValid = checkIsAlreadyStoredArticleCode(articleCodes);
+        boolean articleCodesAreValid = insertEntranceController.checkIsAlreadyStoredArticleCode(articleCodes);
 
         if (!articleCodesAreValid) {
             JOptionPane.showMessageDialog(this,
@@ -207,24 +209,6 @@ public class InsertEntranceView extends javax.swing.JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_createEntranceButtonActionPerformed
-
-    private boolean checkEqualLengths(int[] lengths) {
-        return Arrays.stream(lengths).allMatch(length -> length == lengths[0]);
-    }
-
-    private boolean checkIsAlreadyStoredArticleCode(String[] tableCodes) {
-        String[] storedCodes = ArticleModel.getArticlesCodes();
-
-        for (String tableCode : tableCodes) {
-            for (String storedCode : storedCodes) {
-                if (tableCode.equals(storedCode)) { // We have found a code already stored in the database
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
 
     /**
      * @param args the command line arguments
