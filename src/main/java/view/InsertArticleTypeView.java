@@ -4,13 +4,18 @@ import controller.InsertArticleTypeController;
 import controller.TableController;
 
 import javax.swing.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class InsertArticleTypeView extends javax.swing.JFrame {
+    private ResourceBundle i18n;
 
     /**
      * Creates new form InsertArticleTypeView
      */
     public InsertArticleTypeView() {
+        i18n = ResourceBundle.getBundle("InsertArticleTypeView", Locale.getDefault());
+
         initComponents();
     }
 
@@ -28,7 +33,7 @@ public class InsertArticleTypeView extends javax.swing.JFrame {
         insertButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Insert article type");
+        setTitle(i18n.getString("title"));
 
         articleTypeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -54,7 +59,7 @@ public class InsertArticleTypeView extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "name", "description", "materials", "sport"
+                "nome tipo", "descrizione", "materiali", "sport"
             }
         ) {
             Class[] types = new Class [] {
@@ -67,7 +72,7 @@ public class InsertArticleTypeView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(articleTypeTable);
 
-        insertButton.setText("Insert");
+        insertButton.setText(i18n.getString("insert"));
         insertButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 insertButtonActionPerformed(evt);
@@ -121,8 +126,8 @@ public class InsertArticleTypeView extends javax.swing.JFrame {
 
         if (articleTypesAlreadyStored) {
             JOptionPane.showMessageDialog(this,
-                    "Some article types are already in the database",
-                    "Error",
+                    i18n.getString("error_article_type_already_stored"),
+                    i18n.getString("error_title"),
                     JOptionPane.ERROR_MESSAGE);
 
             return;
@@ -134,8 +139,8 @@ public class InsertArticleTypeView extends javax.swing.JFrame {
                 articleTypeSports);
 
         JOptionPane.showMessageDialog(this,
-                "Article types inserted",
-                "Inserted",
+                i18n.getString("info_article_types_stored"),
+                i18n.getString("info_title"),
                 JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_insertButtonActionPerformed
 
