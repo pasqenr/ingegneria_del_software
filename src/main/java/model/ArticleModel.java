@@ -125,9 +125,9 @@ public class ArticleModel extends Model implements Comparable {
             stmt.setString(1, code);
             ResultSet rs = stmt.executeQuery();
 
-            rs.next();
-
-            article = buildSingleFromResult(rs);
+            if (rs.next()) {
+                article = buildSingleFromResult(rs);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
