@@ -4,8 +4,11 @@ import model.UserModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class WorkerView extends javax.swing.JFrame {
+    private ResourceBundle i18n;
 
     /**
      * Creates new form WorkerView
@@ -13,6 +16,8 @@ public class WorkerView extends javax.swing.JFrame {
      * @param user An User.
      */
     public WorkerView(UserModel user) {
+        i18n = ResourceBundle.getBundle("WorkerView", Locale.getDefault());
+
         initComponents();
 
         emailTextField.setText(user.getEmail());
@@ -43,34 +48,34 @@ public class WorkerView extends javax.swing.JFrame {
         moveArticleButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Worker actions");
+        setTitle(i18n.getString("title"));
 
         ordersPanel.setLayout(new java.awt.BorderLayout());
 
-        ordersLabel.setText("Orders");
+        ordersLabel.setText(i18n.getString("orders"));
 
-        articlesLabel.setText("Articles");
+        articlesLabel.setText(i18n.getString("articles"));
 
-        inOrdersButton.setText("Insert entrance");
+        inOrdersButton.setText(i18n.getString("insert_entrance"));
         inOrdersButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inOrdersButtonActionPerformed(evt);
             }
         });
 
-        loggedAsLabel.setText("Logged as:");
+        loggedAsLabel.setText(i18n.getString("logged_as"));
 
         emailTextField.setEditable(false);
         emailTextField.setBorder(null);
 
-        outOrdersButton.setText("Insert order");
+        outOrdersButton.setText(i18n.getString("insert_leave"));
         outOrdersButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 outOrdersButtonActionPerformed(evt);
             }
         });
 
-        moveArticleButton.setText("Move article");
+        moveArticleButton.setText(i18n.getString("move_article"));
         moveArticleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 moveArticleButtonActionPerformed(evt);
@@ -85,26 +90,22 @@ public class WorkerView extends javax.swing.JFrame {
                 .addComponent(ordersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(loggedAsLabel))
+                    .addComponent(loggedAsLabel)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(emailTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(63, 63, 63)
-                            .addComponent(ordersLabel)
-                            .addGap(99, 99, 99)
-                            .addComponent(articlesLabel))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(outOrdersButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(inOrdersButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(outOrdersButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(inOrdersButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(ordersLabel))
                             .addGap(18, 18, 18)
-                            .addComponent(moveArticleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(articlesLabel)
+                                .addComponent(moveArticleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(48, 48, 48))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
