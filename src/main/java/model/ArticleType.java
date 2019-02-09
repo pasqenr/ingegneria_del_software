@@ -107,12 +107,13 @@ public class ArticleType extends Model {
             stmt.setString(1, name);
             ResultSet rs = stmt.executeQuery();
 
-            rs.next();
-            String description = rs.getString("descrizione");
-            String materials = rs.getString("materiali");
-            SportModel sport = new SportModel(rs.getString("sport"));
+            if (rs.next()) {
+                String description = rs.getString("descrizione");
+                String materials = rs.getString("materiali");
+                SportModel sport = new SportModel(rs.getString("sport"));
 
-            articleType = new ArticleType(name, description, materials, sport);
+                articleType = new ArticleType(name, description, materials, sport);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
