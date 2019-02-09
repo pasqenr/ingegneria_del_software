@@ -6,29 +6,17 @@ import model.ArticleType;
 import model.PositionModel;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class InsertEntranceView extends javax.swing.JFrame {
+    private ResourceBundle i18n;
     private PositionController positionController;
-
-    private enum ColumnPosition {
-        ARTICLE (0),
-        ARTICLE_TYPE (1),
-        PRICE (2),
-        PRODUCTION_DATE (3),
-        POSITION (4);
-
-        private final int columnPosition;
-        ColumnPosition(int columnPosition) { this.columnPosition = columnPosition; }
-        public int getValue() { return columnPosition; }
-    }
 
     /**
      * Creates new form InsertEntranceView
      */
     public InsertEntranceView() {
+        i18n = ResourceBundle.getBundle("InsertEntranceView", Locale.getDefault());
         positionController = new PositionController();
 
         initComponents();
@@ -46,11 +34,10 @@ public class InsertEntranceView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         articlesTable = new javax.swing.JTable();
-        articlesLabel = new javax.swing.JLabel();
         createEntranceButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Entrance");
+        setTitle(i18n.getString("title"));
 
         articlesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,9 +76,7 @@ public class InsertEntranceView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(articlesTable);
 
-        articlesLabel.setText("Articles:");
-
-        createEntranceButton.setText("Create entrance");
+        createEntranceButton.setText(i18n.getString("insert"));
         createEntranceButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createEntranceButtonActionPerformed(evt);
@@ -105,17 +90,13 @@ public class InsertEntranceView extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(articlesLabel)
-                    .addComponent(createEntranceButton))
+                .addComponent(createEntranceButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(articlesLabel)
-                .addGap(18, 18, 18)
+                .addGap(45, 45, 45)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(createEntranceButton)
@@ -138,17 +119,23 @@ public class InsertEntranceView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createEntranceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createEntranceButtonActionPerformed
-        String[] articleCodes = TableController.fetchRowsFromTable(articlesTable, ColumnPosition.ARTICLE.getValue());
-        String[] articleTypes = TableController.fetchRowsFromTable(articlesTable, ColumnPosition.ARTICLE_TYPE.getValue());
-        String[] articlePrices = TableController.fetchRowsFromTable(articlesTable, ColumnPosition.PRICE.getValue());
-        String[] articleProductionDates = TableController.fetchRowsFromTable(articlesTable, ColumnPosition.PRODUCTION_DATE.getValue());
-        String[] articlePositions = TableController.fetchRowsFromTable(articlesTable, ColumnPosition.POSITION.getValue());
+        final int ARTICLE_COLUMN = 0;
+        final int ARTICLE_TYPE_COLUMN = 1;
+        final int PRICE_COLUMN = 2;
+        final int PRODUCTION_DATE_COLUMN = 3;
+        final int POSITION_COLUMN = 4;
+
+        String[] articleCodes = TableController.fetchRowsFromTable(articlesTable, ARTICLE_COLUMN);
+        String[] articleTypes = TableController.fetchRowsFromTable(articlesTable, ARTICLE_TYPE_COLUMN);
+        String[] articlePrices = TableController.fetchRowsFromTable(articlesTable, PRICE_COLUMN);
+        String[] articleProductionDates = TableController.fetchRowsFromTable(articlesTable, PRODUCTION_DATE_COLUMN);
+        String[] articlePositions = TableController.fetchRowsFromTable(articlesTable, POSITION_COLUMN);
 
         if (articleCodes == null || articleTypes == null || articlePrices == null ||  articleProductionDates == null ||
                 articlePositions == null) {
             JOptionPane.showMessageDialog(this,
-                    "Empty table",
-                    "Error",
+                    i18n.getString("error_empty_fields"),
+                    i18n.getString("error_title"),
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -162,8 +149,8 @@ public class InsertEntranceView extends javax.swing.JFrame {
                 articlePositions.length
         })) {
             JOptionPane.showMessageDialog(this,
-                    "Number of elements differ",
-                    "Error",
+                    i18n.getString("error_elements_length_differ"),
+                    i18n.getString("error_title"),
                     JOptionPane.ERROR_MESSAGE);
 
             return;
@@ -176,8 +163,8 @@ public class InsertEntranceView extends javax.swing.JFrame {
 
             if (articleType == null) {
                 JOptionPane.showMessageDialog(this,
-                        "Article type not found",
-                        "Error",
+                        i18n.getString("error_article_type_not_found"),
+                        i18n.getString("error_title"),
                         JOptionPane.ERROR_MESSAGE);
 
                 return;
@@ -187,8 +174,8 @@ public class InsertEntranceView extends javax.swing.JFrame {
 
             if (position == null) {
                 JOptionPane.showMessageDialog(this,
-                        "Position code not found",
-                        "Error",
+                        i18n.getString("error_position_code_not_found"),
+                        i18n.getString("error_title"),
                         JOptionPane.ERROR_MESSAGE);
 
                 return;
@@ -203,19 +190,21 @@ public class InsertEntranceView extends javax.swing.JFrame {
 
         boolean articleCodesAreValid = checkIsAlreadyStoredArticleCode(articleCodes);
 
-        if (articleCodesAreValid) {
-            InsertEntranceController.insertArticlesAsEntrance(articles);
-
+        if (!articleCodesAreValid) {
             JOptionPane.showMessageDialog(this,
-                    "Articles inserted",
-                    "Info",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this,
-                    "A code is already in the warehouse",
-                    "Error",
+                    i18n.getString("error_article_code_already_stored"),
+                    i18n.getString("error_title"),
                     JOptionPane.ERROR_MESSAGE);
+
+            return;
         }
+
+        InsertEntranceController.insertArticlesAsEntrance(articles);
+
+        JOptionPane.showMessageDialog(this,
+                i18n.getString("info_articles_inserted"),
+                i18n.getString("info_title"),
+                JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_createEntranceButtonActionPerformed
 
@@ -245,7 +234,6 @@ public class InsertEntranceView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel articlesLabel;
     private javax.swing.JTable articlesTable;
     private javax.swing.JButton createEntranceButton;
     private javax.swing.JPanel jPanel1;
