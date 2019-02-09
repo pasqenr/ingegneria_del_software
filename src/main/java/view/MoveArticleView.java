@@ -136,14 +136,16 @@ public class MoveArticleView extends javax.swing.JFrame {
         String articleCode = articleCodeTextField.getText();
         article = ArticleModel.find(articleCode);
 
-        if (article != null) {
-            articleOldPositionTextField.setText(article.getPosition().getRawPosition());
-        } else {
+        if (article == null) {
             JOptionPane.showMessageDialog(this,
-                    "Invalid article code",
-                    "Wrong code",
+                    i18n.getString("error_invalid_article_code"),
+                    i18n.getString("error_title"),
                     JOptionPane.ERROR_MESSAGE);
+
+            return;
         }
+
+        articleOldPositionTextField.setText(article.getPosition().getRawPosition());
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void moveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moveButtonActionPerformed
@@ -152,8 +154,8 @@ public class MoveArticleView extends javax.swing.JFrame {
 
         if (article == null) {
             JOptionPane.showMessageDialog(this,
-                    "Please insert a valid article code",
-                    "Invalid code",
+                    i18n.getString("error_invalid_article_code"),
+                    i18n.getString("error_title"),
                     JOptionPane.ERROR_MESSAGE);
 
             return;
