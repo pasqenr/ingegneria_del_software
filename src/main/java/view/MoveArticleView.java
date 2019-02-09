@@ -4,9 +4,11 @@ import controller.MoveArticleController;
 import model.ArticleModel;
 
 import javax.swing.*;
-import java.awt.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class MoveArticleView extends javax.swing.JFrame {
+    private ResourceBundle i18n;
     private MoveArticleController moveArticleController;
     private ArticleModel article;
 
@@ -14,16 +16,10 @@ public class MoveArticleView extends javax.swing.JFrame {
      * Creates new form MoveArticleView
      */
     public MoveArticleView() {
+        i18n = ResourceBundle.getBundle("MoveArticleView", Locale.getDefault());
         moveArticleController = new MoveArticleController();
 
         initComponents();
-
-        // Center the frame
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension screenSize = toolkit.getScreenSize();
-        int x = (screenSize.width - getWidth()) / 2;
-        int y = (screenSize.height - getHeight()) / 2;
-        setLocation(x, y);
     }
 
     /**
@@ -46,29 +42,29 @@ public class MoveArticleView extends javax.swing.JFrame {
         moveButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Move article");
+        setTitle(i18n.getString("title"));
 
         jPanel1.setToolTipText("");
 
-        articleCodeLabel.setText("Article code:");
+        articleCodeLabel.setText(i18n.getString("article_code_label"));
 
-        searchButton.setText("Search");
+        searchButton.setText(i18n.getString("search"));
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
             }
         });
 
-        articleOldPositionLabel.setText("Article old position:");
+        articleOldPositionLabel.setText(i18n.getString("article_current_position_label"));
 
         articleOldPositionTextField.setEditable(false);
         articleOldPositionTextField.setBorder(null);
 
-        avaiableNewPositionsLabel.setText("Avaiable new positions:");
+        avaiableNewPositionsLabel.setText(i18n.getString("avaiable_positions_label"));
 
         freePositionsComboBox.setModel(moveArticleController.getFreePositionComboBoxModel());
 
-        moveButton.setText("Move");
+        moveButton.setText(i18n.getString("move_button"));
         moveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 moveButtonActionPerformed(evt);
@@ -133,6 +129,7 @@ public class MoveArticleView extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
