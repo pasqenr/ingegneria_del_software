@@ -133,6 +133,17 @@ public class InsertArticleTypeView extends javax.swing.JFrame {
             return;
         }
 
+        boolean areSportsValid = InsertArticleTypeController.areSportsValid(articleTypeSports);
+
+        if (!areSportsValid) {
+            JOptionPane.showMessageDialog(this,
+                    i18n.getString("error_sport_not_found"),
+                    i18n.getString("error_title"),
+                    JOptionPane.ERROR_MESSAGE);
+
+            return;
+        }
+
         InsertArticleTypeController.addAll(articleTypesNames,
                 articleTypeDescriptions,
                 articleTypeMaterials,

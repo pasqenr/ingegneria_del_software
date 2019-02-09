@@ -23,12 +23,12 @@ public class InsertArticleTypeController {
                               String[] articleTypeMaterials,
                               String[] articleTypeSports) {
         for (int i = 0; i < articleTypesNames.length; i++) {
-            ArticleType articleType = new ArticleType(
-                    articleTypesNames[i],
-                    articleTypeDescriptions[i],
-                    articleTypeMaterials[i],
-                    SportModel.find(articleTypeSports[i]));
+            String name = articleTypesNames[i];
+            String description = articleTypeDescriptions[i];
+            String materials = articleTypeMaterials[i];
+            SportModel sport = SportModel.find(articleTypeSports[i]);
 
+            ArticleType articleType = new ArticleType(name, description, materials, sport);
             articleType.store();
         }
     }
@@ -53,5 +53,26 @@ public class InsertArticleTypeController {
         }
 
         return matches != 0;
+    }
+
+    /**
+     * Check if all the sports are stored in the database.
+     *
+     * @param sportNames Unique names of the sports.
+     * @return <code>true</code> if all the sports are found, <code>false</code> otherwise.
+     */
+    public static boolean areSportsValid(String[] sportNames) {
+        int matches = 0;
+        List<SportModel> sports = SportModel.findAll();
+
+        for (SportModel sport : sports) {
+            for (String sportName : sportNames) {
+                if (sport.getName().equals(sportName)) {
+                    matches++;
+                }
+            }
+        }
+
+        return matches == sportNames.length;
     }
 }

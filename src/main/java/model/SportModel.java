@@ -5,6 +5,8 @@ import database.DatabaseWrapper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represent a Sport, table <code>sport</code>.
@@ -52,9 +54,10 @@ public class SportModel {
             stmt.setString(1, name);
             ResultSet rs = stmt.executeQuery();
 
-            rs.next();
-            String sportName = rs.getString("nome");
-            sport = new SportModel(sportName);
+            if (rs.next()) {
+                String sportName = rs.getString("nome");
+                sport = new SportModel(sportName);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,6 +65,29 @@ public class SportModel {
         db.close();
 
         return sport;
+    }
+
+    public static List<SportModel> findAll() {
+        List<SportModel> sports = new ArrayList<>();
+        DatabaseWrapper db = new DatabaseWrapper();
+        String query = "SELECT s.nome FROM sport s";
+        PreparedStatement stmt;
+
+        try {
+            stmt = db.getCon().prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String sportName = rs.getString("nome");
+                sports.add(new SportModel(sportName));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        db.close();
+
+        return sports;
     }
 
     @Override
