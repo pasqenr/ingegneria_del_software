@@ -110,7 +110,9 @@ public class ManagerView extends javax.swing.JFrame {
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new ManagerView(new
-                UserModel("mario.rossi@gmail.com", "Responsabile", StoreModel.find("NEG001"))).setVisible(true));
+                UserModel("mario.rossi@gmail.com",
+                "Responsabile",
+                StoreModel.getInstance().find("NEG001"))).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

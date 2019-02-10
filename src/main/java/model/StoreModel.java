@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Represent a Store, table <code>negozio</code>.
  */
-public class StoreModel extends Model {
+public class StoreModel extends Model implements GenericDAO {
     private String code;
     private String name;
     private String address;
@@ -30,6 +30,10 @@ public class StoreModel extends Model {
         this.name = name;
         this.address = address;
         this.city = city;
+    }
+
+    public static StoreModel getInstance() {
+        return new StoreModel(null, null, null, null);
     }
 
     /**
@@ -88,13 +92,8 @@ public class StoreModel extends Model {
         return city;
     }
 
-    /**
-     * Find the Store identified by the unique code.
-     *
-     * @param code The unique code of the Store.
-     * @return The Store identified by code.
-     */
-    public static StoreModel find(String code) {
+    @Override
+    public StoreModel find(String code) {
         String query = "SELECT n.codice_fiscale, n.nome, n.indirizzo, n.citta " +
                 "FROM negozio n " +
                 "WHERE  n.codice_fiscale LIKE ?";
@@ -145,12 +144,8 @@ public class StoreModel extends Model {
         return store;
     }
 
-    /**
-     * Returns all the Stores.
-     *
-     * @return A list of all the Stores in the database.
-     */
-    public static List<StoreModel> findAll() {
+    @Override
+    public List<StoreModel> findAll() {
         List<StoreModel> stores = new ArrayList<>();
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT n.codice_fiscale, n.nome, n.indirizzo, n.citta FROM negozio n";
@@ -171,6 +166,11 @@ public class StoreModel extends Model {
         db.close();
 
         return stores;
+    }
+
+    @Override
+    public boolean store() {
+        return false;
     }
 
     /**
@@ -195,10 +195,5 @@ public class StoreModel extends Model {
         }
 
         return new StoreModel(code, name, address, city);
-    }
-
-    @Override
-    public boolean store() {
-        return false;
     }
 }

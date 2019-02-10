@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Represent ArticleType, table <code>tipo_articolo</code>.
  */
-public class ArticleType extends Model {
+public class ArticleType extends Model implements GenericDAO {
     private String name;
     private String description;
     private String materials;
@@ -30,6 +30,10 @@ public class ArticleType extends Model {
         this.description = description;
         this.materials = materials;
         this.sport = sport;
+    }
+
+    public static ArticleType getInstance() {
+        return new ArticleType(null, null, null, null);
     }
 
     /**
@@ -88,13 +92,8 @@ public class ArticleType extends Model {
         this.sport = sport;
     }
 
-    /**
-     * Find the ArticleType identified by the unique name.
-     *
-     * @param name The name of the ArticleType.
-     * @return The ArticleType identified by name.
-     */
-    public static ArticleType find(String name) {
+    @Override
+    public ArticleType find(String name) {
         ArticleType articleType = null;
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT ta.nome, ta.descrizione, ta.materiali, ta.sport " +
@@ -123,12 +122,8 @@ public class ArticleType extends Model {
         return articleType;
     }
 
-    /**
-     * Returns all the Articles.
-     *
-     * @return The list of all the Articles stored in the database.
-     */
-    public static List<ArticleType> findAll() {
+    @Override
+    public List<ArticleType> findAll() {
         List<ArticleType> articleTypes = new ArrayList<>();
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT ta.nome, ta.descrizione, ta.materiali, ta.sport FROM tipo_articolo ta";

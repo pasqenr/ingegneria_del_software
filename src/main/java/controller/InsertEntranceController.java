@@ -17,7 +17,7 @@ public class InsertEntranceController {
      *
      * @param articles A list of Article.
      */
-    public static void insertArticlesAsEntrance(List<ArticleModel> articles) {
+    public void insertArticlesAsEntrance(List<ArticleModel> articles) {
         // Create a new entrance
         EntranceModel entrance = createNewEntrance();
 
@@ -46,7 +46,7 @@ public class InsertEntranceController {
      * @return <true>code</true> if all the codes are not used in the database, <code>false</code> otherwise.
      */
     public boolean checkIsAlreadyStoredArticleCode(String[] tableCodes) {
-        String[] storedCodes = ArticleModel.getArticlesCodes();
+        String[] storedCodes = ArticleModel.getInstance().getArticlesCodes();
 
         for (String tableCode : tableCodes) {
             for (String storedCode : storedCodes) {
@@ -64,7 +64,7 @@ public class InsertEntranceController {
      *
      * @return The last instance inserted.
      */
-    private static EntranceModel createNewEntrance() {
+    private EntranceModel createNewEntrance() {
         insertEntrance();
 
         return fetchLastEntrance();
@@ -73,7 +73,7 @@ public class InsertEntranceController {
     /**
      * Create a new Entrance in the database.
      */
-    private static void insertEntrance() {
+    private void insertEntrance() {
         EntranceModel entrance = new EntranceModel();
         entrance.store();
     }
@@ -81,9 +81,9 @@ public class InsertEntranceController {
     /**
      * @return The last Entrance in the database.
      */
-    private static EntranceModel fetchLastEntrance() {
-        int greatestCode = EntranceModel.getGreatestCode();
+    private EntranceModel fetchLastEntrance() {
+        int greatestCode = EntranceModel.getInstance().getGreatestCode();
 
-        return EntranceModel.find(greatestCode);
+        return EntranceModel.getInstance().find(greatestCode);
     }
 }

@@ -5,11 +5,12 @@ import database.DatabaseWrapper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Represent an Order, table <code>ordine</code>.
  */
-public class OrderModel extends Model {
+public class OrderModel extends Model implements GenericDAO {
     private String code;
     private String date;
     private StoreModel store;
@@ -73,13 +74,8 @@ public class OrderModel extends Model {
         this.store = store;
     }
 
-    /**
-     * Find the Order identified by the unique code.
-     *
-     * @param code The unique code of the Order.
-     * @return The Order identified by code.
-     */
-    public static OrderModel find(String code) {
+    @Override
+    public OrderModel find(String code) {
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT o.codice, o.data, o.negozio FROM ordine o WHERE o.codice LIKE ?";
         PreparedStatement stmt;
@@ -93,7 +89,7 @@ public class OrderModel extends Model {
 
             if (rs.next()) {
                 String date = rs.getString("data");
-                StoreModel store = StoreModel.find(rs.getString("negozio"));
+                StoreModel store = StoreModel.getInstance().find(rs.getString("negozio"));
                 order = new OrderModel(code, date, store);
             }
         } catch (SQLException e) {
@@ -103,6 +99,11 @@ public class OrderModel extends Model {
         db.close();
 
         return order;
+    }
+
+    @Override
+    public List<? extends Model> findAll() {
+        return null;
     }
 
     public OrderModel fetchLast() {
@@ -119,7 +120,7 @@ public class OrderModel extends Model {
             if (rs.next()) {
                 String code = rs.getString("codice");
                 String date = rs.getString("data");
-                StoreModel store = StoreModel.find(rs.getString("negozio"));
+                StoreModel store = StoreModel.getInstance().find(rs.getString("negozio"));
                 order = new OrderModel(code, date, store);
             }
         } catch (SQLException e) {

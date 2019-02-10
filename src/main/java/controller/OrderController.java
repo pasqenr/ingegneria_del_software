@@ -1,9 +1,6 @@
 package controller;
 
-import model.ArticleType;
-import model.OrderModel;
-import model.OrderTypeArticleModel;
-import model.StoreModel;
+import model.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,7 +44,7 @@ public class OrderController {
     private static List<ArticleType> articleTypesToList(String[] articleTypesNames) {
         List<ArticleType> articleTypes = new ArrayList<>();
         for (String articleTypeName : articleTypesNames) {
-            articleTypes.add(ArticleType.find(articleTypeName));
+            articleTypes.add(ArticleType.getInstance().find(articleTypeName));
         }
 
         return articleTypes;

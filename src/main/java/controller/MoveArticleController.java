@@ -41,7 +41,7 @@ public class MoveArticleController {
      * @return A ComboBoxModel with all the positions.
      */
     public DefaultComboBoxModel<String> getArticleCodesComboBoxModel() {
-        return new DefaultComboBoxModel<>(ArticleModel.getArticlesCodes());
+        return new DefaultComboBoxModel<>(ArticleModel.getInstance().getArticlesCodes());
     }
 
     /**

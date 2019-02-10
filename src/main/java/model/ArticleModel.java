@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Represent an Article, table <code>articolo</code>.
  */
-public class ArticleModel extends Model implements Comparable {
+public class ArticleModel extends Model implements GenericDAO, Comparable {
     private String code;
     private ArticleType articleType;
     private String price;
@@ -34,6 +34,10 @@ public class ArticleModel extends Model implements Comparable {
         this.price = price;
         this.productionDate = productionDate;
         this.position = position;
+    }
+
+    public static ArticleModel getInstance() {
+        return new ArticleModel(null, null, null, null, null);
     }
 
     /**
@@ -106,13 +110,8 @@ public class ArticleModel extends Model implements Comparable {
         this.position = position;
     }
 
-    /**
-     * Returns the Article identified by code.
-     *
-     * @param code A valid article code.
-     * @return The Article identified by the code.
-     */
-    public static ArticleModel find(String code) {
+    @Override
+    public ArticleModel find(String code) {
         ArticleModel article = null;
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT a.codice, a.tipo_articolo, a.prezzo, a.data_produzione, a.posizione " +
@@ -137,12 +136,8 @@ public class ArticleModel extends Model implements Comparable {
         return article;
     }
 
-    /**
-     * Returns all the Articles.
-     *
-     * @return A list of all the Articles in the database.
-     */
-    public static List<ArticleModel> findAll() {
+    @Override
+    public List<ArticleModel> findAll() {
         List<ArticleModel> articlesList = new ArrayList<>();
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT a.codice, a.tipo_articolo, a.prezzo, a.data_produzione, a.posizione FROM articolo a";
@@ -171,7 +166,7 @@ public class ArticleModel extends Model implements Comparable {
      * @param rs The ResultSet containing the Article or Articles fetched from the database.
      * @return A new Article.
      */
-    private static ArticleModel buildSingleFromResult(ResultSet rs) {
+    private ArticleModel buildSingleFromResult(ResultSet rs) {
         String code = null;
         ArticleType articleType = null;
         String price = null;
@@ -185,7 +180,7 @@ public class ArticleModel extends Model implements Comparable {
             productionDate = rs.getString("data_produzione");
             String positionCode = rs.getString("posizione");
 
-            articleType = ArticleType.find(articleName);
+            articleType = ArticleType.getInstance().find(articleName);
             position = new PositionController().findPositionByCode(positionCode);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -199,8 +194,8 @@ public class ArticleModel extends Model implements Comparable {
      *
      * @return An array of Article codes.
      */
-    public static String[] getArticlesCodes() {
-        List<ArticleModel> articles = ArticleModel.findAll();
+    public String[] getArticlesCodes() {
+        List<ArticleModel> articles = ArticleModel.getInstance().findAll();
         String[] codes = new String[articles.size()];
 
         int i = 0;

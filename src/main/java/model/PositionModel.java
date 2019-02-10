@@ -1,9 +1,11 @@
 package model;
 
+import java.util.List;
+
 /**
  * Represent a Position, table <code>posizione</code>.
  */
-public class PositionModel {
+public class PositionModel extends Model implements GenericDAO {
     private String pos;
 
     /**
@@ -40,5 +42,20 @@ public class PositionModel {
         result = 31 * result + pos.hashCode();
 
         return result;
+    }
+
+    @Override
+    public PositionModel find(String id) {
+        return null;
+    }
+
+    @Override
+    public List<PositionModel> findAll() {
+        return null;
+    }
+
+    @Override
+    public boolean store() {
+        return false;
     }
 }

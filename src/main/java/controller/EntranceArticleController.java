@@ -62,9 +62,9 @@ public class EntranceArticleController {
                 if (hasCodeChanged(lastEntranceCode, entranceCode)) { // Insert new EntranceArticleModel
                     addPreviousArticlesWithSameCode(entranceArticles, fetchedArticles, lastEntranceCode);
                     fetchedArticles.clear();
-                    fetchedArticles.add(ArticleModel.find(articleCode));
+                    fetchedArticles.add(ArticleModel.getInstance().find(articleCode));
                 } else { // Store new articles with the same entranceCode
-                    fetchedArticles.add(ArticleModel.find(articleCode));
+                    fetchedArticles.add(ArticleModel.getInstance().find(articleCode));
                 }
 
                 lastEntranceCode = entranceCode;
@@ -104,7 +104,7 @@ public class EntranceArticleController {
     private void addPreviousArticlesWithSameCode(List<EntranceArticleModel> entranceArticles,
                                                  List<ArticleModel> articles,
                                                  int entranceCode) {
-        EntranceModel entrance = EntranceModel.find(entranceCode);
+        EntranceModel entrance = EntranceModel.getInstance().find(entranceCode);
         EntranceArticleModel entranceArticleModel = new EntranceArticleModel(articles, entrance);
 
         entranceArticles.add(entranceArticleModel);

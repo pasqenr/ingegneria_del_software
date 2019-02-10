@@ -19,18 +19,18 @@ public class InsertLeaveController {
      * @param store The store where send the articles
      * @param courier The courier that will carry the articles.
      */
-    public static void addLeave(int leaveNumber,
-                                String orderCode,
-                                List<ArticleModel> articles,
-                                String date,
-                                StoreModel store,
-                                CourierModel courier) {
+    public void addLeave(int leaveNumber,
+                         String orderCode,
+                         List<ArticleModel> articles,
+                         String date,
+                         StoreModel store,
+                         CourierModel courier) {
         // Add the leave
         LeaveModel leave = new LeaveModel(leaveNumber, date, store, courier);
         leave.store();
 
         // Add all the articles to the leave
-        int lastLeaveNumber = LeaveModel.getLastId();
+        int lastLeaveNumber = LeaveModel.getInstance().getLastId();
         ArticleLeaveModel articleLeave = new ArticleLeaveModel(articles, lastLeaveNumber);
         articleLeave.store();
 

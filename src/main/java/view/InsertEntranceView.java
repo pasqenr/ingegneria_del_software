@@ -161,7 +161,7 @@ public class InsertEntranceView extends javax.swing.JFrame {
         List<ArticleModel> articles = new ArrayList<>();
 
         for (int i = 0; i < articleCodes.length; i++) {
-            ArticleType articleType = ArticleType.find(articleTypes[i]);
+            ArticleType articleType = ArticleType.getInstance().find(articleTypes[i]);
 
             if (articleType == null) {
                 JOptionPane.showMessageDialog(this,
@@ -201,7 +201,7 @@ public class InsertEntranceView extends javax.swing.JFrame {
             return;
         }
 
-        InsertEntranceController.insertArticlesAsEntrance(articles);
+        insertEntranceController.insertArticlesAsEntrance(articles);
 
         JOptionPane.showMessageDialog(this,
                 i18n.getString("info_articles_inserted"),

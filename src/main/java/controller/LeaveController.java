@@ -37,7 +37,7 @@ public class LeaveController {
      * @param db A <code>DatabaseWrapper</code> instance.
      * @return The <code>ResultSet</code> of the orders used to populate <code>ordersModel</code> table.
      */
-    private static ResultSet fetchEntranceOrders(DatabaseWrapper db) {
+    private ResultSet fetchEntranceOrders(DatabaseWrapper db) {
         ResultSet rs = null;
 
         String query =

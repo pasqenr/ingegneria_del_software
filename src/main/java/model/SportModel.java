@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Represent a Sport, table <code>sport</code>.
  */
-public class SportModel {
+public class SportModel extends Model implements GenericDAO {
     private String name;
 
     /**
@@ -21,6 +21,10 @@ public class SportModel {
      */
     public SportModel(String name) {
         this.name = name;
+    }
+
+    public static SportModel getInstance() {
+        return new SportModel(null);
     }
 
     /**
@@ -37,13 +41,8 @@ public class SportModel {
         return name;
     }
 
-    /**
-     * Find the Sport identified by the unique name.
-     *
-     * @param name The name of the Sport.
-     * @return The Sport identified by name.
-     */
-    public static SportModel find(String name) {
+    @Override
+    public SportModel find(String name) {
         SportModel sport = null;
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT s.nome FROM sport s WHERE s.nome LIKE ?";
@@ -67,7 +66,8 @@ public class SportModel {
         return sport;
     }
 
-    public static List<SportModel> findAll() {
+    @Override
+    public List<SportModel> findAll() {
         List<SportModel> sports = new ArrayList<>();
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT s.nome FROM sport s";
@@ -88,6 +88,11 @@ public class SportModel {
         db.close();
 
         return sports;
+    }
+
+    @Override
+    public boolean store() {
+        return false;
     }
 
     @Override

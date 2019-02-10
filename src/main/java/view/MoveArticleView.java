@@ -134,7 +134,7 @@ public class MoveArticleView extends javax.swing.JFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         String articleCode = articleCodeTextField.getText();
-        article = ArticleModel.find(articleCode);
+        article = ArticleModel.getInstance().find(articleCode);
 
         if (article == null) {
             JOptionPane.showMessageDialog(this,

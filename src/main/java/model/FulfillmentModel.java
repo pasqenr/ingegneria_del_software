@@ -4,11 +4,12 @@ import database.DatabaseWrapper;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Represent a (order) Fulfillment, table <code>evasione</code>.
  */
-public class FulfillmentModel extends Model {
+public class FulfillmentModel extends Model implements GenericDAO {
     private String orderCode;
     private int leaveNumber;
 
@@ -21,6 +22,20 @@ public class FulfillmentModel extends Model {
     public FulfillmentModel(String orderCode, int leaveNumber) {
         this.orderCode = orderCode;
         this.leaveNumber = leaveNumber;
+    }
+
+    public static FulfillmentModel getInstance() {
+        return new FulfillmentModel(null, 0);
+    }
+
+    @Override
+    public FulfillmentModel find(String id) {
+        return null;
+    }
+
+    @Override
+    public List<FulfillmentModel> findAll() {
+        return null;
     }
 
     @Override

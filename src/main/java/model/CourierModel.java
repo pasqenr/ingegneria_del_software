@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Represent a Courier, table <code>spedizioniere</code>.
  */
-public class CourierModel extends Model {
+public class CourierModel extends Model implements GenericDAO {
     private String name;
 
     /**
@@ -21,6 +21,10 @@ public class CourierModel extends Model {
      */
     public CourierModel(String name) {
         this.name = name;
+    }
+
+    public static CourierModel getInstance() {
+        return new CourierModel(null);
     }
 
     /**
@@ -37,13 +41,8 @@ public class CourierModel extends Model {
         this.name = name;
     }
 
-    /**
-     * Returns the Courier identified by the name
-     *
-     * @param name A valid Courier name.
-     * @return The Courier identified by name.
-     */
-    public static CourierModel find(String name) {
+    @Override
+    public CourierModel find(String name) {
         CourierModel courier = null;
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT s.nome " +
@@ -68,12 +67,8 @@ public class CourierModel extends Model {
         return courier;
     }
 
-    /**
-     * Returns all the Couriers.
-     *
-     * @return A list of all the Couriers.
-     */
-    public static List<CourierModel> findAll() {
+    @Override
+    public List<CourierModel> findAll() {
         List<CourierModel> couriers = new ArrayList<>();
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT s.nome FROM spedizioniere s";
@@ -102,7 +97,7 @@ public class CourierModel extends Model {
      * @param rs The ResultSet containing the Courier or Couriers fetched from the database.
      * @return A new Courier.
      */
-    private static CourierModel buildSingleFromResult(ResultSet rs) {
+    private CourierModel buildSingleFromResult(ResultSet rs) {
         String name = null;
         CourierModel courier = null;
 

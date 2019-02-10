@@ -26,7 +26,7 @@ public class InsertArticleTypeController {
             String name = articleTypesNames[i];
             String description = articleTypeDescriptions[i];
             String materials = articleTypeMaterials[i];
-            SportModel sport = SportModel.find(articleTypeSports[i]);
+            SportModel sport = SportModel.getInstance().find(articleTypeSports[i]);
 
             ArticleType articleType = new ArticleType(name, description, materials, sport);
             articleType.store();
@@ -42,7 +42,7 @@ public class InsertArticleTypeController {
      */
     public boolean areArticleTypesAlreadyStored(String[] articleTypes) {
         int matches = 0;
-        List<ArticleType> articleTypeList = ArticleType.findAll();
+        List<ArticleType> articleTypeList = ArticleType.getInstance().findAll();
 
         for (ArticleType articleType : articleTypeList) {
             for (String articleCode : articleTypes) {
@@ -63,7 +63,7 @@ public class InsertArticleTypeController {
      */
     public boolean areSportsValid(String[] sportNames) {
         int matches = 0;
-        List<SportModel> sports = SportModel.findAll();
+        List<SportModel> sports = SportModel.getInstance().findAll();
 
         for (SportModel sport : sports) {
             for (String sportName : sportNames) {

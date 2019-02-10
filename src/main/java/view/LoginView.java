@@ -7,9 +7,12 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LoginView {
+
+
     public LoginView() {
         JFrame f = new JFrame();
         ResourceBundle i18n = ResourceBundle.getBundle("LoginView", Locale.getDefault());
+        LoginController loginController = new LoginController();
 
         JButton loginButton = new JButton(i18n.getString("submit"));
         JTextField emailTextField = new JTextField();
@@ -62,10 +65,10 @@ public class LoginView {
 
         // Set listeners
         loginButton.addActionListener(actionEvent -> {
-            UserModel user = LoginController.login(emailTextField.getText(),
+            UserModel user = loginController.login(emailTextField.getText(),
                     charArrayToString(passwordTextField.getPassword()));
 
-            if (LoginController.isLogged(user)) {
+            if (loginController.isLogged()) {
                 switch (user.getRole()) {
                     case "Magazziniere":
                         SwingUtilities.invokeLater(() -> new WorkerView(user).setVisible(true));

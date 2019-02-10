@@ -8,11 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * Represent an Entrance, table <code>ingresso</code>.
  */
-public class EntranceModel extends Model implements Comparable {
+public class EntranceModel extends Model implements GenericDAO, Comparable {
     private int code;
     private String date;
 
@@ -39,6 +40,10 @@ public class EntranceModel extends Model implements Comparable {
         date = dateTimeFormatter.format(localDateTime);
     }
 
+    public static EntranceModel getInstance() {
+        return new EntranceModel();
+    }
+
     /**
      * @return The code.
      */
@@ -46,13 +51,12 @@ public class EntranceModel extends Model implements Comparable {
         return code;
     }
 
-    /**
-     * Returns the Entrance identified by the code.
-     *
-     * @param code A valid Entrance code.
-     * @return The Entrance identified by code.
-     */
-    public static EntranceModel find(int code) {
+    @Override
+    public EntranceModel find(String code) {
+        return EntranceModel.getInstance().find(Integer.valueOf(code));
+    }
+
+    public EntranceModel find(int code) {
         EntranceModel entrance = null;
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT i.codice, i.data FROM ingresso i WHERE i.codice = ?";
@@ -84,7 +88,7 @@ public class EntranceModel extends Model implements Comparable {
      *
      * @return The code of the newest Entrance.
      */
-    public static int getGreatestCode() {
+    public int getGreatestCode() {
         int greatestCode = -1;
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT i.codice FROM ingresso i ORDER BY i.codice DESC LIMIT 1";
@@ -103,6 +107,11 @@ public class EntranceModel extends Model implements Comparable {
         db.close();
 
         return greatestCode;
+    }
+
+    @Override
+    public List<EntranceModel> findAll() {
+        return null;
     }
 
     @Override

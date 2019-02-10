@@ -16,6 +16,7 @@ public class InsertLeaveView extends javax.swing.JFrame {
     private List<CourierModel> courierList;
     private DefaultComboBoxModel<String> storesComboBoxModel;
     private DefaultComboBoxModel<String> courierComboBoxModel;
+    private InsertLeaveController insertLeaveController;
 
     private enum ColumnPosition {
         ARTICLE_CODE (0);
@@ -30,8 +31,9 @@ public class InsertLeaveView extends javax.swing.JFrame {
      */
     public InsertLeaveView() {
         i18n = ResourceBundle.getBundle("InsertLeaveView", Locale.getDefault());
-        storesList = StoreModel.findAll();
-        courierList = CourierModel.findAll();
+        storesList = StoreModel.getInstance().findAll();
+        courierList = CourierModel.getInstance().findAll();
+        insertLeaveController = new InsertLeaveController();
 
         initModels();
         initComponents();
@@ -222,7 +224,7 @@ public class InsertLeaveView extends javax.swing.JFrame {
     private void insertOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertOrderButtonActionPerformed
         String orderCode = orderNumberTextField.getText();
 
-        OrderModel order = OrderModel.find(orderCode);
+        OrderModel order = OrderModel.getInstance().find(orderCode);
 
         if (order == null) {
             JOptionPane.showMessageDialog(this,
@@ -256,17 +258,17 @@ public class InsertLeaveView extends javax.swing.JFrame {
         List<ArticleModel> articles = new ArrayList<>();
 
         for (String articleCode : articleCodes) {
-            articles.add(ArticleModel.find(articleCode));
+            articles.add(ArticleModel.getInstance().find(articleCode));
         }
 
         int leaveNumber = Integer.valueOf(leaveNumberTextField.getText());
         String date = dateTextField.getText();
         StoreModel store = StoreModel.findByName(((String)storeNameComboBox.getSelectedItem()));
-        CourierModel courier = CourierModel.find(((String)courierComboBox.getSelectedItem()));
+        CourierModel courier = CourierModel.getInstance().find(((String)courierComboBox.getSelectedItem()));
 
         articles.forEach(System.out::println);
 
-        InsertLeaveController.addLeave(leaveNumber, orderCode, articles, date, store, courier);
+        insertLeaveController.addLeave(leaveNumber, orderCode, articles, date, store, courier);
 
         JOptionPane.showMessageDialog(this,
             i18n.getString("info_leave_inserted"),
@@ -275,7 +277,7 @@ public class InsertLeaveView extends javax.swing.JFrame {
     }//GEN-LAST:event_insertOrderButtonActionPerformed
 
     private boolean checkIsAlreadyStoredArticleCode(String[] tableCodes) {
-        String[] storedCodes = ArticleModel.getArticlesCodes();
+        String[] storedCodes = ArticleModel.getInstance().getArticlesCodes();
         int matchCounter = 0;
 
         for (String tableCode : tableCodes) {

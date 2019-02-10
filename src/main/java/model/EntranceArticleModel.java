@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Represente an EntranceArticle, table <code>ingresso_articolo</code>.
  */
-public class EntranceArticleModel extends Model {
+public class EntranceArticleModel extends Model implements GenericDAO {
     private List<ArticleModel> articles;
     private EntranceModel entrance;
 
@@ -23,6 +23,16 @@ public class EntranceArticleModel extends Model {
     public EntranceArticleModel(List<ArticleModel> articles, EntranceModel entrance) {
         this.articles = new ArrayList<>(articles);
         this.entrance = entrance;
+    }
+
+    @Override
+    public EntranceArticleModel find(String id) {
+        return null;
+    }
+
+    @Override
+    public List<EntranceArticleModel> findAll() {
+        return null;
     }
 
     @Override

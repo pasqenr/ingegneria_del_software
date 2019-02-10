@@ -1,9 +1,11 @@
 package model;
 
+import java.util.List;
+
 /**
  * Represent a User, table <code>utente</code>.
  */
-public class UserModel {
+public class UserModel extends Model implements GenericDAO {
     private String email;
     private String role;
     private StoreModel store;
@@ -69,5 +71,20 @@ public class UserModel {
     @Override
     public String toString() {
         return "UserModel: email: " + email + ", role: " + role;
+    }
+
+    @Override
+    public UserModel find(String id) {
+        return null;
+    }
+
+    @Override
+    public List<UserModel> findAll() {
+        return null;
+    }
+
+    @Override
+    public boolean store() {
+        return false;
     }
 }

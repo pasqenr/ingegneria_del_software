@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Represent the entity ArticleLeave, table <code>uscita_articolo</code>.
  */
-public class ArticleLeaveModel extends Model {
+public class ArticleLeaveModel extends Model implements GenericDAO {
     private List<ArticleModel> articles;
     private int orderNumber;
 
@@ -22,6 +22,16 @@ public class ArticleLeaveModel extends Model {
     public ArticleLeaveModel(List<ArticleModel> articles, int orderNumber) {
         this.articles = articles;
         this.orderNumber = orderNumber;
+    }
+
+    @Override
+    public Model find(String id) {
+        return null;
+    }
+
+    @Override
+    public List<Model> findAll() {
+        return null;
     }
 
     @Override

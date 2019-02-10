@@ -88,7 +88,7 @@ public class OrdersFulfillmentView extends javax.swing.JFrame {
 
     private void showButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showButtonActionPerformed
         String orderNumber = orderCodeTextField.getText();
-        OrderModel order = OrderModel.find(orderNumber);
+        OrderModel order = OrderModel.getInstance().find(orderNumber);
 
         if (order == null) {
             JOptionPane.showMessageDialog(this,

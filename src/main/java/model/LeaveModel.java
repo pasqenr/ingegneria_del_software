@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Represent a Leave, table <code>uscita</code>.
  */
-public class LeaveModel extends Model {
+public class LeaveModel extends Model implements GenericDAO {
     private int leaveNumber;
     private String date;
     private StoreModel store;
@@ -30,6 +30,10 @@ public class LeaveModel extends Model {
         this.date = date;
         this.store = store;
         this.courier = courier;
+    }
+
+    public static LeaveModel getInstance() {
+        return new LeaveModel(0, null, null, null);
     }
 
     /**
@@ -94,7 +98,7 @@ public class LeaveModel extends Model {
      * @param leaveNumber The unique number of the Leave.
      * @return The Leave with that leaveNumber.
      */
-    public static LeaveModel find(int leaveNumber) {
+    public LeaveModel find(int leaveNumber) {
         LeaveModel order = null;
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT u.numero_bolla, u.data, u.negozio, u.spedizioniere " +
@@ -119,12 +123,13 @@ public class LeaveModel extends Model {
         return order;
     }
 
-    /**
-     * Returns all the Leaves.
-     *
-     * @return A list of all the Leaves in the database.
-     */
-    public static List<LeaveModel> findAll() {
+    @Override
+    public LeaveModel find(String leaveNumber) {
+        return LeaveModel.getInstance().find(Integer.valueOf(leaveNumber));
+    }
+
+    @Override
+    public List<LeaveModel> findAll() {
         List<LeaveModel> orders = new ArrayList<>();
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT u.numero_bolla, u.data, u.negozio, u.spedizioniere FROM uscita u";
@@ -153,7 +158,7 @@ public class LeaveModel extends Model {
      * @param rs The ResultSet containing the Leave or Leaves fetched from the database.
      * @return A new Leave.
      */
-    private static LeaveModel buildSingleFromResult(ResultSet rs) {
+    private LeaveModel buildSingleFromResult(ResultSet rs) {
         int leaveNumber = 0;
         String date = null;
         StoreModel store = null;
@@ -179,7 +184,7 @@ public class LeaveModel extends Model {
      *
      * @return The number of the newest Leave in the database.
      */
-    public static int getLastId() {
+    public int getLastId() {
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT o.numero_bolla FROM uscita o ORDER BY o.numero_bolla DESC LIMIT 1";
         PreparedStatement stmt;
