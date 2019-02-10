@@ -34,7 +34,7 @@ class InsertLeaveControllerTest {
         StoreModel store = new StoreModel("NEG002", "Sport Center", "Via Verrara, 61", "Ostiglia");
         CourierModel courier = new CourierModel("UPS");
 
-        InsertLeaveController.addLeave(leaveNumber, orderCode, articles, date, store, courier);
+        new InsertLeaveController().addLeave(leaveNumber, orderCode, articles, date, store, courier);
 
         assertEquals(2, LeaveModel.getInstance().getLastId());
     }
