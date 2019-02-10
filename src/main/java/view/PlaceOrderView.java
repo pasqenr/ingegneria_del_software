@@ -12,6 +12,8 @@ import java.util.ResourceBundle;
 public class PlaceOrderView extends javax.swing.JFrame {
     private ResourceBundle i18n;
     private StoreModel store;
+    private InsertArticleTypeController insertArticleTypeController;
+    private OrderController orderController;
 
     /**
      * Creates new form PlaceOrderView
@@ -21,6 +23,8 @@ public class PlaceOrderView extends javax.swing.JFrame {
     public PlaceOrderView(StoreModel store) {
         i18n = ResourceBundle.getBundle("PlaceOrderView", Locale.getDefault());
         this.store = store;
+        insertArticleTypeController = new InsertArticleTypeController();
+        orderController = new OrderController();
 
         initComponents();
     }
@@ -36,10 +40,6 @@ public class PlaceOrderView extends javax.swing.JFrame {
 
         javax.swing.JLabel storeLabel = new javax.swing.JLabel();
         storeTextField = new javax.swing.JTextField();
-        orderCodeLabel = new javax.swing.JLabel();
-        orderCodeTextField = new javax.swing.JTextField();
-        dateLabel = new javax.swing.JLabel();
-        dateTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         articleTypeTable = new javax.swing.JTable();
         orderButton = new javax.swing.JButton();
@@ -54,10 +54,6 @@ public class PlaceOrderView extends javax.swing.JFrame {
         storeTextField.setEditable(false);
         storeTextField.setText(store.getName());
         storeTextField.setBorder(null);
-
-        orderCodeLabel.setText(i18n.getString("order_code"));
-
-        dateLabel.setText(i18n.getString("date"));
 
         articleTypeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -111,15 +107,9 @@ public class PlaceOrderView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(orderCodeLabel)
-                            .addComponent(storeLabel)
-                            .addComponent(dateLabel))
+                        .addComponent(storeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(storeTextField)
-                            .addComponent(orderCodeTextField)
-                            .addComponent(dateTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)))
+                        .addComponent(storeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(orderButton)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -131,14 +121,6 @@ public class PlaceOrderView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(storeLabel)
                     .addComponent(storeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(orderCodeLabel)
-                    .addComponent(orderCodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dateLabel)
-                    .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -158,10 +140,15 @@ public class PlaceOrderView extends javax.swing.JFrame {
         String[] amounts = TableController.fetchRowsFromTable(articleTypeTable, AMOUNT_COLUMN);
 
         if (articleTypesNames == null || amounts == null) {
+            JOptionPane.showMessageDialog(this,
+                    i18n.getString("error_empty_table"),
+                    i18n.getString("error_title"),
+                    JOptionPane.ERROR_MESSAGE);
+
             return;
         }
 
-        boolean areArticleTypesStored = InsertArticleTypeController.areArticleTypesAlreadyStored(articleTypesNames);
+        boolean areArticleTypesStored = insertArticleTypeController.areArticleTypesAlreadyStored(articleTypesNames);
 
         if (!areArticleTypesStored) {
             JOptionPane.showMessageDialog(this,
@@ -172,10 +159,7 @@ public class PlaceOrderView extends javax.swing.JFrame {
             return;
         }
 
-        String orderCode = orderCodeTextField.getText();
-        String date = dateTextField.getText();
-
-        OrderController.addOrder(orderCode, date, store, articleTypesNames, amounts);
+        orderController.addOrder(store, articleTypesNames, amounts);
     }//GEN-LAST:event_orderButtonActionPerformed
 
     /**
@@ -191,12 +175,8 @@ public class PlaceOrderView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable articleTypeTable;
-    private javax.swing.JLabel dateLabel;
-    private javax.swing.JTextField dateTextField;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton orderButton;
-    private javax.swing.JLabel orderCodeLabel;
-    private javax.swing.JTextField orderCodeTextField;
     private javax.swing.JTextField storeTextField;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,8 @@ import model.OrderModel;
 import model.OrderTypeArticleModel;
 import model.StoreModel;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,17 +17,15 @@ public class OrderController {
     /**
      * Add an Order in the database with the related article types and amounts of them.
      *
-     * @param orderCode A valid Order code.
-     * @param date A valid Order date.
      * @param store A valid Store model.
      * @param articleTypesNames An array of valid ArticleType names.
      * @param amounts An array of amounts.
      */
-    public static void addOrder(String orderCode,
-                                String date,
-                                StoreModel store,
-                                String[] articleTypesNames,
-                                String[] amounts) {
+    public void addOrder(StoreModel store, String[] articleTypesNames, String[] amounts) {
+        String orderCode = buildNewOrderCode();
+        String date = getCurrentDate();
+
+        // To list
         List<ArticleType> articleTypesList = articleTypesToList(articleTypesNames);
         List<Integer> amountsList = amountsToList(amounts);
 
@@ -66,5 +66,32 @@ public class OrderController {
         }
 
         return amountsList;
+    }
+
+    /**
+     * @return The current date in the format yyyy-MM-dd.
+     */
+    private String getCurrentDate() {
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+
+    /**
+     * @return The numerical part of the last order. Orders are made, for example, as <code>ORD001</code>. This
+     * function returns only the last part 001 as integer, so 1.
+     */
+    private int fetchLastOrderCodeNumber() {
+        String lastOrderCode = OrderModel.getInstance().fetchLast().getCode();
+
+        return Integer.valueOf(lastOrderCode.substring(4));
+    }
+
+    /**
+     * @return The new sequential order code to insert in the database. That is, the last order code + 1.
+     * For example: ORD001 -> buildNewOrderCode() -> ORD002.
+     */
+    private String buildNewOrderCode() {
+        int lastOrderCode = fetchLastOrderCodeNumber();
+
+        return String.format("ORD%03d", lastOrderCode + 1);
     }
 }
