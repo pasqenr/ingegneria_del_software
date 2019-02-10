@@ -36,6 +36,6 @@ class InsertLeaveControllerTest {
 
         InsertLeaveController.addLeave(leaveNumber, orderCode, articles, date, store, courier);
 
-        assertEquals(2, LeaveModel.getLastId());
+        assertEquals(2, LeaveModel.getInstance().getLastId());
     }
 }

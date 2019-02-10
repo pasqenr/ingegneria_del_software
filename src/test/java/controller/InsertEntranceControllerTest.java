@@ -23,7 +23,7 @@ class InsertEntranceControllerTest {
         List<ArticleModel> articles = new ArrayList<>();
 
         for (int i = 0; i < articleCodes.length; i++) {
-            ArticleType articleType = ArticleType.find(articleTypes[i]);
+            ArticleType articleType = ArticleType.getInstance().find(articleTypes[i]);
             PositionModel position = positionController.findFreePositionByCode(articlePositions[i]);
 
             assertNotNull(articleType);
@@ -38,17 +38,17 @@ class InsertEntranceControllerTest {
 
         insertEntranceController.insertArticlesAsEntrance(articles);
 
-        ArticleModel article1 = ArticleModel.find(articleCodes[0]);
-        ArticleModel article2 = ArticleModel.find(articleCodes[1]);
+        ArticleModel article1 = ArticleModel.getInstance().find(articleCodes[0]);
+        ArticleModel article2 = ArticleModel.getInstance().find(articleCodes[1]);
 
         assertNotNull(article1);
         assertNotNull(article2);
         assertEquals(article1.getPosition().getRawPosition(), articlePositions[0]);
         assertEquals(article2.getPosition().getRawPosition(), articlePositions[1]);
 
-        EntranceModel entrance = EntranceModel.find(EntranceModel.getGreatestCode());
+        EntranceModel entrance = EntranceModel.getInstance().find(EntranceModel.getInstance().getGreatestCode());
 
-        assertEquals(EntranceModel.getGreatestCode(), 2);
+        assertEquals(EntranceModel.getInstance().getGreatestCode(), 2);
         assertNotNull(entrance);
         assertEquals(entrance.getCode(), 2);
 
