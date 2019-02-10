@@ -1,6 +1,7 @@
 package view;
 
 import model.UserModel;
+import model.UserRole;
 
 import javax.swing.*;
 import java.awt.*;
@@ -146,7 +147,7 @@ public class WorkerView extends javax.swing.JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new WorkerView(new
-                UserModel("mario.rossi@gmail.com", "'Magazziniere'")).setVisible(true));
+                UserModel("mario.rossi@gmail.com", UserRole.WORKER)).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

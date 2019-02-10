@@ -2,6 +2,7 @@ package view;
 
 import controller.LoginController;
 import model.UserModel;
+
 import javax.swing.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -70,13 +71,13 @@ public class LoginView {
 
             if (loginController.isLogged()) {
                 switch (user.getRole()) {
-                    case "Magazziniere":
+                    case WORKER:
                         SwingUtilities.invokeLater(() -> new WorkerView(user).setVisible(true));
                         break;
-                    case "Responsabile":
+                    case MANAGER:
                         SwingUtilities.invokeLater(() -> new ManagerView(user).setVisible(true));
                         break;
-                    case "Segreteria":
+                    case SECRETARY:
                         SwingUtilities.invokeLater(() -> new SecretaryView(user).setVisible(true));
                         break;
                 }

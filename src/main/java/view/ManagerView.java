@@ -2,6 +2,7 @@ package view;
 
 import model.StoreModel;
 import model.UserModel;
+import model.UserRole;
 
 import javax.swing.*;
 import java.util.Locale;
@@ -111,7 +112,7 @@ public class ManagerView extends javax.swing.JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new ManagerView(new
                 UserModel("mario.rossi@gmail.com",
-                "Responsabile",
+                UserRole.MANAGER,
                 StoreModel.getInstance().find("NEG001"))).setVisible(true));
     }
 

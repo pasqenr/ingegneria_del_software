@@ -3,6 +3,8 @@ package controller;
 import database.DatabaseWrapper;
 import model.StoreModel;
 import model.UserModel;
+import model.UserRole;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,9 +47,9 @@ public class LoginController {
                 String storeName = rs.getString("negozio");
 
                 if (storeName == null) {
-                    user = new UserModel(userEmail, role);
+                    user = new UserModel(userEmail, UserRole.ofName(role));
                 } else {
-                    user = new UserModel(userEmail, role, StoreModel.getInstance().find(storeName));
+                    user = new UserModel(userEmail, UserRole.ofName(role), StoreModel.getInstance().find(storeName));
                 }
             }
         } catch (SQLException e) {

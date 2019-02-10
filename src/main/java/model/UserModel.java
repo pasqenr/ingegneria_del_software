@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class UserModel extends Model implements GenericDAO {
     private String email;
-    private String role;
+    private UserRole role;
     private StoreModel store;
 
     /**
@@ -17,7 +17,7 @@ public class UserModel extends Model implements GenericDAO {
      * @param role A valid role.
      * @param store A Store if the role is <code>Responsabile</code>, null otherwise.
      */
-    public UserModel(String email, String role, StoreModel store) {
+    public UserModel(String email, UserRole role, StoreModel store) {
         this.email = email;
         this.role = role;
         this.store = store;
@@ -29,7 +29,7 @@ public class UserModel extends Model implements GenericDAO {
      * @param email An unique email.
      * @param role A valid role.
      */
-    public UserModel(String email, String role) {
+    public UserModel(String email, UserRole role) {
         this(email, role, null);
     }
 
@@ -43,7 +43,7 @@ public class UserModel extends Model implements GenericDAO {
     /**
      * @return The role.
      */
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 

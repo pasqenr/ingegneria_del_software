@@ -1,6 +1,7 @@
 package view;
 
 import model.UserModel;
+import model.UserRole;
 
 import javax.swing.*;
 import java.util.Locale;
@@ -106,7 +107,7 @@ public class SecretaryView extends javax.swing.JFrame {
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new SecretaryView(
-                new UserModel("mario.rossi@gmail.com", "Segreteria", null)).setVisible(true));
+                new UserModel("mario.rossi@gmail.com", UserRole.SECRETARY, null)).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
