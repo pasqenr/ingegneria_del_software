@@ -18,7 +18,7 @@ public class InsertArticleTypeController {
      * @param articleTypeMaterials An array of ArticleType materials.
      * @param articleTypeSports An array of valid Sport names.
      */
-    public static void addAll(String[] articleTypesNames,
+    public void addAll(String[] articleTypesNames,
                               String[] articleTypeDescriptions,
                               String[] articleTypeMaterials,
                               String[] articleTypeSports) {
@@ -40,7 +40,7 @@ public class InsertArticleTypeController {
      * @param articleTypes An array of ArticleType names.
      * @return <code>true</code> if all the names are valid, <code>false</code> otherwise.
      */
-    public static boolean areArticleTypesAlreadyStored(String[] articleTypes) {
+    public boolean areArticleTypesAlreadyStored(String[] articleTypes) {
         int matches = 0;
         List<ArticleType> articleTypeList = ArticleType.findAll();
 
@@ -61,7 +61,7 @@ public class InsertArticleTypeController {
      * @param sportNames Unique names of the sports.
      * @return <code>true</code> if all the sports are found, <code>false</code> otherwise.
      */
-    public static boolean areSportsValid(String[] sportNames) {
+    public boolean areSportsValid(String[] sportNames) {
         int matches = 0;
         List<SportModel> sports = SportModel.findAll();
 
