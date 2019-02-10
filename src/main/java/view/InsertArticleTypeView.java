@@ -9,12 +9,14 @@ import java.util.ResourceBundle;
 
 public class InsertArticleTypeView extends javax.swing.JFrame {
     private ResourceBundle i18n;
+    private InsertArticleTypeController insertArticleTypeController;
 
     /**
      * Creates new form InsertArticleTypeView
      */
     public InsertArticleTypeView() {
         i18n = ResourceBundle.getBundle("InsertArticleTypeView", Locale.getDefault());
+        insertArticleTypeController = new InsertArticleTypeController();
 
         initComponents();
     }
@@ -122,7 +124,7 @@ public class InsertArticleTypeView extends javax.swing.JFrame {
             return;
         }
 
-        boolean articleTypesAlreadyStored = InsertArticleTypeController.areArticleTypesAlreadyStored(articleTypesNames);
+        boolean articleTypesAlreadyStored = insertArticleTypeController.areArticleTypesAlreadyStored(articleTypesNames);
 
         if (articleTypesAlreadyStored) {
             JOptionPane.showMessageDialog(this,
@@ -133,7 +135,7 @@ public class InsertArticleTypeView extends javax.swing.JFrame {
             return;
         }
 
-        boolean areSportsValid = InsertArticleTypeController.areSportsValid(articleTypeSports);
+        boolean areSportsValid = insertArticleTypeController.areSportsValid(articleTypeSports);
 
         if (!areSportsValid) {
             JOptionPane.showMessageDialog(this,
@@ -144,7 +146,7 @@ public class InsertArticleTypeView extends javax.swing.JFrame {
             return;
         }
 
-        InsertArticleTypeController.addAll(articleTypesNames,
+        insertArticleTypeController.addAll(articleTypesNames,
                 articleTypeDescriptions,
                 articleTypeMaterials,
                 articleTypeSports);
