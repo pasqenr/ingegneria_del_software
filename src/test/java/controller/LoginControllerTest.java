@@ -1,13 +1,14 @@
 package controller;
 
 import model.UserModel;
+import model.UserRole;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LoginControllerTest {
     private String validEmail = "mail@mail.com";
     private String validPassword = "qwerty";
-    private String validRole = "Magazziniere";
+    private UserRole validRole = UserRole.WORKER;
     private UserModel referenceUserModel;
 
     @Test
