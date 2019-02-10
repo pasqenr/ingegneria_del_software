@@ -27,6 +27,10 @@ public class OrderModel extends Model {
         this.store = store;
     }
 
+    public static OrderModel getInstance() {
+        return new OrderModel(null, null, null);
+    }
+
     /**
      * @return The code.
      */
@@ -88,6 +92,32 @@ public class OrderModel extends Model {
             db.getCon().commit();
 
             if (rs.next()) {
+                String date = rs.getString("data");
+                StoreModel store = StoreModel.find(rs.getString("negozio"));
+                order = new OrderModel(code, date, store);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        db.close();
+
+        return order;
+    }
+
+    public OrderModel fetchLast() {
+        DatabaseWrapper db = new DatabaseWrapper();
+        String query = "SELECT o.codice, o.data, o.negozio FROM ordine o ORDER BY o.codice DESC LIMIT 1";
+        PreparedStatement stmt;
+        OrderModel order = null;
+
+        try {
+            stmt = db.getCon().prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            db.getCon().commit();
+
+            if (rs.next()) {
+                String code = rs.getString("codice");
                 String date = rs.getString("data");
                 StoreModel store = StoreModel.find(rs.getString("negozio"));
                 order = new OrderModel(code, date, store);
