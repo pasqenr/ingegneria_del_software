@@ -17,6 +17,7 @@ public class OrdersFulfillmentView extends javax.swing.JFrame {
     public OrdersFulfillmentView() {
         i18n = ResourceBundle.getBundle("OrdersFulfillmentView", Locale.getDefault());
         orderFulfillmentController = new OrderFulfillmentController();
+        orderFulfillmentController.populateTableModel();
 
         initComponents();
     }
@@ -30,24 +31,12 @@ public class OrdersFulfillmentView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        orderCodeLabel = new javax.swing.JLabel();
-        orderCodeTextField = new javax.swing.JTextField();
-        showButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         leaveTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(i18n.getString("title")
         );
-
-        orderCodeLabel.setText(i18n.getString("order_code"));
-
-        showButton.setText(i18n.getString("search"));
-        showButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showButtonActionPerformed(evt);
-            }
-        });
 
         leaveTable.setModel(orderFulfillmentController.getTableModel());
         jScrollPane1.setViewportView(leaveTable);
@@ -58,49 +47,20 @@ public class OrdersFulfillmentView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(orderCodeLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(orderCodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(showButton)
-                        .addGap(0, 116, Short.MAX_VALUE)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(orderCodeLabel)
-                    .addComponent(orderCodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(showButton))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void showButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showButtonActionPerformed
-        String orderNumber = orderCodeTextField.getText();
-        OrderModel order = OrderModel.getInstance().find(orderNumber);
-
-        if (order == null) {
-            JOptionPane.showMessageDialog(this,
-                    i18n.getString("error_order_not_found"),
-                    i18n.getString("error_order_not_found_title"),
-                    JOptionPane.ERROR_MESSAGE);
-
-            return;
-        }
-
-        orderFulfillmentController.populateTableModel(order);
-    }//GEN-LAST:event_showButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,8 +72,5 @@ public class OrdersFulfillmentView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable leaveTable;
-    private javax.swing.JLabel orderCodeLabel;
-    private javax.swing.JTextField orderCodeTextField;
-    private javax.swing.JButton showButton;
     // End of variables declaration//GEN-END:variables
 }
