@@ -24,12 +24,14 @@ public class OrderFulfillmentController {
         tableModel.addColumn("data");
         tableModel.addColumn("negozio");
         tableModel.addColumn("spedizioniere");
+
+        populateTableModel();
     }
 
     /**
      * Populate the rows of the internal TableModel with the orders fulfillment found in the database.
      */
-    public void populateTableModel() {
+    private void populateTableModel() {
         DatabaseWrapper db = new DatabaseWrapper();
         String query = "SELECT o.codice AS codice_ordine," +
                 " u.numero_bolla, " +

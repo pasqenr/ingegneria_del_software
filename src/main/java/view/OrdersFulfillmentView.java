@@ -17,7 +17,6 @@ public class OrdersFulfillmentView extends javax.swing.JFrame {
     public OrdersFulfillmentView() {
         i18n = ResourceBundle.getBundle("OrdersFulfillmentView", Locale.getDefault());
         orderFulfillmentController = new OrderFulfillmentController();
-        orderFulfillmentController.populateTableModel();
 
         initComponents();
     }
