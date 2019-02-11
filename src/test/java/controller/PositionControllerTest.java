@@ -44,7 +44,7 @@ class PositionControllerTest {
         String[] freeRawPositions = new String[freePositionsArray.length];
 
         for (int i = 0; i < freePositionsArray.length; i++) {
-            freeRawPositions[i] = freePositionsArray[i].getRawPosition();
+            freeRawPositions[i] = freePositionsArray[i].getCode();
         }
 
         List<PositionModel> fetchedFreePositions = new ArrayList<>(pc.getFreePositions());
@@ -52,7 +52,7 @@ class PositionControllerTest {
         String[] freeFetchedRawPositions = new String[freeFetchedPositionsArray.length];
 
         for (int i = 0; i < freeFetchedPositionsArray.length; i++) {
-            freeFetchedRawPositions[i] = freeFetchedPositionsArray[i].getRawPosition();
+            freeFetchedRawPositions[i] = freeFetchedPositionsArray[i].getCode();
         }
 
         assertEquals(freeRawPositions, freeFetchedRawPositions);

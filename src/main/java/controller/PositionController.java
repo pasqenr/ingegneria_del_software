@@ -58,7 +58,7 @@ public class PositionController {
         List<PositionModel> positions = freePositions;
         PositionModel retPosition;
 
-        retPosition = positions.stream().filter(position -> position.getRawPosition().equals(positionCode))
+        retPosition = positions.stream().filter(position -> position.getCode().equals(positionCode))
                 .findFirst()
                 .orElse(null);
 
@@ -112,7 +112,7 @@ public class PositionController {
     public PositionModel findPositionByCode(String positionCode) {
         List<PositionModel> positions = fetchAllPositions();
 
-        return positions.stream().filter(position -> position.getRawPosition().equals(positionCode))
+        return positions.stream().filter(position -> position.getCode().equals(positionCode))
                 .findFirst()
                 .orElse(null);
     }

@@ -145,7 +145,7 @@ public class MoveArticleView extends javax.swing.JFrame {
             return;
         }
 
-        articleOldPositionTextField.setText(article.getPosition().getRawPosition());
+        articleOldPositionTextField.setText(article.getPosition().getCode());
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void moveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moveButtonActionPerformed

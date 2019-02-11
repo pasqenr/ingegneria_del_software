@@ -221,7 +221,7 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
             stmt.setString(2, articleType.getName());
             stmt.setString(3, price);
             stmt.setString(4, productionDate);
-            stmt.setString(5, position.getRawPosition());
+            stmt.setString(5, position.getCode());
             result = stmt.execute();
             db.getCon().commit();
         } catch (SQLException e) {
@@ -244,7 +244,7 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
                 ", articleType: " + articleType.getName() +
                 ", price: " + price +
                 ", produtionDate: " + productionDate +
-                ", position: " + position.getRawPosition();
+                ", position: " + position.getCode();
     }
 
     @Override

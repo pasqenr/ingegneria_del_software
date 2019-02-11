@@ -97,7 +97,7 @@ public class MoveArticleController {
 
         String[] positions = new String[positionModels.size()];
         for (PositionModel p : positionModels) {
-            positions[i] = p.getRawPosition();
+            positions[i] = p.getCode();
             i++;
         }
 

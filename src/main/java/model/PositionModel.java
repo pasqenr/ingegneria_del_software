@@ -25,7 +25,7 @@ public class PositionModel extends Model implements GenericDAO {
     /**
      * @return The String representation of the Position, that is, the Position identifier.
      */
-    public String getRawPosition() {
+    public String getCode() {
         return code;
     }
 
