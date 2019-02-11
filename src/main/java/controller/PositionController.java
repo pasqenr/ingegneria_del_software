@@ -2,6 +2,8 @@ package controller;
 
 import database.DatabaseWrapper;
 import model.PositionModel;
+
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,30 +13,10 @@ import java.util.List;
  * Manage the positions inside the warehouse.
  */
 public class PositionController {
-    private List<PositionModel> freePositions;
-
     /**
      * @return The free positions.
      */
     public List<PositionModel> getFreePositions() {
-        if (freePositions == null) {
-            freePositions = new ArrayList<>(retrieveFreePositions());
-        }
-
-        return freePositions;
-    }
-
-    /**
-     * Update the internal cache of positions.
-     */
-    public void update() {
-        freePositions = new ArrayList<>(retrieveFreePositions());
-    }
-
-    /**
-     * @return A list of free Position.
-     */
-    private List<PositionModel> retrieveFreePositions() {
         String query = "SELECT p.id_posizione AS posizione " +
                 "FROM posizione p " +
                 "EXCEPT " +
@@ -51,11 +33,7 @@ public class PositionController {
      * @return The Position associated to the positionCode.
      */
     public PositionModel findFreePositionByCode(String positionCode) {
-        if (freePositions == null) {
-            freePositions = retrieveFreePositions();
-        }
-
-        List<PositionModel> positions = freePositions;
+        List<PositionModel> positions = getFreePositions();
         PositionModel retPosition;
 
         retPosition = positions.stream().filter(position -> position.getCode().equals(positionCode))
@@ -70,15 +48,6 @@ public class PositionController {
     }
 
     /**
-     * @return A list of all the Position.
-     */
-    private List<PositionModel> fetchAllPositions() {
-        String query = "SELECT p.id_posizione AS posizione FROM posizione p";
-
-        return retrievePosition(query);
-    }
-
-    /**
      * Retrieve the positions based on the query passed as parameter.
      *
      * @param positionQuery A position query to select the wanted positions.
@@ -87,10 +56,12 @@ public class PositionController {
     private List<PositionModel> retrievePosition(String positionQuery) {
         DatabaseWrapper db = new DatabaseWrapper();
         List<PositionModel> fetchedFreePositions = new ArrayList<>();
-
-        ResultSet rs = db.rawQuery(positionQuery);
+        PreparedStatement stmt;
 
         try {
+            stmt = db.getCon().prepareStatement(positionQuery);
+            ResultSet rs = stmt.executeQuery();
+
             while (rs.next()) {
                 fetchedFreePositions.add(new PositionModel(rs.getString("posizione")));
             }

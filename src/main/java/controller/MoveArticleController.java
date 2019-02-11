@@ -14,7 +14,7 @@ import java.util.List;
  * Manage the movement of articles inside the warehouse.
  */
 public class MoveArticleController {
-    private PositionController positionController;
+    private final PositionController positionController;
 
     /**
      * Create a new MoveArticleController.
@@ -24,17 +24,12 @@ public class MoveArticleController {
     }
 
     /**
-     * @return Return an array with the codes of the free positions in the warehouse.
-     */
-    public String[] getFreePositions() {
-        return positionModelsToStrings(positionController.getFreePositions());
-    }
-
-    /**
      * @return A ComboBoxModel with the free positions.
      */
     public DefaultComboBoxModel<String> getFreePositionComboBoxModel() {
-        return new DefaultComboBoxModel<>(getFreePositions());
+        List<PositionModel> freePositions = positionController.getFreePositions();
+
+        return new DefaultComboBoxModel<>(positionModelsToStrings(freePositions));
     }
 
     /**
@@ -77,13 +72,6 @@ public class MoveArticleController {
         }
 
         return affectedRows != 0;
-    }
-
-    /**
-     * Update the cached positions.
-     */
-    public void update() {
-        positionController.update();
     }
 
     /**

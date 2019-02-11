@@ -164,7 +164,6 @@ public class MoveArticleView extends javax.swing.JFrame {
         boolean positionHasChanged = moveArticleController.moveArticlePositionByCodes(articleCode, positionId);
 
         if (positionHasChanged) {
-            moveArticleController.update();
             articleCodeTextField.setText("");
             articleOldPositionTextField.setText("");
             freePositionsComboBox.setModel(moveArticleController.getFreePositionComboBoxModel());
