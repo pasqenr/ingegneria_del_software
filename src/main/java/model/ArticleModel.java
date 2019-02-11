@@ -181,7 +181,7 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
             String positionCode = rs.getString("posizione");
 
             articleType = ArticleType.getInstance().find(articleName);
-            position = new PositionController().findPositionByCode(positionCode);
+            position = PositionModel.getInstance().find(positionCode);
         } catch (SQLException e) {
             e.printStackTrace();
         }

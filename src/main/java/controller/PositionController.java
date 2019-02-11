@@ -102,18 +102,4 @@ public class PositionController {
 
         return fetchedFreePositions;
     }
-
-    /**
-     * Return the Position identified by the positionCode.
-     *
-     * @param positionCode A valid position code.
-     * @return The Position identified by the positionCode.
-     */
-    public PositionModel findPositionByCode(String positionCode) {
-        List<PositionModel> positions = fetchAllPositions();
-
-        return positions.stream().filter(position -> position.getCode().equals(positionCode))
-                .findFirst()
-                .orElse(null);
-    }
 }
