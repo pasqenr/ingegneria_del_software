@@ -19,9 +19,9 @@ public class InsertArticleTypeController {
      * @param articleTypeSports An array of valid Sport names.
      */
     public void addAll(String[] articleTypesNames,
-                              String[] articleTypeDescriptions,
-                              String[] articleTypeMaterials,
-                              String[] articleTypeSports) {
+                       String[] articleTypeDescriptions,
+                       String[] articleTypeMaterials,
+                       String[] articleTypeSports) {
         for (int i = 0; i < articleTypesNames.length; i++) {
             String name = articleTypesNames[i];
             String description = articleTypeDescriptions[i];
