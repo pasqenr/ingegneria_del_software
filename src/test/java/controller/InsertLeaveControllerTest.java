@@ -8,9 +8,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InsertLeaveControllerTest {
+class InsertLeaveControllerTest extends GenericControllerTest {
     @Test
-    void addOrderTest() {
+    void insertValidLeave() {
         int leaveNumber = 2;
         String orderCode = "ORD001";
         List<ArticleModel> articles = new ArrayList<>();

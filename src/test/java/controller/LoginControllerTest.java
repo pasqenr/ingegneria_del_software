@@ -3,9 +3,10 @@ package controller;
 import model.UserModel;
 import model.UserRole;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoginControllerTest {
+class LoginControllerTest extends GenericControllerTest {
     private String validEmail = "mail@mail.com";
     private String validPassword = "qwerty";
     private UserRole validRole = UserRole.WORKER;

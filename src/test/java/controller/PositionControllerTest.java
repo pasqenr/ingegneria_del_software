@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class PositionControllerTest {
+class PositionControllerTest extends GenericControllerTest {
     @Test
     void testGetFreePositions() {
         List<PositionModel> freePositions = new ArrayList<>();
@@ -31,30 +31,21 @@ class PositionControllerTest {
         freePositions.add(new PositionModel("A010309"));
         freePositions.add(new PositionModel("A010310"));
 
-        List<PositionModel> usedPositions = new ArrayList<>();
-        usedPositions.add(new PositionModel("A010102"));
-        usedPositions.add(new PositionModel("A010104"));
-        usedPositions.add(new PositionModel("A010106"));
-        usedPositions.add(new PositionModel("A010108"));
-        usedPositions.add(new PositionModel("A010110"));
+        PositionController positionController = new PositionController();
+        List<PositionModel> fetchedFreePositions = positionController.getFreePositions();
 
-        PositionController pc = new PositionController();
+        assertEquals(freePositions, fetchedFreePositions);
+    }
 
-        PositionModel[] freePositionsArray = (PositionModel[])freePositions.toArray();
-        String[] freeRawPositions = new String[freePositionsArray.length];
+    @Test
+    void findFreePositionByCodeTest() {
+        PositionController positionController = new PositionController();
 
-        for (int i = 0; i < freePositionsArray.length; i++) {
-            freeRawPositions[i] = freePositionsArray[i].getCode();
-        }
+        PositionModel validPosition = positionController.findFreePositionByCode("A010106");
+        PositionModel invalidPosition = positionController.findFreePositionByCode("A010101");
 
-        List<PositionModel> fetchedFreePositions = new ArrayList<>(pc.getFreePositions());
-        PositionModel[] freeFetchedPositionsArray = (PositionModel[])fetchedFreePositions.toArray();
-        String[] freeFetchedRawPositions = new String[freeFetchedPositionsArray.length];
-
-        for (int i = 0; i < freeFetchedPositionsArray.length; i++) {
-            freeFetchedRawPositions[i] = freeFetchedPositionsArray[i].getCode();
-        }
-
-        assertEquals(freeRawPositions, freeFetchedRawPositions);
+        assertNotNull(validPosition);
+        assertEquals(validPosition.getCode(), "A010106");
+        assertNull(invalidPosition);
     }
 }
