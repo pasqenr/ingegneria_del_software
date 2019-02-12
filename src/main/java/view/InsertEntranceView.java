@@ -190,7 +190,7 @@ public class InsertEntranceView extends javax.swing.JFrame {
                     position));
         }
 
-        boolean articleCodesAreValid = insertEntranceController.checkIsAlreadyStoredArticleCode(articleCodes);
+        boolean articleCodesAreValid = insertEntranceController.checkIsAlreadyStoredArticleCodes(articleCodes);
 
         if (!articleCodesAreValid) {
             JOptionPane.showMessageDialog(this,

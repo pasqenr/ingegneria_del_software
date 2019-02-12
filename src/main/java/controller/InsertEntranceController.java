@@ -40,15 +40,16 @@ public class InsertEntranceController {
     }
 
     /**
-     * Check if some code in tableCodes is already stored in the database.
+     * Check if at least one code in articleCodes is already stored in the database.
      *
-     * @param tableCodes An array of codes.
-     * @return <true>code</true> if all the codes are not used in the database, <code>false</code> otherwise.
+     * @param articleCodes An array of codes.
+     * @return <true>code</true> if at least one code in articleCodes is already stored in the database,
+     * <code>false</code> otherwise.
      */
-    public boolean checkIsAlreadyStoredArticleCode(String[] tableCodes) {
+    public boolean checkIsAlreadyStoredArticleCodes(String[] articleCodes) {
         String[] storedCodes = ArticleModel.getInstance().getArticlesCodes();
 
-        for (String tableCode : tableCodes) {
+        for (String tableCode : articleCodes) {
             for (String storedCode : storedCodes) {
                 if (tableCode.equals(storedCode)) { // We have found a code already stored in the database
                     return false;
