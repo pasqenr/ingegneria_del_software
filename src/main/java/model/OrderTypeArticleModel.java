@@ -12,7 +12,7 @@ import java.util.List;
 public class OrderTypeArticleModel extends Model implements GenericDAO {
     private OrderModel order;
     private List<ArticleType> articleTypes;
-    private List<Integer> amounts;
+    private List<Float> amounts;
 
     /**
      * Create a new OrderTypeArticle.
@@ -21,7 +21,7 @@ public class OrderTypeArticleModel extends Model implements GenericDAO {
      * @param articleTypes A list of ArticleTypes.
      * @param amounts A list of amounts for each ArticleType.
      */
-    public OrderTypeArticleModel(OrderModel order, List<ArticleType> articleTypes, List<Integer> amounts) {
+    public OrderTypeArticleModel(OrderModel order, List<ArticleType> articleTypes, List<Float> amounts) {
         this.order = order;
         this.articleTypes = articleTypes;
         this.amounts = amounts;
@@ -50,7 +50,7 @@ public class OrderTypeArticleModel extends Model implements GenericDAO {
             for (int i = 0; i < articleTypes.size(); i++) {
                 stmt.setString(1, order.getCode());
                 stmt.setString(2, articleTypes.get(i).getName());
-                stmt.setInt(3, amounts.get(i));
+                stmt.setFloat(3, amounts.get(i));
                 stmt.execute();
             }
         } catch (SQLException e) {

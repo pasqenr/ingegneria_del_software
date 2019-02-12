@@ -196,4 +196,18 @@ public class StoreModel extends Model implements GenericDAO {
 
         return new StoreModel(code, name, address, city);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (! (o instanceof  StoreModel)) {
+            return false;
+        }
+
+        StoreModel other = (StoreModel) o;
+
+        return code.equals(other.code) &&
+                name.equals(other.name) &&
+                address.equals(other.address) &&
+                city.equals(other.city);
+    }
 }

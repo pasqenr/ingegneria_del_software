@@ -5,6 +5,7 @@ import database.DatabaseWrapper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -102,8 +103,31 @@ public class OrderModel extends Model implements GenericDAO {
     }
 
     @Override
-    public List<? extends Model> findAll() {
-        return null;
+    public List<OrderModel> findAll() {
+        DatabaseWrapper db = new DatabaseWrapper();
+        String query = "SELECT o.codice, o.data, o.negozio FROM ordine o";
+        PreparedStatement stmt;
+        List<OrderModel> orders = new ArrayList<>();
+
+        try {
+            stmt = db.getCon().prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            db.getCon().commit();
+
+            while (rs.next()) {
+                String code = rs.getString("codice");
+                String date = rs.getString("data");
+                StoreModel store = StoreModel.getInstance().find(rs.getString("negozio"));
+                OrderModel order = new OrderModel(code, date, store);
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        db.close();
+
+        return orders;
     }
 
     public OrderModel fetchLast() {
@@ -152,5 +176,18 @@ public class OrderModel extends Model implements GenericDAO {
         db.close();
 
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (! (o instanceof  OrderModel)) {
+            return false;
+        }
+
+        OrderModel other = (OrderModel)o;
+
+        return code.equals(other.code) &&
+                date.equals(other.date) &&
+                store.equals(other.store);
     }
 }
