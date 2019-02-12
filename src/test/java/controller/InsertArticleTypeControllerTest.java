@@ -3,7 +3,6 @@ package controller;
 import model.ArticleType;
 import org.junit.jupiter.api.Test;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class InsertArticleTypeControllerTest extends GenericControllerTest {
@@ -48,7 +47,7 @@ class InsertArticleTypeControllerTest extends GenericControllerTest {
                 "Scarpette e calze Acquagym"
         };
 
-        InsertArticleTypeController insertArticleTypeController = new InsertArticleTypeController();
+        final InsertArticleTypeController insertArticleTypeController = new InsertArticleTypeController();
 
         assertFalse(insertArticleTypeController.areArticleTypesAlreadyStored(articleTypeNamesValid));
         assertTrue(insertArticleTypeController.areArticleTypesAlreadyStored(articleTypeNamesInvalid));
@@ -65,7 +64,7 @@ class InsertArticleTypeControllerTest extends GenericControllerTest {
                 "omsiniplA"
         };
 
-        InsertArticleTypeController insertArticleTypeController = new InsertArticleTypeController();
+        final InsertArticleTypeController insertArticleTypeController = new InsertArticleTypeController();
 
         assertTrue(insertArticleTypeController.areSportsValid(sportsValid));
         assertFalse(insertArticleTypeController.areSportsValid(sportsInvalid));
