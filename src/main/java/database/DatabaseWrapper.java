@@ -28,8 +28,7 @@ public class DatabaseWrapper implements AutoCloseable {
      * Create a new connection to the standard database.
      */
     public DatabaseWrapper() {
-        this("jdbc:sqlite:" + System.getProperty("user.dir") + "/src/main/resources/magazzino.sqlite",
-                false);
+        this("jdbc:sqlite:" + System.getProperty("user.dir") + "/magazzino.sqlite", false);
     }
 
     /**
