@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EntranceArticleControllerTest extends GenericControllerTest{
+class EntranceArticleControllerTest extends GenericControllerTest {
     @Test
     void fetchAllTest() {
         final List<ArticleModel> articles = new ArrayList<>();
