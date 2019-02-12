@@ -24,7 +24,7 @@ public class OrderController {
 
         // To list
         List<ArticleType> articleTypesList = articleTypesToList(articleTypesNames);
-        List<Integer> amountsList = amountsToList(amounts);
+        List<Float> amountsList = amountsToList(amounts);
 
         // Create a new order
         OrderModel order = new OrderModel(orderCode, date, store);
@@ -56,10 +56,10 @@ public class OrderController {
      * @param amounts An array of amounts.
      * @return A list of amounts.
      */
-    private static List<Integer> amountsToList(String[] amounts) {
-        List<Integer> amountsList = new ArrayList<>();
+    private static List<Float> amountsToList(String[] amounts) {
+        List<Float> amountsList = new ArrayList<>();
         for (String amount : amounts) {
-            amountsList.add(Integer.valueOf(amount));
+            amountsList.add(Float.valueOf(amount));
         }
 
         return amountsList;
