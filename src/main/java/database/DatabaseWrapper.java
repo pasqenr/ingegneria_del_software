@@ -6,6 +6,8 @@ import java.sql.*;
  * A Database wrapper for the underling database jdbc connection.
  */
 public class DatabaseWrapper implements AutoCloseable {
+    private static String forcedConnectionUrl;
+    private static boolean isForced = false;
     private Connection conn = null;
 
     /**
@@ -15,9 +17,8 @@ public class DatabaseWrapper implements AutoCloseable {
      * @param autoCommit <code>true</code> to enable the autoCommit, <code>false</code> otherwise.
      */
     public DatabaseWrapper(String url, boolean autoCommit) {
-        connect(url);
-
         try {
+            connect(url);
             conn.setAutoCommit(autoCommit);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,15 +40,32 @@ public class DatabaseWrapper implements AutoCloseable {
     }
 
     /**
+     * Force all the instances of the class to use this url instead the default one.
+     *
+     * @param url The URL to force.
+     */
+    public static void forceConnectionUrl(String url) {
+        forcedConnectionUrl = url;
+        isForced = true;
+    }
+
+    /**
+     * @return The default test database connection String.
+     */
+    public static String getDefaultTestConnection() {
+        return "jdbc:sqlite:" + System.getProperty("user.dir") + "/magazzino_test.sqlite";
+    }
+
+    /**
      * Connect to the url provided.
      *
      * @param url The url of the database.
      */
-    private void connect(String url) {
-        try {
+    private void connect(String url) throws SQLException {
+        if (isForced) {
+            conn = DriverManager.getConnection(forcedConnectionUrl);
+        } else {
             conn = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
