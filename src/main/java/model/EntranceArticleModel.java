@@ -73,6 +73,23 @@ public class EntranceArticleModel extends Model implements GenericDAO {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (! (o instanceof  EntranceArticleModel)) {
+            return false;
+        }
+
+        EntranceArticleModel other = (EntranceArticleModel)o;
+
+        boolean areArticlesEquals = true;
+        for (int i = 0; i < articles.size(); i++) {
+            areArticlesEquals = areArticlesEquals && articles.get(i).equals(other.articles.get(i));
+        }
+
+        return areArticlesEquals &&
+                entrance.equals(other.entrance);
+    }
+
+    @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
 
