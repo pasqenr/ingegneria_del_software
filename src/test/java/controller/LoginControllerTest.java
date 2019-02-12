@@ -7,29 +7,31 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LoginControllerTest extends GenericControllerTest {
-    private String validEmail = "mail@mail.com";
-    private String validPassword = "qwerty";
-    private UserRole validRole = UserRole.WORKER;
-    private UserModel referenceUserModel;
-
     @Test
     void loginSuccessTest() {
-        referenceUserModel = new UserModel(validEmail, validRole);
-        LoginController loginController = new LoginController();
-        UserModel validUserModel = loginController.login(validEmail, validPassword);
+        final String validEmail = "mail@mail.com";
+        final String validPassword = "qwerty";
+        final UserRole validRole = UserRole.WORKER;
+        final UserModel referenceUserModel = new UserModel(validEmail, validRole);
+        final LoginController loginController = new LoginController();
+        final UserModel validUserModel = loginController.login(validEmail, validPassword);
 
         assertNotNull(validUserModel);
         assertEquals(referenceUserModel.getEmail(), validUserModel.getEmail());
         assertEquals(referenceUserModel.getRole(), validUserModel.getRole());
         assertEquals(validEmail, validUserModel.getEmail());
         assertEquals(validRole, validUserModel.getRole());
+        assertTrue(loginController.isLogged());
+        assertTrue(loginController.isLogged(referenceUserModel));
     }
 
     @Test
     void loginFailTest() {
-        LoginController loginController = new LoginController();
-        UserModel invalidUserModel = loginController.login("invalid@mail.com", "invalidPassword");
+        final LoginController loginController = new LoginController();
+        final UserModel invalidUserModel = loginController.login("invalid@mail.com", "invalidPassword");
 
         assertNull(invalidUserModel);
+        assertFalse(loginController.isLogged());
+        assertFalse(loginController.isLogged(null));
     }
 }
