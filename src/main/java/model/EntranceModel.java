@@ -23,7 +23,7 @@ public class EntranceModel extends Model implements GenericDAO, Comparable {
      * @param code The code.
      * @param date The date.
      */
-    private EntranceModel(int code, String date) {
+    public EntranceModel(int code, String date) {
         this.code = code;
         this.date = date;
     }
