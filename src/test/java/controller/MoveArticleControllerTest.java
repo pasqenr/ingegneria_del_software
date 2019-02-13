@@ -24,6 +24,21 @@ class MoveArticleControllerTest extends GenericControllerTest {
     }
 
     @Test
+    void getArticleCodesComboBoxModelTest() {
+        final MoveArticleController moveArticleController = new MoveArticleController();
+        final String[] articleCodesValid = new String[] {
+                "AC8388175", "AC8402405", "AC8503430", "AC8402392", "AC8360917", "AC8528089", "AC8513244",
+                "AC8342928", "AC8503710", "AC8335706"
+        };
+        final DefaultComboBoxModel<String> articlesComboBoxModel =
+                moveArticleController.getArticleCodesComboBoxModel();
+
+        for (int i = 0; i < articlesComboBoxModel.getSize(); i++) {
+            assertEquals(articleCodesValid[i], articlesComboBoxModel.getElementAt(i));
+        }
+    }
+
+    @Test
     void moveArticlePositionByCodesTest() {
         final MoveArticleController moveArticleController = new MoveArticleController();
         final String articleCodeValid = "AC8388175";
