@@ -90,6 +90,15 @@ public class DatabaseWrapper implements AutoCloseable {
         return rs;
     }
 
+    /**
+     * Execute and return the ResultSet of a query queryWhere in the form <code>SELECT ... FROM ... WHERE ...</code>
+     * to which it's added <code>IN (value1, value2, ...)</code> where <code>value1, value2, ...</code> are
+     * the values in the list values.
+     *
+     * @param queryWhere A query of the form <code>SELECT ... FROM ... WHERE ...</code>.
+     * @param values The values to insert in the part <code>IN (value1, value2, ...)</code>.
+     * @return The ResultSet of the query <code>SELECT ... FROM ... WHERE ... IN (value1, value2, ...)</code>.
+     */
     public ResultSet queryIn(String queryWhere, List<String> values) {
         ResultSet rs = null;
         final StringBuilder stringBuilder = new StringBuilder();

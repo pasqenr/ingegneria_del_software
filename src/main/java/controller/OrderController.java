@@ -105,11 +105,11 @@ public class OrderController {
     }
 
     /**
+     * Calculate the total prices for every ArticleType in the list articleTypes.
      *
-     *
-     * @param articleTypes
-     * @param quantities
-     * @return
+     * @param articleTypes A list of ArticleTypes.
+     * @param quantities A list of quantities, one for every ArticleType.
+     * @return A list of total prices, one for every ArticleType.
      */
     private List<Float> calculateTotalPrices(List<ArticleType> articleTypes, final List<Integer> quantities) {
         final List<Float> totalPrices = new ArrayList<>();
@@ -117,13 +117,22 @@ public class OrderController {
         for (int i = 0; i < articleTypes.size(); i++) {
             final List<String> articleCodes = fetchArticlesCodesFromType(articleTypes.get(i));
             final Integer quantity = quantities.get(i);
-            totalPrices.add(calculateSingleTotalePrice(articleCodes, quantity));
+            totalPrices.add(calculateSingleTotalPrice(articleCodes, quantity));
         }
 
         return totalPrices;
     }
 
-    private Float calculateSingleTotalePrice(final List<String> articleCodes, final Integer quantity) {
+    /**
+     * Calculate the total price of a single ArticleType. To do that the function needs a list of article codes
+     * related to that ArticleType.
+     * The total price is sum(all_articles) * quantity, where all_articles are only the ones of a single ArticleType.
+     *
+     * @param articleCodes A list of valid article codes.
+     * @param quantity A valid quantity.
+     * @return The total price.
+     */
+    private Float calculateSingleTotalPrice(final List<String> articleCodes, final Integer quantity) {
         float totalPrice = 0F;
 
         final String queryWhere =
@@ -144,6 +153,12 @@ public class OrderController {
         return totalPrice * quantity;
     }
 
+    /**
+     * Return a list articles codes from the Articles related to some articleType.
+     *
+     * @param articleType A valid articleType.
+     * @return A list of articles codes related to articleType.
+     */
     private List<String> fetchArticlesCodesFromType(final ArticleType articleType) {
         final List<String> articles = new ArrayList<>();
         final String query = "SELECT a.codice " +
