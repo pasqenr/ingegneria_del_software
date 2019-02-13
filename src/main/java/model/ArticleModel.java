@@ -1,6 +1,5 @@
 package model;
 
-import controller.PositionController;
 import database.DatabaseWrapper;
 
 import java.sql.PreparedStatement;

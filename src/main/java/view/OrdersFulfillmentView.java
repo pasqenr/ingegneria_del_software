@@ -1,7 +1,6 @@
 package view;
 
 import controller.OrderFulfillmentController;
-import model.OrderModel;
 
 import javax.swing.*;
 import java.util.Locale;

@@ -1,7 +1,6 @@
 package controller;
 
 import database.DatabaseWrapper;
-import model.OrderModel;
 
 import javax.swing.table.DefaultTableModel;
 import java.sql.PreparedStatement;
