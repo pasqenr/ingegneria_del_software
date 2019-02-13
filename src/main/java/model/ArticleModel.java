@@ -12,11 +12,11 @@ import java.util.List;
  * Represent an Article, table <code>articolo</code>.
  */
 public class ArticleModel extends Model implements GenericDAO, Comparable {
-    private String code;
-    private ArticleType articleType;
-    private String price;
-    private String productionDate;
-    private PositionModel position;
+    private final String code;
+    private final ArticleType articleType;
+    private final String price;
+    private final String productionDate;
+    private final PositionModel position;
 
     /**
      * Create a new Article.
@@ -27,7 +27,11 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
      * @param productionDate A valid production date.
      * @param position A valid Position.
      */
-    public ArticleModel(String code, ArticleType articleType, String price, String productionDate, PositionModel position) {
+    public ArticleModel(String code,
+                        ArticleType articleType,
+                        String price,
+                        String productionDate,
+                        PositionModel position) {
         this.code = code;
         this.articleType = articleType;
         this.price = price;
@@ -45,26 +49,11 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
     public String getCode() {
         return code;
     }
-
-    /**
-     * @param code The new code.
-     */
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     /**
      * @return The ArticleType.
      */
     public ArticleType getArticleType() {
         return articleType;
-    }
-
-    /**
-     * @param articleType The new ArticleType.
-     */
-    public void setArticleType(ArticleType articleType) {
-        this.articleType = articleType;
     }
 
     /**
@@ -75,24 +64,10 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
     }
 
     /**
-     * @param price The new price as String.
-     */
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    /**
      * @return The production date.
      */
     public String getProductionDate() {
         return productionDate;
-    }
-
-    /**
-     * @param productionDate The new production date.
-     */
-    public void setProductionDate(String productionDate) {
-        this.productionDate = productionDate;
     }
 
     /**
@@ -102,26 +77,19 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
         return position;
     }
 
-    /**
-     * @param position The new Article Position.
-     */
-    public void setPosition(PositionModel position) {
-        this.position = position;
-    }
-
     @Override
     public ArticleModel find(String code) {
         ArticleModel article = null;
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query = "SELECT a.codice, a.tipo_articolo, a.prezzo, a.data_produzione, a.posizione " +
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query = "SELECT a.codice, a.tipo_articolo, a.prezzo, a.data_produzione, a.posizione " +
                 "FROM articolo a " +
                 "WHERE a.codice LIKE ?";
-        PreparedStatement stmt;
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);
             stmt.setString(1, code);
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 article = buildSingleFromResult(rs);
@@ -137,14 +105,15 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
 
     @Override
     public List<ArticleModel> findAll() {
-        List<ArticleModel> articlesList = new ArrayList<>();
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query = "SELECT a.codice, a.tipo_articolo, a.prezzo, a.data_produzione, a.posizione FROM articolo a";
-        PreparedStatement stmt;
+        final List<ArticleModel> articlesList = new ArrayList<>();
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query = "SELECT a.codice, a.tipo_articolo, a.prezzo, a.data_produzione, a.posizione " +
+                "FROM articolo a";
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 ArticleModel article = buildSingleFromResult(rs);
@@ -194,8 +163,8 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
      * @return An array of Article codes.
      */
     public String[] getArticlesCodes() {
-        List<ArticleModel> articles = ArticleModel.getInstance().findAll();
-        String[] codes = new String[articles.size()];
+        final List<ArticleModel> articles = ArticleModel.getInstance().findAll();
+        final String[] codes = new String[articles.size()];
 
         int i = 0;
         for (ArticleModel a : articles) {
@@ -208,10 +177,11 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
 
     @Override
     public boolean store() {
-        DatabaseWrapper db = new DatabaseWrapper();
-        String insertQuery = "INSERT INTO articolo (codice, tipo_articolo, prezzo, data_produzione, posizione) " +
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String insertQuery = "INSERT INTO articolo " +
+                "(codice, tipo_articolo, prezzo, data_produzione, posizione) " +
                 "VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement stmt;
+        final PreparedStatement stmt;
         boolean result = false;
 
         try {
@@ -252,7 +222,7 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
             return false;
         }
 
-        ArticleModel article = (ArticleModel)o;
+        final ArticleModel article = (ArticleModel)o;
 
         return code.equals(article.code) &&
                 articleType.equals(article.articleType) &&
@@ -276,7 +246,7 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
 
     @Override
     public int compareTo(Object o) {
-        ArticleModel articleModel = (ArticleModel)o;
+        final ArticleModel articleModel = (ArticleModel)o;
 
         return code.compareTo(articleModel.code);
     }
