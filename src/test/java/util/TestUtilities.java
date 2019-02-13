@@ -3,6 +3,9 @@ package util;
 import database.DatabaseWrapper;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TestUtilities {
     final static File source = new File(System.getProperty("user.dir") + "/magazzino.sqlite");
@@ -16,6 +19,16 @@ public class TestUtilities {
 
     public static void done() throws Exception {
         dest.delete();
+    }
+
+    public static List<String> flattenToString(Object[][] data) {
+        List<String> list = new ArrayList<>();
+
+        Arrays.stream(data)
+                .forEach(objects -> Arrays.stream(objects)
+                        .forEach(obj -> list.add(String.valueOf(obj))));
+
+        return list;
     }
 
     private static void copyFileUsingStream(File source, File dest) throws Exception {

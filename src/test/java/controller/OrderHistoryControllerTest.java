@@ -3,9 +3,8 @@ package controller;
 import model.OrdersModel;
 import model.StoreModel;
 import org.junit.jupiter.api.Test;
+import util.TestUtilities;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,20 +23,10 @@ class OrderHistoryControllerTest extends GenericControllerTest {
                 "ORD001", "2017-07-30", "Costumi Acquagym", "ORD001", "2017-07-30", "Scarpette e calze Acquagym"
         };
 
-        final List<String> ordersModelList = flattenToString(ordersModelRawData);
+        final List<String> ordersModelList = TestUtilities.flattenToString(ordersModelRawData);
 
         for (int i = 0; i < ordersModelList.size(); i++) {
             assertEquals(rawDataValid[i], ordersModelList.get(i));
         }
-    }
-
-    private List<String> flattenToString(Object[][] data) {
-        List<String> list = new ArrayList<>();
-
-        Arrays.stream(data)
-                .forEach(objects -> Arrays.stream(objects)
-                        .forEach(object -> list.add((String)object)));
-
-        return list;
     }
 }
