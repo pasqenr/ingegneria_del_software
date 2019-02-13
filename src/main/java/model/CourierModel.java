@@ -98,7 +98,7 @@ public class CourierModel extends Model implements GenericDAO {
      * @return A new Courier.
      */
     private CourierModel buildSingleFromResult(ResultSet rs) {
-        String name = null;
+        String name;
         CourierModel courier = null;
 
         try {
