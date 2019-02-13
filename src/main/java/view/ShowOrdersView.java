@@ -36,7 +36,7 @@ public class ShowOrdersView extends javax.swing.JFrame {
         outOrdersTable = new javax.swing.JTable();
         outOrdersLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         inOrdersTable.setModel(entranceController.getOrdersModel().getTableModel());
         jScrollPane2.setViewportView(inOrdersTable);
@@ -65,11 +65,11 @@ public class ShowOrdersView extends javax.swing.JFrame {
         outPanel.setLayout(outPanelLayout);
         outPanelLayout.setHorizontalGroup(
             outPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 134, Short.MAX_VALUE)
+            .addGap(0, 303, Short.MAX_VALUE)
         );
         outPanelLayout.setVerticalGroup(
             outPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 99, Short.MAX_VALUE)
         );
 
         outOrdersTable.setModel(leaveController.getOrdersModel().getTableModel());
@@ -109,6 +109,7 @@ public class ShowOrdersView extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String[] args) {

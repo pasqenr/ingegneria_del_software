@@ -23,9 +23,11 @@ public class LeaveController {
         ordersModel = new OrdersModel(new String[] {
                 "numero_bolla",
                 "data_ordine",
-                "codice_articolo",
+                "negozio",
+                "codice_articoli",
                 "nome",
-                "prezzo"
+                "quantita",
+                "prezzo_totale"
         }, rs);
 
         db.close();
@@ -42,21 +44,21 @@ public class LeaveController {
 
         String query =
                 "SELECT u.numero_bolla, " +
-                        "u.data AS data_ordine, " +
-                        "n.nome AS negozio, " +
-                        "u.spedizioniere, " +
-                        "GROUP_CONCAT(a.codice) AS codice_articolo, " +
-                        "ota.nome_tipo_articolo AS nome, " +
-                        "a.prezzo " +
+                        "       u.data AS data_ordine, " +
+                        "       n.nome AS negozio, " +
+                        "       u.spedizioniere, " +
+                        "       GROUP_CONCAT(a.codice) AS codice_articoli, " +
+                        "       ota.nome_tipo_articolo AS nome, " +
+                        "       ota.quantita, " +
+                        "       ota.prezzo_totale " +
                         "FROM uscita u " +
-                        "  JOIN negozio n on u.negozio = n.codice_fiscale " +
-                        "  JOIN spedizioniere s on u.spedizioniere = s.nome " +
-                        "  JOIN ordine o on n.codice_fiscale = o.negozio " +
-                        "  JOIN ordine_tipo_articolo ota on o.codice = ota.codice_ordine " +
-                        "  JOIN articolo a on ota.nome_tipo_articolo = a.tipo_articolo " +
-                        "GROUP BY u.numero_bolla " +
+                        "       JOIN negozio n on u.negozio = n.codice_fiscale " +
+                        "       JOIN spedizioniere s on u.spedizioniere = s.nome " +
+                        "       JOIN ordine o on n.codice_fiscale = o.negozio " +
+                        "       JOIN ordine_tipo_articolo ota on o.codice = ota.codice_ordine " +
+                        "       JOIN articolo a on ota.nome_tipo_articolo = a.tipo_articolo " +
+                        "GROUP BY ota.nome_tipo_articolo " +
                         "ORDER BY u.numero_bolla";
-
         PreparedStatement stmt;
 
         try {

@@ -1,7 +1,11 @@
 package controller;
 
+import database.DatabaseWrapper;
 import model.*;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -12,26 +16,33 @@ import java.util.List;
  */
 public class OrderController {
     /**
-     * Add an Order in the database with the related article types and amounts of them.
+     * Add an Order in the database with the related article types and quantities of them.
      *
      * @param store A valid Store model.
      * @param articleTypesNames An array of valid ArticleType names.
-     * @param amounts An array of amounts.
+     * @param quantities An array of quantities.
      */
-    public void addOrder(StoreModel store, String[] articleTypesNames, String[] amounts) {
+    public void addOrder(StoreModel store, String[] articleTypesNames, String[] quantities) {
         String orderCode = buildNewOrderCode();
         String date = getCurrentDate();
 
         // To list
         List<ArticleType> articleTypesList = articleTypesToList(articleTypesNames);
-        List<Float> amountsList = amountsToList(amounts);
+        List<Integer> quantitiesList = amountsToList(quantities);
 
         // Create a new order
         OrderModel order = new OrderModel(orderCode, date, store);
         order.store();
 
-        // Insert the articles and amounts in the order created
-        OrderTypeArticleModel orderTypeArticle = new OrderTypeArticleModel(order, articleTypesList, amountsList);
+        // Calculate the total prices
+        List<Float> totalPrices = calculateTotalPrices(articleTypesList, quantitiesList);
+
+        // Insert the articles and quantities in the order created
+        OrderTypeArticleModel orderTypeArticle = new OrderTypeArticleModel(
+                order,
+                articleTypesList,
+                quantitiesList,
+                totalPrices);
         orderTypeArticle.store();
     }
 
@@ -51,15 +62,16 @@ public class OrderController {
     }
 
     /**
-     * Returns a list of amounts from an array of amounts.
+     * Returns a list of quantities from an array of quantities.
      *
-     * @param amounts An array of amounts.
-     * @return A list of amounts.
+     * @param quantities An array of quantities.
+     * @return A list of quantities.
      */
-    private static List<Float> amountsToList(String[] amounts) {
-        List<Float> amountsList = new ArrayList<>();
-        for (String amount : amounts) {
-            amountsList.add(Float.valueOf(amount));
+    private static List<Integer> amountsToList(String[] quantities) {
+        List<Integer> amountsList = new ArrayList<>();
+
+        for (String amount : quantities) {
+            amountsList.add(Integer.valueOf(amount));
         }
 
         return amountsList;
@@ -90,5 +102,68 @@ public class OrderController {
         int lastOrderCode = fetchLastOrderCodeNumber();
 
         return String.format("ORD%03d", lastOrderCode + 1);
+    }
+
+    /**
+     *
+     *
+     * @param articleTypes
+     * @param quantities
+     * @return
+     */
+    private List<Float> calculateTotalPrices(List<ArticleType> articleTypes, final List<Integer> quantities) {
+        final List<Float> totalPrices = new ArrayList<>();
+
+        for (int i = 0; i < articleTypes.size(); i++) {
+            final List<String> articleCodes = fetchArticlesCodesFromType(articleTypes.get(i));
+            final Integer quantity = quantities.get(i);
+            totalPrices.add(calculateSingleTotalePrice(articleCodes, quantity));
+        }
+
+        return totalPrices;
+    }
+
+    private Float calculateSingleTotalePrice(final List<String> articleCodes, final Integer quantity) {
+        float totalPrice = 0F;
+
+        final String queryWhere =
+                "SELECT SUM(articolo.prezzo) AS prezzo_totale " +
+                "FROM articolo " +
+                "WHERE articolo.codice";
+
+        try (final DatabaseWrapper db = new DatabaseWrapper()) {
+            final ResultSet rs = db.queryIn(queryWhere, articleCodes);
+
+            if (rs.next()) {
+                totalPrice += rs.getFloat("prezzo_totale");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalPrice * quantity;
+    }
+
+    private List<String> fetchArticlesCodesFromType(final ArticleType articleType) {
+        final List<String> articles = new ArrayList<>();
+        final String query = "SELECT a.codice " +
+                "FROM articolo a " +
+                "JOIN tipo_articolo ta ON a.tipo_articolo = ta.nome " +
+                "WHERE ta.nome LIKE ?";
+        final PreparedStatement stmt;
+
+        try (final DatabaseWrapper db = new DatabaseWrapper()) {
+            stmt = db.getCon().prepareStatement(query);
+            stmt.setString(1, articleType.getName());
+            final ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                articles.add(rs.getString("codice"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return articles;
     }
 }

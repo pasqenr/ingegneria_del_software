@@ -1,6 +1,7 @@
 package database;
 
 import java.sql.*;
+import java.util.List;
 
 /**
  * A Database wrapper for the underling database jdbc connection.
@@ -82,6 +83,36 @@ public class DatabaseWrapper implements AutoCloseable {
         try {
             stmt = conn.createStatement();
             rs = stmt.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rs;
+    }
+
+    public ResultSet queryIn(String queryWhere, List<String> values) {
+        ResultSet rs = null;
+        final StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(queryWhere);
+        stringBuilder.append(" IN (");
+        for (int i = 0; i < values.size(); i++) {
+            if (i + 1 == values.size()) {
+                stringBuilder.append("?");
+            } else {
+                stringBuilder.append("?, ");
+            }
+        }
+        stringBuilder.append(")");
+
+        final String queryIn = stringBuilder.toString();
+        final PreparedStatement stmt;
+
+        try {
+            stmt = conn.prepareStatement(queryIn);
+            for (int i = 1; i <= values.size(); i++) {
+                stmt.setString(i, values.get(i - 1));
+            }
+            rs = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }

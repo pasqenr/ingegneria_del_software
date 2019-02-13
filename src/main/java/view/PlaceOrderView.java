@@ -137,9 +137,9 @@ public class PlaceOrderView extends javax.swing.JFrame {
         final int AMOUNT_COLUMN = 1;
 
         String[] articleTypesNames = TableController.fetchRowsFromTable(articleTypeTable, ARTICLE_TYPE_COLUMN);
-        String[] amounts = TableController.fetchRowsFromTable(articleTypeTable, AMOUNT_COLUMN);
+        String[] quantities = TableController.fetchRowsFromTable(articleTypeTable, AMOUNT_COLUMN);
 
-        if (articleTypesNames == null || amounts == null) {
+        if (articleTypesNames == null || quantities == null) {
             JOptionPane.showMessageDialog(this,
                     i18n.getString("error_empty_table"),
                     i18n.getString("error_title"),
@@ -159,7 +159,7 @@ public class PlaceOrderView extends javax.swing.JFrame {
             return;
         }
 
-        orderController.addOrder(store, articleTypesNames, amounts);
+        orderController.addOrder(store, articleTypesNames, quantities);
     }//GEN-LAST:event_orderButtonActionPerformed
 
     /**

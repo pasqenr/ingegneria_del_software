@@ -20,12 +20,9 @@ class OrderControllerTest extends GenericControllerTest {
                 "Costumi Acquagym",
                 "Materiale Acquagym"
         };
-        final String[] amounts = new String[] {
-                "17.99",
-                "9.99"
-        };
+        final String[] quantities = new String[] { "2", "3" };
 
-        orderController.addOrder(store, articleTypesNames, amounts);
+        orderController.addOrder(store, articleTypesNames, quantities);
         OrderModel lastOrder = OrderModel.getInstance().fetchLast();
         List<OrderModel> orders = OrderModel.getInstance().findAll();
         assertNotNull(lastOrder);
