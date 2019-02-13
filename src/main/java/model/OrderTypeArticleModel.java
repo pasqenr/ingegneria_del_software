@@ -20,7 +20,8 @@ public class OrderTypeArticleModel extends Model implements GenericDAO {
      *
      * @param order A Order.
      * @param articleTypes A list of ArticleTypes.
-     * @param quantities The total price of ArticleType ordered.
+     * @param quantities A list of quantities for every ArticleType.
+     * @param totalPrices A list of total prices for every ArticleType.
      */
     public OrderTypeArticleModel(OrderModel order,
                                  List<ArticleType> articleTypes,
