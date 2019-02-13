@@ -19,7 +19,7 @@ public class LeaveController {
     public LeaveController() {
         DatabaseWrapper db = new DatabaseWrapper();
 
-        ResultSet rs = fetchEntranceOrders(db);
+        ResultSet rs = fetchLeaveOrders(db);
         ordersModel = new OrdersModel(new String[] {
                 "numero_bolla",
                 "data_ordine",
@@ -37,7 +37,7 @@ public class LeaveController {
      * @param db A <code>DatabaseWrapper</code> instance.
      * @return The <code>ResultSet</code> of the orders used to populate <code>ordersModel</code> table.
      */
-    private ResultSet fetchEntranceOrders(DatabaseWrapper db) {
+    private ResultSet fetchLeaveOrders(DatabaseWrapper db) {
         ResultSet rs = null;
 
         String query =
@@ -45,13 +45,16 @@ public class LeaveController {
                         "u.data AS data_ordine, " +
                         "n.nome AS negozio, " +
                         "u.spedizioniere, " +
-                        "a.codice AS codice_articolo, " +
-                        "ta.nome, a.prezzo " +
-                        "FROM tipo_articolo AS ta " +
-                        "JOIN articolo a on ta.nome = a.tipo_articolo " +
-                        "JOIN uscita_articolo ua on a.codice = ua.codice_articolo " +
-                        "JOIN uscita u on ua.numero_bolla = u.numero_bolla " +
-                        "JOIN negozio n on u.negozio = n.nome " +
+                        "GROUP_CONCAT(a.codice) AS codice_articolo, " +
+                        "ota.nome_tipo_articolo AS nome, " +
+                        "a.prezzo " +
+                        "FROM uscita u " +
+                        "  JOIN negozio n on u.negozio = n.codice_fiscale " +
+                        "  JOIN spedizioniere s on u.spedizioniere = s.nome " +
+                        "  JOIN ordine o on n.codice_fiscale = o.negozio " +
+                        "  JOIN ordine_tipo_articolo ota on o.codice = ota.codice_ordine " +
+                        "  JOIN articolo a on ota.nome_tipo_articolo = a.tipo_articolo " +
+                        "GROUP BY u.numero_bolla " +
                         "ORDER BY u.numero_bolla";
 
         PreparedStatement stmt;
