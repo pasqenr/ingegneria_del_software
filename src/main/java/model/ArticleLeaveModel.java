@@ -12,8 +12,8 @@ import java.util.List;
  * Represent the entity ArticleLeave, table <code>uscita_articolo</code>.
  */
 public class ArticleLeaveModel extends Model implements GenericDAO {
-    private List<ArticleModel> articles;
-    private int leaveNumber;
+    private final List<ArticleModel> articles;
+    private final int leaveNumber;
 
     /**
      * Create a new ArticleLeave.
@@ -37,22 +37,22 @@ public class ArticleLeaveModel extends Model implements GenericDAO {
 
     @Override
     public List<ArticleLeaveModel> findAll() {
-        List<ArticleLeaveModel> list = new ArrayList<>();
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query =
+        final List<ArticleLeaveModel> list = new ArrayList<>();
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query =
                 "SELECT ua.numero_bolla, GROUP_CONCAT(ua.codice_articolo) AS codice_articoli " +
                 "FROM uscita_articolo ua " +
                 "GROUP BY ua.numero_bolla";
-        PreparedStatement stmt;
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int leaveNumber = rs.getInt("numero_bolla");
-                String articleCodes = rs.getString("codice_articoli");
-                List<ArticleModel> articles = articleCodesToList(articleCodes);
+                final int leaveNumber = rs.getInt("numero_bolla");
+                final String articleCodes = rs.getString("codice_articoli");
+                final List<ArticleModel> articles = articleCodesToList(articleCodes);
                 list.add(new ArticleLeaveModel(articles, leaveNumber));
             }
         } catch (SQLException e) {
@@ -66,11 +66,11 @@ public class ArticleLeaveModel extends Model implements GenericDAO {
 
     @Override
     public boolean store() {
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query = "INSERT INTO uscita_articolo (codice_articolo, numero_bolla) VALUES (?, ?)";
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query = "INSERT INTO uscita_articolo (codice_articolo, numero_bolla) VALUES (?, ?)";
         PreparedStatement stmt;
 
-        for (ArticleModel article : articles) {
+        for (final ArticleModel article : articles) {
             try {
                 stmt = db.getCon().prepareStatement(query);
                 stmt.setString(1, article.getCode());
@@ -89,7 +89,7 @@ public class ArticleLeaveModel extends Model implements GenericDAO {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
+        final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
 
         stringBuilder.append("leaveNumber: ");
@@ -108,7 +108,7 @@ public class ArticleLeaveModel extends Model implements GenericDAO {
             return false;
         }
 
-        ArticleLeaveModel other = (ArticleLeaveModel)o;
+        final ArticleLeaveModel other = (ArticleLeaveModel)o;
 
         return leaveNumber == other.leaveNumber &&
                 articles.equals(other.articles);
@@ -121,10 +121,10 @@ public class ArticleLeaveModel extends Model implements GenericDAO {
      * @return A list of ArticleModels.
      */
     private List<ArticleModel> articleCodesToList(String articleCodes) {
-        List<ArticleModel> articles = new ArrayList<>();
+        final List<ArticleModel> articles = new ArrayList<>();
         final String[] array = articleCodes.split(",");
 
-        for (String s : array) {
+        for (final String s : array) {
             articles.add(ArticleModel.getInstance().find(s));
         }
 
