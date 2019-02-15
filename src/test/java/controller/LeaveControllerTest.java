@@ -20,7 +20,7 @@ class LeaveControllerTest extends GenericControllerTest {
                 "AC8360917,AC8388175,AC8402392,AC8402405,AC8503430",
                 "Costumi Acquagym",
                 "2",
-                "29.99",
+                "9.99",
                 "1",
                 "2018-06-15",
                 "Decathlon",
@@ -31,10 +31,8 @@ class LeaveControllerTest extends GenericControllerTest {
         };
         final List<String> ordersList = TestUtilities.flattenToString(ordersModel.getRawData());
 
-        System.out.println(ordersList);
-
-        /*for (int i = 0; i < ordersList.size(); i++) {
+        for (int i = 0; i < ordersList.size(); i++) {
             assertEquals(values[i], ordersList.get(i));
-        }*/
+        }
     }
 }
