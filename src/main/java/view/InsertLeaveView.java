@@ -266,8 +266,6 @@ public class InsertLeaveView extends javax.swing.JFrame {
         StoreModel store = StoreModel.findByName(((String)storeNameComboBox.getSelectedItem()));
         CourierModel courier = CourierModel.getInstance().find(((String)courierComboBox.getSelectedItem()));
 
-        articles.forEach(System.out::println);
-
         insertLeaveController.addLeave(leaveNumber, orderCode, articles, date, store, courier);
 
         JOptionPane.showMessageDialog(this,
