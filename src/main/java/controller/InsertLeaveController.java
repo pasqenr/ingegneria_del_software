@@ -38,4 +38,25 @@ public class InsertLeaveController {
         FulfillmentModel fulfillment = new FulfillmentModel(orderCode, lastLeaveNumber);
         fulfillment.store();
     }
+
+    /**
+     * Check if all the table codes are stored in the database.
+     *
+     * @param tableCodes An array of table codes.
+     * @return <code>true</code> if all che table codes are in the database, <code>false</code> otherwise.
+     */
+    public boolean checkIsAlreadyStoredArticleCode(String[] tableCodes) {
+        final String[] storedCodes = ArticleModel.getInstance().getArticlesCodes();
+        int matchCounter = 0;
+
+        for (String tableCode : tableCodes) {
+            for (String storedCode : storedCodes) {
+                if (tableCode.equals(storedCode)) { // We have found a code already stored in the database
+                    matchCounter++;
+                }
+            }
+        }
+
+        return matchCounter == tableCodes.length;
+    }
 }
