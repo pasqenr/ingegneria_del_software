@@ -11,20 +11,20 @@ public class LoginView {
 
 
     public LoginView() {
-        JFrame f = new JFrame();
-        ResourceBundle i18n = ResourceBundle.getBundle("LoginView", Locale.getDefault());
-        LoginController loginController = new LoginController();
+        final JFrame f = new JFrame();
+        final ResourceBundle i18n = ResourceBundle.getBundle("LoginView", Locale.getDefault());
+        final LoginController loginController = new LoginController();
 
-        JButton loginButton = new JButton(i18n.getString("submit"));
-        JTextField emailTextField = new JTextField();
-        JPasswordField passwordTextField = new JPasswordField();
-        JLabel labelEmail = new JLabel(i18n.getString("email"));
-        JLabel labelPassword = new JLabel(i18n.getString("password"));
+        final JButton loginButton = new JButton(i18n.getString("submit"));
+        final JTextField emailTextField = new JTextField();
+        final JPasswordField passwordTextField = new JPasswordField();
+        final JLabel labelEmail = new JLabel(i18n.getString("email"));
+        final JLabel labelPassword = new JLabel(i18n.getString("password"));
 
         f.setTitle(i18n.getString("title"));
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        GroupLayout layout = new GroupLayout(f.getContentPane());
+        final GroupLayout layout = new GroupLayout(f.getContentPane());
         f.getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -66,7 +66,7 @@ public class LoginView {
 
         // Set listeners
         loginButton.addActionListener(actionEvent -> {
-            UserModel user = loginController.login(emailTextField.getText(),
+            final UserModel user = loginController.login(emailTextField.getText(),
                     charArrayToString(passwordTextField.getPassword()));
 
             if (loginController.isLogged()) {
@@ -92,8 +92,8 @@ public class LoginView {
         });
     }
 
-    private String charArrayToString(char[] array) {
-        StringBuilder s = new StringBuilder();
+    private String charArrayToString(final char[] array) {
+        final StringBuilder s = new StringBuilder();
 
         for (char c : array) {
             s.append(c);

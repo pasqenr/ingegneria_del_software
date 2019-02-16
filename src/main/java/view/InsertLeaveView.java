@@ -11,20 +11,12 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class InsertLeaveView extends javax.swing.JFrame {
-    private ResourceBundle i18n;
-    private List<StoreModel> storesList;
-    private List<CourierModel> courierList;
+    private final ResourceBundle i18n;
+    private final List<StoreModel> storesList;
+    private final List<CourierModel> courierList;
     private DefaultComboBoxModel<String> storesComboBoxModel;
     private DefaultComboBoxModel<String> courierComboBoxModel;
-    private InsertLeaveController insertLeaveController;
-
-    private enum ColumnPosition {
-        ARTICLE_CODE (0);
-
-        private final int columnPosition;
-        ColumnPosition(int columnPosition) { this.columnPosition = columnPosition; }
-        public int getValue() { return columnPosition; }
-    }
+    private final InsertLeaveController insertLeaveController;
 
     /**
      * Creates new form InsertLeaveView
@@ -65,17 +57,17 @@ public class InsertLeaveView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        orderCodeLabel = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
+        javax.swing.JLabel orderCodeLabel = new javax.swing.JLabel();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         articlesTable = new javax.swing.JTable();
-        storeNumberLabel = new javax.swing.JLabel();
-        dateLabel = new javax.swing.JLabel();
-        courierLabel = new javax.swing.JLabel();
+        javax.swing.JLabel storeNumberLabel = new javax.swing.JLabel();
+        javax.swing.JLabel dateLabel = new javax.swing.JLabel();
+        javax.swing.JLabel courierLabel = new javax.swing.JLabel();
         storeNameComboBox = new javax.swing.JComboBox<>();
         courierComboBox = new javax.swing.JComboBox<>();
-        insertOrderButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        javax.swing.JButton insertOrderButton = new javax.swing.JButton();
+        javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
         leaveNumberTextField = new javax.swing.JTextField();
         dateTextField = new javax.swing.JTextField();
         orderNumberTextField = new javax.swing.JTextField();
@@ -222,9 +214,10 @@ public class InsertLeaveView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void insertOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertOrderButtonActionPerformed
-        String orderCode = orderNumberTextField.getText();
+        final int COLUMN_ARTICLE_CODE = 0;
+        final String orderCode = orderNumberTextField.getText();
 
-        OrderModel order = OrderModel.getInstance().find(orderCode);
+        final OrderModel order = OrderModel.getInstance().find(orderCode);
 
         if (order == null) {
             JOptionPane.showMessageDialog(this,
@@ -234,8 +227,8 @@ public class InsertLeaveView extends javax.swing.JFrame {
             return;
         }
 
-        String[] articleCodes = TableController.fetchRowsFromTable(articlesTable,
-            ColumnPosition.ARTICLE_CODE.getValue());
+        final String[] articleCodes = TableController.fetchRowsFromTable(articlesTable,
+                COLUMN_ARTICLE_CODE);
 
         if (articleCodes == null) {
             JOptionPane.showMessageDialog(this,
@@ -245,7 +238,7 @@ public class InsertLeaveView extends javax.swing.JFrame {
             return;
         }
 
-        boolean allCodesStored = checkIsAlreadyStoredArticleCode(articleCodes);
+        final boolean allCodesStored = insertLeaveController.checkIsAlreadyStoredArticleCode(articleCodes);
 
         if (!allCodesStored) {
             JOptionPane.showMessageDialog(this,
@@ -255,16 +248,16 @@ public class InsertLeaveView extends javax.swing.JFrame {
             return;
         }
 
-        List<ArticleModel> articles = new ArrayList<>();
+        final List<ArticleModel> articles = new ArrayList<>();
 
         for (String articleCode : articleCodes) {
             articles.add(ArticleModel.getInstance().find(articleCode));
         }
 
-        int leaveNumber = Integer.valueOf(leaveNumberTextField.getText());
-        String date = dateTextField.getText();
-        StoreModel store = StoreModel.findByName(((String)storeNameComboBox.getSelectedItem()));
-        CourierModel courier = CourierModel.getInstance().find(((String)courierComboBox.getSelectedItem()));
+        final int leaveNumber = Integer.valueOf(leaveNumberTextField.getText());
+        final String date = dateTextField.getText();
+        final StoreModel store = StoreModel.findByName(((String)storeNameComboBox.getSelectedItem()));
+        final CourierModel courier = CourierModel.getInstance().find(((String)courierComboBox.getSelectedItem()));
 
         insertLeaveController.addLeave(leaveNumber, orderCode, articles, date, store, courier);
 
@@ -273,21 +266,6 @@ public class InsertLeaveView extends javax.swing.JFrame {
             i18n.getString("info_title"),
             JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_insertOrderButtonActionPerformed
-
-    private boolean checkIsAlreadyStoredArticleCode(String[] tableCodes) {
-        String[] storedCodes = ArticleModel.getInstance().getArticlesCodes();
-        int matchCounter = 0;
-
-        for (String tableCode : tableCodes) {
-            for (String storedCode : storedCodes) {
-                if (tableCode.equals(storedCode)) { // We have found a code already stored in the database
-                    matchCounter++;
-                }
-            }
-        }
-
-        return matchCounter == tableCodes.length;
-    }
 
     /**
      * @param args the command line arguments
@@ -299,17 +277,9 @@ public class InsertLeaveView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable articlesTable;
     private javax.swing.JComboBox<String> courierComboBox;
-    private javax.swing.JLabel courierLabel;
-    private javax.swing.JLabel dateLabel;
     private javax.swing.JTextField dateTextField;
-    private javax.swing.JButton insertOrderButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField leaveNumberTextField;
-    private javax.swing.JLabel orderCodeLabel;
     private javax.swing.JTextField orderNumberTextField;
     private javax.swing.JComboBox<String> storeNameComboBox;
-    private javax.swing.JLabel storeNumberLabel;
     // End of variables declaration//GEN-END:variables
 }

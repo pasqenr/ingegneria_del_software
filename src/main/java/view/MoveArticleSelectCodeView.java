@@ -4,20 +4,16 @@ import controller.MoveArticleController;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * UNUSED
+ */
 public class MoveArticleSelectCodeView extends javax.swing.JFrame {
-    private MoveArticleController moveArticleController;
+    private final MoveArticleController moveArticleController;
 
     public MoveArticleSelectCodeView() {
         moveArticleController = new MoveArticleController();
 
         initComponents();
-
-        // Center the frame
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension screenSize = toolkit.getScreenSize();
-        int x = (screenSize.width - getWidth()) / 2;
-        int y = (screenSize.height - getHeight()) / 2;
-        setLocation(x, y);
     }
 
     /**
@@ -91,10 +87,10 @@ public class MoveArticleSelectCodeView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void moveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moveButtonActionPerformed
-        String articleCode = (String)articlesComboBox.getSelectedItem();
-        String positionId = (String)positionsComboBox.getSelectedItem();
+        final String articleCode = (String)articlesComboBox.getSelectedItem();
+        final String positionId = (String)positionsComboBox.getSelectedItem();
 
-        boolean positionHasChanged = moveArticleController.moveArticlePositionByCodes(articleCode, positionId);
+        final boolean positionHasChanged = moveArticleController.moveArticlePositionByCodes(articleCode, positionId);
 
         if (positionHasChanged) {
             articlesComboBox.setModel(moveArticleController.getArticleCodesComboBoxModel());

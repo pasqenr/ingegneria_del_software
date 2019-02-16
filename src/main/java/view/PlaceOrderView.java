@@ -10,17 +10,17 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class PlaceOrderView extends javax.swing.JFrame {
-    private ResourceBundle i18n;
-    private StoreModel store;
-    private InsertArticleTypeController insertArticleTypeController;
-    private OrderController orderController;
+    private final ResourceBundle i18n;
+    private final StoreModel store;
+    private final InsertArticleTypeController insertArticleTypeController;
+    private final OrderController orderController;
 
     /**
      * Creates new form PlaceOrderView
      *
      * @param store A Store.
      */
-    public PlaceOrderView(StoreModel store) {
+    public PlaceOrderView(final StoreModel store) {
         i18n = ResourceBundle.getBundle("PlaceOrderView", Locale.getDefault());
         this.store = store;
         insertArticleTypeController = new InsertArticleTypeController();
@@ -39,10 +39,10 @@ public class PlaceOrderView extends javax.swing.JFrame {
     private void initComponents() {
 
         javax.swing.JLabel storeLabel = new javax.swing.JLabel();
-        storeTextField = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JTextField storeTextField = new javax.swing.JTextField();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         articleTypeTable = new javax.swing.JTable();
-        orderButton = new javax.swing.JButton();
+        javax.swing.JButton orderButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(i18n.getString("title")
@@ -136,8 +136,8 @@ public class PlaceOrderView extends javax.swing.JFrame {
         final int ARTICLE_TYPE_COLUMN = 0;
         final int AMOUNT_COLUMN = 1;
 
-        String[] articleTypesNames = TableController.fetchRowsFromTable(articleTypeTable, ARTICLE_TYPE_COLUMN);
-        String[] quantities = TableController.fetchRowsFromTable(articleTypeTable, AMOUNT_COLUMN);
+        final String[] articleTypesNames = TableController.fetchRowsFromTable(articleTypeTable, ARTICLE_TYPE_COLUMN);
+        final String[] quantities = TableController.fetchRowsFromTable(articleTypeTable, AMOUNT_COLUMN);
 
         if (articleTypesNames == null || quantities == null) {
             JOptionPane.showMessageDialog(this,
@@ -148,7 +148,8 @@ public class PlaceOrderView extends javax.swing.JFrame {
             return;
         }
 
-        boolean areArticleTypesStored = insertArticleTypeController.areArticleTypesAlreadyStored(articleTypesNames);
+        final boolean areArticleTypesStored =
+                insertArticleTypeController.areArticleTypesAlreadyStored(articleTypesNames);
 
         if (!areArticleTypesStored) {
             JOptionPane.showMessageDialog(this,
@@ -175,8 +176,5 @@ public class PlaceOrderView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable articleTypeTable;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton orderButton;
-    private javax.swing.JTextField storeTextField;
     // End of variables declaration//GEN-END:variables
 }

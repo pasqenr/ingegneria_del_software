@@ -9,15 +9,15 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ManagerView extends javax.swing.JFrame {
-    private ResourceBundle i18n;
-    private UserModel user;
+    private final ResourceBundle i18n;
+    private final UserModel user;
 
     /**
      * Creates new form ManagerView
      *
      * @param user The User.
      */
-    public ManagerView(UserModel user) {
+    public ManagerView(final UserModel user) {
         i18n = ResourceBundle.getBundle("ManagerView", Locale.getDefault());
         this.user = user;
 
@@ -33,10 +33,10 @@ public class ManagerView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        loggedAsLabel = new javax.swing.JLabel();
-        emailTextField = new javax.swing.JTextField();
-        placeOrderButton = new javax.swing.JButton();
-        orderHistoryButton = new javax.swing.JButton();
+        javax.swing.JLabel loggedAsLabel = new javax.swing.JLabel();
+        javax.swing.JTextField emailTextField = new javax.swing.JTextField();
+        javax.swing.JButton placeOrderButton = new javax.swing.JButton();
+        javax.swing.JButton orderHistoryButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(i18n.getString("title")
@@ -117,9 +117,5 @@ public class ManagerView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField emailTextField;
-    private javax.swing.JLabel loggedAsLabel;
-    private javax.swing.JButton orderHistoryButton;
-    private javax.swing.JButton placeOrderButton;
     // End of variables declaration//GEN-END:variables
 }

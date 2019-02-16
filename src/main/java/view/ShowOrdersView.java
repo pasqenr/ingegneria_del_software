@@ -6,8 +6,8 @@ import controller.LeaveController;
 import javax.swing.*;
 
 public class ShowOrdersView extends javax.swing.JFrame {
-    private EntranceController entranceController;
-    private LeaveController leaveController;
+    private final EntranceController entranceController;
+    private final LeaveController leaveController;
 
     /**
      * Creates new form ShowOrdersView
@@ -27,14 +27,14 @@ public class ShowOrdersView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        inPanel = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        inOrdersTable = new javax.swing.JTable();
-        inOrdersLabel = new javax.swing.JLabel();
-        outPanel = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        outOrdersTable = new javax.swing.JTable();
-        outOrdersLabel = new javax.swing.JLabel();
+        javax.swing.JPanel inPanel = new javax.swing.JPanel();
+        javax.swing.JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
+        javax.swing.JTable inOrdersTable = new javax.swing.JTable();
+        javax.swing.JLabel inOrdersLabel = new javax.swing.JLabel();
+        javax.swing.JPanel outPanel = new javax.swing.JPanel();
+        javax.swing.JScrollPane jScrollPane3 = new javax.swing.JScrollPane();
+        javax.swing.JTable outOrdersTable = new javax.swing.JTable();
+        javax.swing.JLabel outOrdersLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -117,13 +117,5 @@ public class ShowOrdersView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel inOrdersLabel;
-    private javax.swing.JTable inOrdersTable;
-    private javax.swing.JPanel inPanel;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel outOrdersLabel;
-    private javax.swing.JTable outOrdersTable;
-    private javax.swing.JPanel outPanel;
     // End of variables declaration//GEN-END:variables
 }

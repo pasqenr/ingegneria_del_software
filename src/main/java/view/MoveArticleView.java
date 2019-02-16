@@ -8,8 +8,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MoveArticleView extends javax.swing.JFrame {
-    private ResourceBundle i18n;
-    private MoveArticleController moveArticleController;
+    private final ResourceBundle i18n;
+    private final MoveArticleController moveArticleController;
     private ArticleModel article;
 
     /**
@@ -31,15 +31,15 @@ public class MoveArticleView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        articleCodeLabel = new javax.swing.JLabel();
+        javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
+        javax.swing.JLabel articleCodeLabel = new javax.swing.JLabel();
         articleCodeTextField = new javax.swing.JTextField();
-        searchButton = new javax.swing.JButton();
-        articleOldPositionLabel = new javax.swing.JLabel();
+        javax.swing.JButton searchButton = new javax.swing.JButton();
+        javax.swing.JLabel articleOldPositionLabel = new javax.swing.JLabel();
         articleOldPositionTextField = new javax.swing.JTextField();
-        avaiableNewPositionsLabel = new javax.swing.JLabel();
+        javax.swing.JLabel avaiableNewPositionsLabel = new javax.swing.JLabel();
         freePositionsComboBox = new javax.swing.JComboBox<>();
-        moveButton = new javax.swing.JButton();
+        javax.swing.JButton moveButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(i18n.getString("title"));
@@ -133,7 +133,7 @@ public class MoveArticleView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        String articleCode = articleCodeTextField.getText();
+        final String articleCode = articleCodeTextField.getText();
         article = ArticleModel.getInstance().find(articleCode);
 
         if (article == null) {
@@ -149,8 +149,8 @@ public class MoveArticleView extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void moveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moveButtonActionPerformed
-        String articleCode = articleCodeTextField.getText();
-        String positionId = (String)freePositionsComboBox.getSelectedItem();
+        final String articleCode = articleCodeTextField.getText();
+        final String positionId = (String)freePositionsComboBox.getSelectedItem();
 
         if (article == null) {
             JOptionPane.showMessageDialog(this,
@@ -161,7 +161,7 @@ public class MoveArticleView extends javax.swing.JFrame {
             return;
         }
 
-        boolean positionHasChanged = moveArticleController.moveArticlePositionByCodes(articleCode, positionId);
+        final boolean positionHasChanged = moveArticleController.moveArticlePositionByCodes(articleCode, positionId);
 
         if (positionHasChanged) {
             articleCodeTextField.setText("");
@@ -175,14 +175,8 @@ public class MoveArticleView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel articleCodeLabel;
     private javax.swing.JTextField articleCodeTextField;
-    private javax.swing.JLabel articleOldPositionLabel;
     private javax.swing.JTextField articleOldPositionTextField;
-    private javax.swing.JLabel avaiableNewPositionsLabel;
     private javax.swing.JComboBox<String> freePositionsComboBox;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton moveButton;
-    private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,9 +9,9 @@ import javax.swing.*;
 import java.util.*;
 
 public class InsertEntranceView extends javax.swing.JFrame {
-    private ResourceBundle i18n;
-    private PositionController positionController;
-    private InsertEntranceController insertEntranceController;
+    private final ResourceBundle i18n;
+    private final PositionController positionController;
+    private final InsertEntranceController insertEntranceController;
 
     /**
      * Creates new form InsertEntranceView
@@ -33,10 +33,10 @@ public class InsertEntranceView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         articlesTable = new javax.swing.JTable();
-        createEntranceButton = new javax.swing.JButton();
+        javax.swing.JButton createEntranceButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(i18n.getString("title"));
@@ -219,8 +219,5 @@ public class InsertEntranceView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable articlesTable;
-    private javax.swing.JButton createEntranceButton;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,15 +8,15 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class SecretaryView extends javax.swing.JFrame {
-    private ResourceBundle i18n;
-    private UserModel user;
+    private final ResourceBundle i18n;
+    private final UserModel user;
 
     /**
      * Creates new form SecretaryView
      *
      * @param user The user.
      */
-    public SecretaryView(UserModel user) {
+    public SecretaryView(final UserModel user) {
         i18n = ResourceBundle.getBundle("SecretaryView", Locale.getDefault());
         this.user = user;
 
@@ -32,10 +32,10 @@ public class SecretaryView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        loggedAsLabel = new javax.swing.JLabel();
-        emailTextField = new javax.swing.JTextField();
-        insertArticleTypeButton = new javax.swing.JButton();
-        ordersFulfillmentButton = new javax.swing.JButton();
+        javax.swing.JLabel loggedAsLabel = new javax.swing.JLabel();
+        javax.swing.JTextField emailTextField = new javax.swing.JTextField();
+        javax.swing.JButton insertArticleTypeButton = new javax.swing.JButton();
+        javax.swing.JButton ordersFulfillmentButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(i18n.getString("title"));
@@ -111,9 +111,5 @@ public class SecretaryView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField emailTextField;
-    private javax.swing.JButton insertArticleTypeButton;
-    private javax.swing.JLabel loggedAsLabel;
-    private javax.swing.JButton ordersFulfillmentButton;
     // End of variables declaration//GEN-END:variables
 }

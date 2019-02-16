@@ -7,8 +7,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class OrdersFulfillmentView extends javax.swing.JFrame {
-    private ResourceBundle i18n;
-    private OrderFulfillmentController orderFulfillmentController;
+    private final ResourceBundle i18n;
+    private final OrderFulfillmentController orderFulfillmentController;
 
     /**
      * Creates new form OrdersFulfillmentView
@@ -29,8 +29,8 @@ public class OrdersFulfillmentView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        leaveTable = new javax.swing.JTable();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JTable leaveTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(i18n.getString("title")
@@ -68,7 +68,5 @@ public class OrdersFulfillmentView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable leaveTable;
     // End of variables declaration//GEN-END:variables
 }

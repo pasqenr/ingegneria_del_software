@@ -8,8 +8,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class InsertArticleTypeView extends javax.swing.JFrame {
-    private ResourceBundle i18n;
-    private InsertArticleTypeController insertArticleTypeController;
+    private final ResourceBundle i18n;
+    private final InsertArticleTypeController insertArticleTypeController;
 
     /**
      * Creates new form InsertArticleTypeView
@@ -30,9 +30,9 @@ public class InsertArticleTypeView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         articleTypeTable = new javax.swing.JTable();
-        insertButton = new javax.swing.JButton();
+        javax.swing.JButton insertButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(i18n.getString("title"));
@@ -166,7 +166,5 @@ public class InsertArticleTypeView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable articleTypeTable;
-    private javax.swing.JButton insertButton;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
