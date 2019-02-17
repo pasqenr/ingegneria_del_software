@@ -18,17 +18,17 @@ public class InsertArticleTypeController {
      * @param articleTypeMaterials An array of ArticleType materials.
      * @param articleTypeSports An array of valid Sport names.
      */
-    public void addAll(String[] articleTypesNames,
-                       String[] articleTypeDescriptions,
-                       String[] articleTypeMaterials,
-                       String[] articleTypeSports) {
+    public void addAll(final String[] articleTypesNames,
+                       final String[] articleTypeDescriptions,
+                       final String[] articleTypeMaterials,
+                       final String[] articleTypeSports) {
         for (int i = 0; i < articleTypesNames.length; i++) {
-            String name = articleTypesNames[i];
-            String description = articleTypeDescriptions[i];
-            String materials = articleTypeMaterials[i];
-            SportModel sport = SportModel.getInstance().find(articleTypeSports[i]);
+            final String name = articleTypesNames[i];
+            final String description = articleTypeDescriptions[i];
+            final String materials = articleTypeMaterials[i];
+            final SportModel sport = SportModel.getInstance().find(articleTypeSports[i]);
 
-            ArticleType articleType = new ArticleType(name, description, materials, sport);
+            final ArticleType articleType = new ArticleType(name, description, materials, sport);
             articleType.store();
         }
     }
@@ -40,9 +40,9 @@ public class InsertArticleTypeController {
      * @param articleTypes An array of ArticleType names.
      * @return <code>true</code> if all the names are valid, <code>false</code> otherwise.
      */
-    public boolean areArticleTypesAlreadyStored(String[] articleTypes) {
+    public boolean areArticleTypesAlreadyStored(final String[] articleTypes) {
         int matches = 0;
-        List<ArticleType> articleTypeList = ArticleType.getInstance().findAll();
+        final List<ArticleType> articleTypeList = ArticleType.getInstance().findAll();
 
         for (ArticleType articleType : articleTypeList) {
             for (String articleCode : articleTypes) {
@@ -61,9 +61,9 @@ public class InsertArticleTypeController {
      * @param sportNames Unique names of the sports.
      * @return <code>true</code> if all the sports are found, <code>false</code> otherwise.
      */
-    public boolean areSportsValid(String[] sportNames) {
+    public boolean areSportsValid(final String[] sportNames) {
         int matches = 0;
-        List<SportModel> sports = SportModel.getInstance().findAll();
+        final List<SportModel> sports = SportModel.getInstance().findAll();
 
         for (SportModel sport : sports) {
             for (String sportName : sportNames) {

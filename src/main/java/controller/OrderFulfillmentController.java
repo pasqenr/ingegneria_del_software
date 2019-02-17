@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * Manage a Order Fulfillment.
  */
 public class OrderFulfillmentController {
-    private DefaultTableModel tableModel;
+    private final DefaultTableModel tableModel;
 
     /**
      * Create a new OrderFulfillmentController.
@@ -31,8 +31,8 @@ public class OrderFulfillmentController {
      * Populate the rows of the internal TableModel with the orders fulfillment found in the database.
      */
     private void populateTableModel() {
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query = "SELECT o.codice AS codice_ordine," +
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query = "SELECT o.codice AS codice_ordine," +
                 " u.numero_bolla, " +
                 "u.data, " +
                 "n.nome AS negozio, " +
@@ -41,11 +41,11 @@ public class OrderFulfillmentController {
                 "JOIN negozio n ON u.negozio = n.codice_fiscale " +
                 "JOIN spedizioniere s ON u.spedizioniere = s.nome " +
                 "JOIN ordine o on n.codice_fiscale = o.negozio ";
-        PreparedStatement stmt;
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 String orderCode = rs.getString("codice_ordine");

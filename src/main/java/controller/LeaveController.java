@@ -11,15 +11,15 @@ import java.sql.SQLException;
  * Manage the leaves table visualization.
  */
 public class LeaveController {
-    private OrdersModel ordersModel;
+    private final OrdersModel ordersModel;
 
     /**
      * Create a new LeaveController.
      */
     public LeaveController() {
-        DatabaseWrapper db = new DatabaseWrapper();
+        final DatabaseWrapper db = new DatabaseWrapper();
 
-        ResultSet rs = fetchLeaveOrders(db);
+        final ResultSet rs = fetchLeaveOrders(db);
         ordersModel = new OrdersModel(new String[] {
                 "numero_bolla",
                 "data_ordine",
@@ -39,10 +39,10 @@ public class LeaveController {
      * @param db A <code>DatabaseWrapper</code> instance.
      * @return The <code>ResultSet</code> of the orders used to populate <code>ordersModel</code> table.
      */
-    private ResultSet fetchLeaveOrders(DatabaseWrapper db) {
+    private ResultSet fetchLeaveOrders(final DatabaseWrapper db) {
         ResultSet rs = null;
 
-        String query =
+        final String query =
                 "SELECT u.numero_bolla, " +
                         "       u.data AS data_ordine, " +
                         "       n.nome AS negozio, " +
@@ -59,7 +59,7 @@ public class LeaveController {
                         "       JOIN articolo a on ota.nome_tipo_articolo = a.tipo_articolo " +
                         "GROUP BY ota.nome_tipo_articolo " +
                         "ORDER BY u.numero_bolla";
-        PreparedStatement stmt;
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);

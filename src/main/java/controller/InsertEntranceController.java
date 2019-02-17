@@ -17,15 +17,15 @@ public class InsertEntranceController {
      *
      * @param articles A list of Article.
      */
-    public void insertArticlesAsEntrance(List<ArticleModel> articles) {
+    public void insertArticlesAsEntrance(final List<ArticleModel> articles) {
         // Create a new entrance
-        EntranceModel entrance = createNewEntrance();
+        final EntranceModel entrance = createNewEntrance();
 
         // Insert the new articles
         articles.forEach(ArticleModel::store);
 
         // Insert article entrance
-        EntranceArticleModel entranceArticleModel = new EntranceArticleModel(articles, entrance);
+        final EntranceArticleModel entranceArticleModel = new EntranceArticleModel(articles, entrance);
         entranceArticleModel.store();
     }
 
@@ -35,7 +35,7 @@ public class InsertEntranceController {
      * @param lengths An array of lengths.
      * @return <code>true</code> if all the lengths are equal, <code>false</code> otherwise.
      */
-    public boolean checkEqualLengths(int[] lengths) {
+    public boolean checkEqualLengths(final int[] lengths) {
         return Arrays.stream(lengths).allMatch(length -> length == lengths[0]);
     }
 
@@ -46,11 +46,11 @@ public class InsertEntranceController {
      * @return <true>code</true> if at least one code in articleCodes is already stored in the database,
      * <code>false</code> otherwise.
      */
-    public boolean checkIsAlreadyStoredArticleCodes(String[] articleCodes) {
-        String[] storedCodes = ArticleModel.getInstance().getArticlesCodes();
+    public boolean checkIsAlreadyStoredArticleCodes(final String[] articleCodes) {
+        final String[] storedCodes = ArticleModel.getInstance().getArticlesCodes();
 
-        for (String tableCode : articleCodes) {
-            for (String storedCode : storedCodes) {
+        for (final String tableCode : articleCodes) {
+            for (final String storedCode : storedCodes) {
                 if (tableCode.equals(storedCode)) { // We have found a code already stored in the database
                     return false;
                 }
@@ -75,7 +75,7 @@ public class InsertEntranceController {
      * Create a new Entrance in the database.
      */
     private void insertEntrance() {
-        EntranceModel entrance = new EntranceModel();
+        final EntranceModel entrance = new EntranceModel();
         entrance.store();
     }
 
@@ -83,7 +83,7 @@ public class InsertEntranceController {
      * @return The last Entrance in the database.
      */
     private EntranceModel fetchLastEntrance() {
-        int greatestCode = EntranceModel.getInstance().getGreatestCode();
+        final int greatestCode = EntranceModel.getInstance().getGreatestCode();
 
         return EntranceModel.getInstance().find(greatestCode);
     }

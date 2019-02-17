@@ -9,15 +9,15 @@ import java.sql.ResultSet;
  * Manage the entrances' table visualization.
  */
 public class EntranceController {
-    private OrdersModel ordersModel;
+    private final OrdersModel ordersModel;
 
     /**
      * Create a new <code>EntranceController</code>.
      */
     public EntranceController() {
-        DatabaseWrapper db = new DatabaseWrapper();
+        final DatabaseWrapper db = new DatabaseWrapper();
 
-        ResultSet rs = fetchEntranceOrders(db);
+        final ResultSet rs = fetchEntranceOrders(db);
         ordersModel = new OrdersModel(new String[]{
                 "codice_ingresso",
                 "data_ingresso",
@@ -36,10 +36,10 @@ public class EntranceController {
      * @param db A <code>DatabaseWrapper</code> instance.
      * @return The <code>ResultSet</code> of the orders used to populate <code>ordersModel</code> table.
      */
-    private static ResultSet fetchEntranceOrders(DatabaseWrapper db) {
-        ResultSet rs;
+    private ResultSet fetchEntranceOrders(final DatabaseWrapper db) {
+        final ResultSet rs;
 
-        String query =
+        final String query =
                 "SELECT i.codice AS codice_ingresso, " +
                 "i.data AS data_ingresso, " +
                 "a.codice AS codice_articolo, " +

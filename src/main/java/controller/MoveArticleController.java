@@ -27,7 +27,7 @@ public class MoveArticleController {
      * @return A ComboBoxModel with the free positions.
      */
     public DefaultComboBoxModel<String> getFreePositionComboBoxModel() {
-        List<PositionModel> freePositions = positionController.getFreePositions();
+        final List<PositionModel> freePositions = positionController.getFreePositions();
 
         return new DefaultComboBoxModel<>(positionModelsToStrings(freePositions));
     }
@@ -46,13 +46,12 @@ public class MoveArticleController {
      * @param positionId A valid position identifier.
      * @return <code>true</code> if the articles was moved, <code>false</code> otherwise.
      */
-    public boolean moveArticlePositionByCodes(String articleCode, String positionId) {
-        DatabaseWrapper db = new DatabaseWrapper();
-        Connection con = db.getCon();
-        PreparedStatement updateArticleStmt;
+    public boolean moveArticlePositionByCodes(final String articleCode, final String positionId) {
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final Connection con = db.getCon();
+        final PreparedStatement updateArticleStmt;
         int affectedRows = 0;
-
-        String updateArticleQuery = "UPDATE articolo SET posizione = ? WHERE codice LIKE ?";
+        final String updateArticleQuery = "UPDATE articolo SET posizione = ? WHERE codice LIKE ?";
 
         try {
             updateArticleStmt = con.prepareStatement(updateArticleQuery);
@@ -80,10 +79,10 @@ public class MoveArticleController {
      * @param positionModels A list of PositionModel.
      * @return An array of PositionModel codes.
      */
-    private String[] positionModelsToStrings(List<PositionModel> positionModels) {
+    private String[] positionModelsToStrings(final List<PositionModel> positionModels) {
         int i = 0;
 
-        String[] positions = new String[positionModels.size()];
+        final String[] positions = new String[positionModels.size()];
         for (PositionModel p : positionModels) {
             positions[i] = p.getCode();
             i++;

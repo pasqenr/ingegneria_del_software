@@ -17,7 +17,7 @@ public class PositionController {
      * @return The free positions.
      */
     public List<PositionModel> getFreePositions() {
-        String query = "SELECT p.id_posizione AS posizione " +
+        final String query = "SELECT p.id_posizione AS posizione " +
                 "FROM posizione p " +
                 "EXCEPT " +
                 "SELECT a.posizione " +
@@ -32,9 +32,9 @@ public class PositionController {
      * @param positionCode A valid position code.
      * @return The Position associated to the positionCode.
      */
-    public PositionModel findFreePositionByCode(String positionCode) {
-        List<PositionModel> positions = getFreePositions();
-        PositionModel retPosition;
+    public PositionModel findFreePositionByCode(final String positionCode) {
+        final List<PositionModel> positions = getFreePositions();
+        final PositionModel retPosition;
 
         retPosition = positions.stream().filter(position -> position.getCode().equals(positionCode))
                 .findFirst()
@@ -53,14 +53,14 @@ public class PositionController {
      * @param positionQuery A position query to select the wanted positions.
      * @return The list of Position returned by the positionQuery.
      */
-    private List<PositionModel> retrievePosition(String positionQuery) {
-        DatabaseWrapper db = new DatabaseWrapper();
-        List<PositionModel> fetchedFreePositions = new ArrayList<>();
-        PreparedStatement stmt;
+    private List<PositionModel> retrievePosition(final String positionQuery) {
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final List<PositionModel> fetchedFreePositions = new ArrayList<>();
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(positionQuery);
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 fetchedFreePositions.add(new PositionModel(rs.getString("posizione")));

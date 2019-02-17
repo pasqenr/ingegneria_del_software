@@ -15,11 +15,11 @@ public class TableController {
      * @param columnPosition A valid table index, starting from 0.
      * @return The array of rows of the table at the columnPosition.
      */
-    public static String[] fetchRowsFromTable(JTable table, int columnPosition) {
-        List<String> rowsList = new ArrayList<>();
+    public static String[] fetchRowsFromTable(final JTable table, final int columnPosition) {
+        final List<String> rowsList = new ArrayList<>();
 
         for (int row = 0; row < table.getRowCount(); row++) {
-            Object current = table.getValueAt(row, columnPosition);
+            final Object current = table.getValueAt(row, columnPosition);
 
             if (current != null) {
                 rowsList.add((String) current);
@@ -33,7 +33,7 @@ public class TableController {
             return null;
         }
 
-        String[] rowsArray = new String[fetchedRowsNumber];
+        final String[] rowsArray = new String[fetchedRowsNumber];
 
         for (int i = 0; i < fetchedRowsNumber; i++) {
             rowsArray[i] = rowsList.get(i);

@@ -15,7 +15,7 @@ import java.util.List;
  * Manage the entrances of articles in the warehouse.
  */
 public class EntranceArticleController {
-    private List<EntranceArticleModel> entranceArticles;
+    private final List<EntranceArticleModel> entranceArticles;
 
     /**
      * Create a new controller.
@@ -40,17 +40,17 @@ public class EntranceArticleController {
      * @return The list of <code>EntranceArticle</code> models.
      */
     private List<EntranceArticleModel> fetchAll() {
-        List<EntranceArticleModel> entranceArticles = new ArrayList<>();
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query = "SELECT ia.codice_articolo, ia.codice_ingresso FROM ingresso_articolo ia";
-        PreparedStatement stmt;
+        final List<EntranceArticleModel> entranceArticles = new ArrayList<>();
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query = "SELECT ia.codice_articolo, ia.codice_ingresso FROM ingresso_articolo ia";
+        final PreparedStatement stmt;
 
-        List<ArticleModel> fetchedArticles = new ArrayList<>();
+        final List<ArticleModel> fetchedArticles = new ArrayList<>();
         int lastEntranceCode = 0;
 
         try {
             stmt = db.getCon().prepareStatement(query);
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 String articleCode = rs.getString("codice_articolo");
@@ -89,7 +89,7 @@ public class EntranceArticleController {
      * @param entranceCode The new entrance code.
      * @return <code>true</code> if the codes are different, <code>false</code> otherwise.
      */
-    private boolean hasCodeChanged(int lastEntranceCode, int entranceCode) {
+    private boolean hasCodeChanged(final int lastEntranceCode, final int entranceCode) {
         return lastEntranceCode > 0 && entranceCode != lastEntranceCode;
     }
 
@@ -101,11 +101,11 @@ public class EntranceArticleController {
      * @param articles The list of <code>Article</code>.
      * @param entranceCode The entrance code.
      */
-    private void addPreviousArticlesWithSameCode(List<EntranceArticleModel> entranceArticles,
-                                                 List<ArticleModel> articles,
-                                                 int entranceCode) {
-        EntranceModel entrance = EntranceModel.getInstance().find(entranceCode);
-        EntranceArticleModel entranceArticleModel = new EntranceArticleModel(articles, entrance);
+    private void addPreviousArticlesWithSameCode(final List<EntranceArticleModel> entranceArticles,
+                                                 final List<ArticleModel> articles,
+                                                 final int entranceCode) {
+        final EntranceModel entrance = EntranceModel.getInstance().find(entranceCode);
+        final EntranceArticleModel entranceArticleModel = new EntranceArticleModel(articles, entrance);
 
         entranceArticles.add(entranceArticleModel);
     }

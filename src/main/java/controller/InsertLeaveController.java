@@ -19,23 +19,23 @@ public class InsertLeaveController {
      * @param store The store where send the articles
      * @param courier The courier that will carry the articles.
      */
-    public void addLeave(int leaveNumber,
-                         String orderCode,
-                         List<ArticleModel> articles,
-                         String date,
-                         StoreModel store,
-                         CourierModel courier) {
+    public void addLeave(final int leaveNumber,
+                         final String orderCode,
+                         final List<ArticleModel> articles,
+                         final String date,
+                         final StoreModel store,
+                         final CourierModel courier) {
         // Add the leave
-        LeaveModel leave = new LeaveModel(leaveNumber, date, store, courier);
+        final LeaveModel leave = new LeaveModel(leaveNumber, date, store, courier);
         leave.store();
 
         // Add all the articles to the leave
-        int lastLeaveNumber = LeaveModel.getInstance().getLastId();
-        ArticleLeaveModel articleLeave = new ArticleLeaveModel(articles, lastLeaveNumber);
+        final int lastLeaveNumber = LeaveModel.getInstance().getLastId();
+        final ArticleLeaveModel articleLeave = new ArticleLeaveModel(articles, lastLeaveNumber);
         articleLeave.store();
 
         // Add the fulfillment of the order
-        FulfillmentModel fulfillment = new FulfillmentModel(orderCode, lastLeaveNumber);
+        final FulfillmentModel fulfillment = new FulfillmentModel(orderCode, lastLeaveNumber);
         fulfillment.store();
     }
 
@@ -45,12 +45,12 @@ public class InsertLeaveController {
      * @param tableCodes An array of table codes.
      * @return <code>true</code> if all che table codes are in the database, <code>false</code> otherwise.
      */
-    public boolean checkIsAlreadyStoredArticleCode(String[] tableCodes) {
+    public boolean checkIsAlreadyStoredArticleCode(final String[] tableCodes) {
         final String[] storedCodes = ArticleModel.getInstance().getArticlesCodes();
         int matchCounter = 0;
 
-        for (String tableCode : tableCodes) {
-            for (String storedCode : storedCodes) {
+        for (final String tableCode : tableCodes) {
+            for (final String storedCode : storedCodes) {
                 if (tableCode.equals(storedCode)) { // We have found a code already stored in the database
                     matchCounter++;
                 }

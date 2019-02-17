@@ -12,19 +12,19 @@ import java.sql.SQLException;
  * Manage the orders history for table visualization.
  */
 public class OrderHistoryController {
-    private OrdersModel ordersModel;
-    private StoreModel store;
+    private final OrdersModel ordersModel;
+    private final StoreModel store;
 
     /**
      * Create a new OrderHistoryController.
      *
      * @param store A valid Store.
      */
-    public OrderHistoryController(StoreModel store) {
+    public OrderHistoryController(final StoreModel store) {
         this.store = store;
-        DatabaseWrapper db = new DatabaseWrapper();
+        final DatabaseWrapper db = new DatabaseWrapper();
 
-        ResultSet rs = fetchOrders(db);
+        final ResultSet rs = fetchOrders(db);
         ordersModel = new OrdersModel(new String[] { "codice_ordine", "data_ordine", "tipo_articolo" },
                 rs,
                 false);
@@ -38,10 +38,10 @@ public class OrderHistoryController {
      * @param db A <code>DatabaseWrapper</code> instance.
      * @return The <code>ResultSet</code> of the orders used to populate <code>ordersModel</code> table.
      */
-    private ResultSet fetchOrders(DatabaseWrapper db) {
+    private ResultSet fetchOrders(final DatabaseWrapper db) {
         ResultSet rs = null;
-        PreparedStatement stmt;
-        String query = "SELECT o.codice AS codice_ordine, o.data AS data_ordine, " +
+        final PreparedStatement stmt;
+        final String query = "SELECT o.codice AS codice_ordine, o.data AS data_ordine, " +
                 "ota.nome_tipo_articolo AS tipo_articolo " +
                 "FROM ordine o " +
                 "JOIN ordine_tipo_articolo ota ON o.codice = ota.codice_ordine " +

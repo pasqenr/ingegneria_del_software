@@ -22,23 +22,23 @@ public class OrderController {
      * @param articleTypesNames An array of valid ArticleType names.
      * @param quantities An array of quantities.
      */
-    public void addOrder(StoreModel store, String[] articleTypesNames, String[] quantities) {
-        String orderCode = buildNewOrderCode();
-        String date = getCurrentDate();
+    public void addOrder(final StoreModel store, final String[] articleTypesNames, final String[] quantities) {
+        final String orderCode = buildNewOrderCode();
+        final String date = getCurrentDate();
 
         // To list
-        List<ArticleType> articleTypesList = articleTypesToList(articleTypesNames);
-        List<Integer> quantitiesList = amountsToList(quantities);
+        final List<ArticleType> articleTypesList = articleTypesToList(articleTypesNames);
+        final List<Integer> quantitiesList = amountsToList(quantities);
 
         // Create a new order
-        OrderModel order = new OrderModel(orderCode, date, store);
+        final OrderModel order = new OrderModel(orderCode, date, store);
         order.store();
 
         // Calculate the total prices
-        List<Float> totalPrices = calculateTotalPrices(articleTypesList, quantitiesList);
+        final List<Float> totalPrices = calculateTotalPrices(articleTypesList, quantitiesList);
 
         // Insert the articles and quantities in the order created
-        OrderTypeArticleModel orderTypeArticle = new OrderTypeArticleModel(
+        final OrderTypeArticleModel orderTypeArticle = new OrderTypeArticleModel(
                 order,
                 articleTypesList,
                 quantitiesList,
@@ -52,9 +52,10 @@ public class OrderController {
      * @param articleTypesNames A valid array of ArticleType names.
      * @return A list of ArticleType.
      */
-    private static List<ArticleType> articleTypesToList(String[] articleTypesNames) {
-        List<ArticleType> articleTypes = new ArrayList<>();
-        for (String articleTypeName : articleTypesNames) {
+    private List<ArticleType> articleTypesToList(final String[] articleTypesNames) {
+        final List<ArticleType> articleTypes = new ArrayList<>();
+
+        for (final String articleTypeName : articleTypesNames) {
             articleTypes.add(ArticleType.getInstance().find(articleTypeName));
         }
 
@@ -67,10 +68,10 @@ public class OrderController {
      * @param quantities An array of quantities.
      * @return A list of quantities.
      */
-    private static List<Integer> amountsToList(String[] quantities) {
-        List<Integer> amountsList = new ArrayList<>();
+    private List<Integer> amountsToList(final String[] quantities) {
+        final List<Integer> amountsList = new ArrayList<>();
 
-        for (String amount : quantities) {
+        for (final String amount : quantities) {
             amountsList.add(Integer.valueOf(amount));
         }
 
@@ -89,7 +90,7 @@ public class OrderController {
      * function returns only the last part 001 as integer, so 1.
      */
     private int fetchLastOrderCodeNumber() {
-        String lastOrderCode = OrderModel.getInstance().fetchLast().getCode();
+        final String lastOrderCode = OrderModel.getInstance().fetchLast().getCode();
 
         return Integer.valueOf(lastOrderCode.substring(4));
     }
@@ -99,7 +100,7 @@ public class OrderController {
      * For example: ORD001 -> buildNewOrderCode() -> ORD002.
      */
     private String buildNewOrderCode() {
-        int lastOrderCode = fetchLastOrderCodeNumber();
+        final int lastOrderCode = fetchLastOrderCodeNumber();
 
         return String.format("ORD%03d", lastOrderCode + 1);
     }
@@ -111,7 +112,7 @@ public class OrderController {
      * @param quantities A list of quantities, one for every ArticleType.
      * @return A list of total prices, one for every ArticleType.
      */
-    private List<Float> calculateTotalPrices(List<ArticleType> articleTypes, final List<Integer> quantities) {
+    private List<Float> calculateTotalPrices(final List<ArticleType> articleTypes, final List<Integer> quantities) {
         final List<Float> totalPrices = new ArrayList<>();
 
         for (int i = 0; i < articleTypes.size(); i++) {
