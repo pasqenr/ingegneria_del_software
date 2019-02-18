@@ -1,4 +1,4 @@
 package model;
 
-public abstract class Model {
+public abstract class Model implements GenericDAO {
 }
