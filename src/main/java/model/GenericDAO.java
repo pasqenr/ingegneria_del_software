@@ -1,6 +1,6 @@
 package model;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * GenericDAO interface.
@@ -19,7 +19,7 @@ public interface GenericDAO {
      *
      * @return A list of all the Models in the database.
      */
-    List<? extends Model> findAll();
+    Collection<? extends Model> findAll();
 
     /**
      * Save in the database the current state of the object, creating a new entry or more entries.
