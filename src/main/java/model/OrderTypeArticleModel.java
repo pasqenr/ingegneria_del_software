@@ -4,6 +4,7 @@ import database.DatabaseWrapper;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public class OrderTypeArticleModel extends Model implements GenericDAO {
     private final OrderModel order;
-    private final List<ArticleType> articleTypes;
+    private final List<ArticleTypeModel> articleTypes;
     private final List<Integer> quantities;
     private final List<Float> totalPrices;
 
@@ -20,11 +21,11 @@ public class OrderTypeArticleModel extends Model implements GenericDAO {
      *
      * @param order A Order.
      * @param articleTypes A list of ArticleTypes.
-     * @param quantities A list of quantities for every ArticleType.
-     * @param totalPrices A list of total prices for every ArticleType.
+     * @param quantities A list of quantities for every ArticleTypeModel.
+     * @param totalPrices A list of total prices for every ArticleTypeModel.
      */
     public OrderTypeArticleModel(OrderModel order,
-                                 List<ArticleType> articleTypes,
+                                 List<ArticleTypeModel> articleTypes,
                                  List<Integer> quantities,
                                  List<Float> totalPrices) {
         this.order = order;
@@ -39,7 +40,7 @@ public class OrderTypeArticleModel extends Model implements GenericDAO {
     }
 
     @Override
-    public List<OrderTypeArticleModel> findAll() {
+    public Collection<OrderTypeArticleModel> findAll() {
         return null;
     }
 

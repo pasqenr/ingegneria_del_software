@@ -1,5 +1,6 @@
 package controller;
 
+import factories.InstanceFactory;
 import model.*;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +24,7 @@ class InsertEntranceControllerTest extends GenericControllerTest {
         List<ArticleModel> articles = new ArrayList<>();
 
         for (int i = 0; i < articleCodes.length; i++) {
-            ArticleType articleType = ArticleType.getInstance().find(articleTypes[i]);
+            ArticleTypeModel articleType = InstanceFactory.getInstance(ArticleTypeModel.class).find(articleTypes[i]);
             PositionModel position = positionController.findFreePositionByCode(articlePositions[i]);
 
             assertNotNull(articleType);
@@ -38,17 +39,18 @@ class InsertEntranceControllerTest extends GenericControllerTest {
 
         insertEntranceController.insertArticlesAsEntrance(articles);
 
-        final ArticleModel article1 = ArticleModel.getInstance().find(articleCodes[0]);
-        final ArticleModel article2 = ArticleModel.getInstance().find(articleCodes[1]);
+        final ArticleModel articleModelDao = InstanceFactory.getInstance(ArticleModel.class);
+        final ArticleModel article1 = articleModelDao.find(articleCodes[0]);
+        final ArticleModel article2 = articleModelDao.find(articleCodes[1]);
 
         assertNotNull(article1);
         assertNotNull(article2);
         assertEquals(article1.getPosition().getCode(), articlePositions[0]);
         assertEquals(article2.getPosition().getCode(), articlePositions[1]);
 
-        final EntranceModel entrance = EntranceModel.getInstance().find(EntranceModel.getInstance().getGreatestCode());
+        final EntranceModel entrance = InstanceFactory.getInstance(EntranceModel.class).find(InstanceFactory.getInstance(EntranceModel.class).getGreatestCode());
 
-        assertEquals(EntranceModel.getInstance().getGreatestCode(), 2);
+        assertEquals(InstanceFactory.getInstance(EntranceModel.class).getGreatestCode(), 2);
         assertNotNull(entrance);
         assertEquals(entrance.getCode(), 2);
     }

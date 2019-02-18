@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -30,44 +31,20 @@ public class PositionModel extends Model implements GenericDAO {
         return code;
     }
 
-    public static PositionModel getInstance() {
-        return new PositionModel(null);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (! (o instanceof  PositionModel)) {
-            return false;
-        }
-
-        PositionModel position = (PositionModel)o;
-
-        return code.equals(position.code);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = 17;
-
-        result = 31 * result + code.hashCode();
-
-        return result;
-    }
-
     @Override
     public PositionModel find(String code) {
         PositionModel position = null;
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query = "SELECT p.id_posizione FROM posizione p WHERE p.id_posizione = ?";
-        PreparedStatement stmt;
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query = "SELECT p.id_posizione FROM posizione p WHERE p.id_posizione = ?";
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);
             stmt.setString(1, code);
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                position = buildSingleFromResult(rs);
+                position = buildSingleFromResult(rs, "id_posizione");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,18 +57,19 @@ public class PositionModel extends Model implements GenericDAO {
     }
 
     @Override
-    public List<PositionModel> findAll() {
-        List<PositionModel> positions = new ArrayList<>();
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query = "SELECT a.codice, a.tipo_articolo, a.prezzo, a.data_produzione, a.posizione FROM articolo a";
-        PreparedStatement stmt;
+    public Collection<PositionModel> findAll() {
+        final Collection<PositionModel> positions = new ArrayList<>();
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query = "SELECT a.codice, a.tipo_articolo, a.prezzo, a.data_produzione, a.posizione " +
+                "FROM articolo a";
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                PositionModel article = buildSingleFromResult(rs);
+                PositionModel article = buildSingleFromResult(rs, "posizione");
                 positions.add(article);
             }
         } catch (SQLException e) {
@@ -103,26 +81,46 @@ public class PositionModel extends Model implements GenericDAO {
         return positions;
     }
 
-    @Override
-    public boolean store() {
-        return false;
-    }
-
     /**
      * Create only one Position using the data found in rs. The cursor is moved forward.
      *
      * @param rs The ResultSet containing the Position or Positions fetched from the database.
      * @return A new Positon.
      */
-    private PositionModel buildSingleFromResult(ResultSet rs) {
+    private PositionModel buildSingleFromResult(ResultSet rs, String... fields) {
         String code = null;
 
         try {
-            code = rs.getString("id_posizione");
+            code = rs.getString(fields[0]);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return new PositionModel(code);
+    }
+
+    @Override
+    public boolean store() {
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (! (o instanceof  PositionModel)) {
+            return false;
+        }
+
+        final PositionModel position = (PositionModel)o;
+
+        return code.equals(position.code);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+
+        result = 31 * result + code.hashCode();
+
+        return result;
     }
 }

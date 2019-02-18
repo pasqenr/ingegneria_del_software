@@ -1,6 +1,7 @@
 package controller;
 
 import database.DatabaseWrapper;
+import factories.InstanceFactory;
 import model.StoreModel;
 import model.UserModel;
 import model.UserRole;
@@ -48,7 +49,8 @@ public class LoginController {
                 if (storeName == null) {
                     user = new UserModel(userEmail, UserRole.ofName(role));
                 } else {
-                    user = new UserModel(userEmail, UserRole.ofName(role), StoreModel.getInstance().find(storeName));
+                    user = new UserModel(userEmail, UserRole.ofName(role),
+                            InstanceFactory.getInstance(StoreModel.class).find(storeName));
                 }
             }
         } catch (SQLException e) {

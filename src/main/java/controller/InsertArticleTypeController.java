@@ -1,21 +1,23 @@
 package controller;
 
-import model.ArticleType;
+import model.ArticleTypeModel;
+import factories.InstanceFactory;
 import model.SportModel;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
- * Manage the insertion of a list of ArticleType
+ * Manage the insertion of a list of ArticleTypeModel
  */
 public class InsertArticleTypeController {
 
     /**
-     * Add all the ArticleType that can build using the parameters information.
+     * Add all the ArticleTypeModel that can build using the parameters information.
      *
-     * @param articleTypesNames An array of valid ArticleType names.
-     * @param articleTypeDescriptions An array of ArticleType description.
-     * @param articleTypeMaterials An array of ArticleType materials.
+     * @param articleTypesNames An array of valid ArticleTypeModel names.
+     * @param articleTypeDescriptions An array of ArticleTypeModel description.
+     * @param articleTypeMaterials An array of ArticleTypeModel materials.
      * @param articleTypeSports An array of valid Sport names.
      */
     public void addAll(final String[] articleTypesNames,
@@ -26,25 +28,26 @@ public class InsertArticleTypeController {
             final String name = articleTypesNames[i];
             final String description = articleTypeDescriptions[i];
             final String materials = articleTypeMaterials[i];
-            final SportModel sport = SportModel.getInstance().find(articleTypeSports[i]);
+            final SportModel sport = InstanceFactory.getInstance(SportModel.class).find(articleTypeSports[i]);
 
-            final ArticleType articleType = new ArticleType(name, description, materials, sport);
+            final ArticleTypeModel articleType = new ArticleTypeModel(name, description, materials, sport);
             articleType.store();
         }
     }
 
     /**
-     * Check if the ArticleType list built using the articleTypes array of names is valid. That is, they are not
+     * Check if the ArticleTypeModel list built using the articleTypes array of names is valid. That is, they are not
      * already stored in the database.
      *
-     * @param articleTypes An array of ArticleType names.
+     * @param articleTypes An array of ArticleTypeModel names.
      * @return <code>true</code> if all the names are valid, <code>false</code> otherwise.
      */
     public boolean areArticleTypesAlreadyStored(final String[] articleTypes) {
         int matches = 0;
-        final List<ArticleType> articleTypeList = ArticleType.getInstance().findAll();
+        final Collection<ArticleTypeModel> articleTypeList = InstanceFactory
+                .getInstance(ArticleTypeModel.class).findAll();
 
-        for (ArticleType articleType : articleTypeList) {
+        for (ArticleTypeModel articleType : articleTypeList) {
             for (String articleCode : articleTypes) {
                 if (articleType.getName().equals(articleCode)) {
                     matches++;
@@ -63,7 +66,7 @@ public class InsertArticleTypeController {
      */
     public boolean areSportsValid(final String[] sportNames) {
         int matches = 0;
-        final List<SportModel> sports = SportModel.getInstance().findAll();
+        final Collection<SportModel> sports = InstanceFactory.getInstance(SportModel.class).findAll();
 
         for (SportModel sport : sports) {
             for (String sportName : sportNames) {

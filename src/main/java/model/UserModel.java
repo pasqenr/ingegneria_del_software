@@ -1,14 +1,14 @@
 package model;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Represent a User, table <code>utente</code>.
  */
 public class UserModel extends Model implements GenericDAO {
-    private String email;
-    private UserRole role;
-    private StoreModel store;
+    private final String email;
+    private final UserRole role;
+    private final StoreModel store;
 
     /**
      * Create a new User.
@@ -48,24 +48,10 @@ public class UserModel extends Model implements GenericDAO {
     }
 
     /**
-     * @param email The new email.
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
      * @return The Store.
      */
     public StoreModel getStore() {
         return store;
-    }
-
-    /**
-     * @param store The new Store.
-     */
-    public void setStore(StoreModel store) {
-        this.store = store;
     }
 
     @Override
@@ -79,7 +65,7 @@ public class UserModel extends Model implements GenericDAO {
     }
 
     @Override
-    public List<UserModel> findAll() {
+    public Collection<UserModel> findAll() {
         return null;
     }
 

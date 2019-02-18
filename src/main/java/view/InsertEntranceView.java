@@ -2,7 +2,8 @@ package view;
 
 import controller.*;
 import model.ArticleModel;
-import model.ArticleType;
+import model.ArticleTypeModel;
+import factories.InstanceFactory;
 import model.PositionModel;
 
 import javax.swing.*;
@@ -161,7 +162,7 @@ public class InsertEntranceView extends javax.swing.JFrame {
         List<ArticleModel> articles = new ArrayList<>();
 
         for (int i = 0; i < articleCodes.length; i++) {
-            ArticleType articleType = ArticleType.getInstance().find(articleTypes[i]);
+            ArticleTypeModel articleType = InstanceFactory.getInstance(ArticleTypeModel.class).find(articleTypes[i]);
 
             if (articleType == null) {
                 JOptionPane.showMessageDialog(this,

@@ -13,7 +13,7 @@ class EntranceArticleControllerTest extends GenericControllerTest {
     void fetchAllTest() {
         final List<ArticleModel> articles = new ArrayList<>();
         articles.add(new ArticleModel("AC8388175",
-                new ArticleType("Costumi Acquagym",
+                new ArticleTypeModel("Costumi Acquagym",
                         "Questo costume da bagno ideato per la pratica dell'aquagym offre un ottimo sostegno al petto, durante i diversi esercizi.",
                         "70.00% Poliammide (PA), 30.00% Elastan",
                         new SportModel("Acquagym")),
@@ -21,7 +21,7 @@ class EntranceArticleControllerTest extends GenericControllerTest {
                 "2011-03-30",
                 new PositionModel("A010101")));
         articles.add(new ArticleModel("AC8402405",
-                new ArticleType("Costumi Acquagym",
+                new ArticleTypeModel("Costumi Acquagym",
                         "Questo costume da bagno ideato per la pratica dell'aquagym offre un ottimo sostegno al petto, durante i diversi esercizi.",
                         "70.00% Poliammide (PA), 30.00% Elastan",
                         new SportModel("Acquagym")),
@@ -29,7 +29,7 @@ class EntranceArticleControllerTest extends GenericControllerTest {
                 "2018-07-21",
                 new PositionModel("A010102")));
         articles.add(new ArticleModel("AC8528089",
-                new ArticleType("Scarpette e calze Acquagym",
+                new ArticleTypeModel("Scarpette e calze Acquagym",
                         "Ideato per le attività di acquagym dolce e acquafitness dinamico.",
                         "100.00% Cloruro di polivinile (PVC)",
                         new SportModel("Acquagym")),

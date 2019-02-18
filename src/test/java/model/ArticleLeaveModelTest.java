@@ -1,5 +1,6 @@
 package model;
 
+import factories.InstanceFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,8 +14,9 @@ class ArticleLeaveModelTest extends GenericModelTest {
     ArticleLeaveModelTest() {
         int leaveNumber = 1;
         List<ArticleModel> articles = new ArrayList<>();
-        articles.add(ArticleModel.getInstance().find("AC8402392"));
-        articles.add(ArticleModel.getInstance().find("AC8342928"));
+        final ArticleModel articleModelInstance = InstanceFactory.getInstance(ArticleModel.class);
+        articles.add(articleModelInstance.find("AC8402392"));
+        articles.add(articleModelInstance.find("AC8342928"));
         ArticleLeaveModel articleLeaveModel = new ArticleLeaveModel(articles, leaveNumber);
         articleLeaveModelListValid = new ArrayList<>();
         articleLeaveModelListValid.add(articleLeaveModel);
@@ -22,16 +24,16 @@ class ArticleLeaveModelTest extends GenericModelTest {
 
     @Test
     void findTest() {
-        assertNull(ArticleLeaveModel.getInstance().find("000000"));
+        assertNull(InstanceFactory.getInstance(ArticleLeaveModel.class).find("000000"));
     }
 
     @Test
     void findAllTest() {
-        assertEquals(articleLeaveModelListValid, ArticleLeaveModel.getInstance().findAll());
+        assertEquals(articleLeaveModelListValid, InstanceFactory.getInstance(ArticleLeaveModel.class).findAll());
     }
 
     @Test
     void toStringTest() {
-        assertEquals(articleLeaveModelListValid.toString(), ArticleLeaveModel.getInstance().findAll().toString());
+        assertEquals(articleLeaveModelListValid.toString(), InstanceFactory.getInstance(ArticleLeaveModel.class).findAll().toString());
     }
 }

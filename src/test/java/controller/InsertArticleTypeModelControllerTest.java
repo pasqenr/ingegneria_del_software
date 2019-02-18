@@ -1,11 +1,12 @@
 package controller;
 
-import model.ArticleType;
+import model.ArticleTypeModel;
+import factories.InstanceFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InsertArticleTypeControllerTest extends GenericControllerTest {
+class InsertArticleTypeModelControllerTest extends GenericControllerTest {
     @Test
     void addAllTest() {
         final String[] articleTypeNames = new String[] {
@@ -32,8 +33,8 @@ class InsertArticleTypeControllerTest extends GenericControllerTest {
                 articleTypeMaterials,
                 articleTypeSports);
 
-        assertNotNull(ArticleType.getInstance().find("Guanti palmati aquagym"));
-        assertNotNull(ArticleType.getInstance().find("Materasso acquafitness"));
+        assertNotNull(InstanceFactory.getInstance(ArticleTypeModel.class).find("Guanti palmati aquagym"));
+        assertNotNull(InstanceFactory.getInstance(ArticleTypeModel.class).find("Materasso acquafitness"));
     }
 
     @Test

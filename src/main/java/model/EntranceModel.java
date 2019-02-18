@@ -1,6 +1,7 @@
 package model;
 
 import database.DatabaseWrapper;
+import factories.InstanceFactory;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -8,14 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Represent an Entrance, table <code>ingresso</code>.
  */
 public class EntranceModel extends Model implements GenericDAO, Comparable {
-    private int code;
-    private String date;
+    private final int code;
+    private final String date;
 
     /**
      * Create a new Entrance. Should not be used because the code is <code>AUTOINCREMENT</code>.
@@ -33,15 +34,11 @@ public class EntranceModel extends Model implements GenericDAO, Comparable {
      * an Entrance can be created without arguments.
      */
     public EntranceModel() {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime localDateTime = LocalDateTime.now();
+        final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        final LocalDateTime localDateTime = LocalDateTime.now();
 
         code = 0;
         date = dateTimeFormatter.format(localDateTime);
-    }
-
-    public static EntranceModel getInstance() {
-        return new EntranceModel();
     }
 
     /**
@@ -53,30 +50,28 @@ public class EntranceModel extends Model implements GenericDAO, Comparable {
 
     @Override
     public EntranceModel find(String code) {
-        return EntranceModel.getInstance().find(Integer.valueOf(code));
+        return InstanceFactory.getInstance(EntranceModel.class).find(Integer.valueOf(code));
     }
 
     public EntranceModel find(int code) {
         EntranceModel entrance = null;
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query = "SELECT i.codice, i.data FROM ingresso i WHERE i.codice = ?";
-        PreparedStatement stmt;
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query = "SELECT i.codice, i.data FROM ingresso i WHERE i.codice = ?";
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);
             stmt.setInt(1, code);
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 int foundCode = rs.getInt("codice");
                 String foundDate = rs.getString("data");
                 entrance = new EntranceModel(foundCode, foundDate);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
         db.close();
 
@@ -90,13 +85,13 @@ public class EntranceModel extends Model implements GenericDAO, Comparable {
      */
     public int getGreatestCode() {
         int greatestCode = -1;
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query = "SELECT i.codice FROM ingresso i ORDER BY i.codice DESC LIMIT 1";
-        PreparedStatement stmt;
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query = "SELECT i.codice FROM ingresso i ORDER BY i.codice DESC LIMIT 1";
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
 
             rs.next();
             greatestCode = rs.getInt("codice");
@@ -110,16 +105,16 @@ public class EntranceModel extends Model implements GenericDAO, Comparable {
     }
 
     @Override
-    public List<EntranceModel> findAll() {
+    public Collection<EntranceModel> findAll() {
         return null;
     }
 
     @Override
     public boolean store() {
         boolean result = false;
-        DatabaseWrapper db = new DatabaseWrapper();
-        String queryEntrance = "INSERT INTO ingresso (codice, data) VALUES (?, ?)";
-        PreparedStatement insertEntranceStmt;
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String queryEntrance = "INSERT INTO ingresso (codice, data) VALUES (?, ?)";
+        final PreparedStatement insertEntranceStmt;
 
         try {
             insertEntranceStmt = db.getCon().prepareStatement(queryEntrance);
@@ -148,7 +143,7 @@ public class EntranceModel extends Model implements GenericDAO, Comparable {
             return false;
         }
 
-        EntranceModel entranceModel = (EntranceModel)o;
+        final EntranceModel entranceModel = (EntranceModel)o;
 
         return code == entranceModel.code &&
                 date.equals(entranceModel.date);
@@ -166,7 +161,7 @@ public class EntranceModel extends Model implements GenericDAO, Comparable {
 
     @Override
     public int compareTo(Object o) {
-        EntranceModel entranceModel = (EntranceModel)o;
+        final EntranceModel entranceModel = (EntranceModel)o;
 
         return code - entranceModel.code;
     }

@@ -1,5 +1,6 @@
 package controller;
 
+import factories.InstanceFactory;
 import model.*;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ class InsertLeaveControllerTest extends GenericControllerTest {
         String orderCode = "ORD001";
         List<ArticleModel> articles = new ArrayList<>();
         articles.add(new ArticleModel("AC8503710",
-                        new ArticleType("Scarpette e calze Acquagym",
+                        new ArticleTypeModel("Scarpette e calze Acquagym",
                                 "Ideato per le attività di acquagym dolce e acquafitness dinamico.",
                                 "100.00% Cloruro di polivinile (PVC)",
                                 new SportModel("Acquagym")),
@@ -23,7 +24,7 @@ class InsertLeaveControllerTest extends GenericControllerTest {
                         "2012-01-22",
                         new PositionModel("A010204")));
         articles.add(new ArticleModel("AC8335706",
-                new ArticleType("Materiale Acquagym",
+                new ArticleTypeModel("Materiale Acquagym",
                         "Guanti in neoprene che potenziano la superficie d'appoggio delle mani consentendoti di far lavorare efficacemente la parte alta del corpo.",
                         "100.00% Gomma - Cloroprene (CR) - Neoprene",
                         new SportModel("Acquagym")),
@@ -36,6 +37,6 @@ class InsertLeaveControllerTest extends GenericControllerTest {
 
         new InsertLeaveController().addLeave(leaveNumber, orderCode, articles, date, store, courier);
 
-        assertEquals(2, LeaveModel.getInstance().getLastId());
+        assertEquals(2, InstanceFactory.getInstance(LeaveModel.class).getLastId());
     }
 }

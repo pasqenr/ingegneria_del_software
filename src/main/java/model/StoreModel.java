@@ -6,16 +6,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * Represent a Store, table <code>negozio</code>.
  */
 public class StoreModel extends Model implements GenericDAO {
-    private String code;
-    private String name;
-    private String address;
-    private String city;
+    private final String code;
+    private final String name;
+    private final String address;
+    private final String city;
 
     /**
      * Create a new Store.
@@ -32,29 +33,11 @@ public class StoreModel extends Model implements GenericDAO {
         this.city = city;
     }
 
-    public static StoreModel getInstance() {
-        return new StoreModel(null, null, null, null);
-    }
-
-    /**
-     * @param code The new code.
-     */
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     /**
      * @return The code.
      */
     public String getCode() {
         return code;
-    }
-
-    /**
-     * @param name The new name.
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**
@@ -65,24 +48,10 @@ public class StoreModel extends Model implements GenericDAO {
     }
 
     /**
-     * @param address The new address.
-     */
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    /**
      * @return The address.
      */
     public String getAddress() {
         return address;
-    }
-
-    /**
-     * @param city The new city.
-     */
-    public void setCity(String city) {
-        this.city = city;
     }
 
     /**
@@ -94,7 +63,7 @@ public class StoreModel extends Model implements GenericDAO {
 
     @Override
     public StoreModel find(String code) {
-        String query = "SELECT n.codice_fiscale, n.nome, n.indirizzo, n.citta " +
+        final String query = "SELECT n.codice_fiscale, n.nome, n.indirizzo, n.citta " +
                 "FROM negozio n " +
                 "WHERE  n.codice_fiscale LIKE ?";
 
@@ -108,7 +77,7 @@ public class StoreModel extends Model implements GenericDAO {
      * @return The Store with that name.
      */
     public static StoreModel findByName(String name) {
-        String query = "SELECT n.codice_fiscale, n.nome, n.indirizzo, n.citta " +
+        final String query = "SELECT n.codice_fiscale, n.nome, n.indirizzo, n.citta " +
                 "FROM negozio n " +
                 "WHERE  n.nome LIKE ?";
 
@@ -124,17 +93,17 @@ public class StoreModel extends Model implements GenericDAO {
      */
     private static StoreModel findBy(String query, String field) {
         StoreModel store = null;
-        DatabaseWrapper db = new DatabaseWrapper();
-        PreparedStatement stmt;
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);
             stmt.setString(1, field);
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
 
-            rs.next();
-
-            store = buildSingleFromResult(rs);
+            if (rs.next()) {
+                store = buildSingleFromResult(rs);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -145,15 +114,15 @@ public class StoreModel extends Model implements GenericDAO {
     }
 
     @Override
-    public List<StoreModel> findAll() {
-        List<StoreModel> stores = new ArrayList<>();
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query = "SELECT n.codice_fiscale, n.nome, n.indirizzo, n.citta FROM negozio n";
-        PreparedStatement stmt;
+    public Collection<StoreModel> findAll() {
+        final Collection<StoreModel> stores = new ArrayList<>();
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query = "SELECT n.codice_fiscale, n.nome, n.indirizzo, n.citta FROM negozio n";
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 stores.add(buildSingleFromResult(rs));
@@ -203,7 +172,7 @@ public class StoreModel extends Model implements GenericDAO {
             return false;
         }
 
-        StoreModel other = (StoreModel) o;
+        final StoreModel other = (StoreModel) o;
 
         return code.equals(other.code) &&
                 name.equals(other.name) &&

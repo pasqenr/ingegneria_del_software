@@ -3,6 +3,7 @@ package controller;
 import model.ArticleModel;
 import model.EntranceArticleModel;
 import model.EntranceModel;
+import factories.InstanceFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,7 +48,7 @@ public class InsertEntranceController {
      * <code>false</code> otherwise.
      */
     public boolean checkIsAlreadyStoredArticleCodes(final String[] articleCodes) {
-        final String[] storedCodes = ArticleModel.getInstance().getArticlesCodes();
+        final String[] storedCodes = InstanceFactory.getInstance(ArticleModel.class).getArticlesCodes();
 
         for (final String tableCode : articleCodes) {
             for (final String storedCode : storedCodes) {
@@ -83,8 +84,8 @@ public class InsertEntranceController {
      * @return The last Entrance in the database.
      */
     private EntranceModel fetchLastEntrance() {
-        final int greatestCode = EntranceModel.getInstance().getGreatestCode();
+        final int greatestCode = InstanceFactory.getInstance(EntranceModel.class).getGreatestCode();
 
-        return EntranceModel.getInstance().find(greatestCode);
+        return InstanceFactory.getInstance(EntranceModel.class).find(greatestCode);
     }
 }

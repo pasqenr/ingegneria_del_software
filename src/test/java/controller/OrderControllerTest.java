@@ -1,9 +1,11 @@
 package controller;
 
+import factories.InstanceFactory;
 import model.OrderModel;
 import model.StoreModel;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,8 +25,8 @@ class OrderControllerTest extends GenericControllerTest {
         final String[] quantities = new String[] { "2", "3" };
 
         orderController.addOrder(store, articleTypesNames, quantities);
-        OrderModel lastOrder = OrderModel.getInstance().fetchLast();
-        List<OrderModel> orders = OrderModel.getInstance().findAll();
+        OrderModel lastOrder = InstanceFactory.getInstance(OrderModel.class).fetchLast();
+        List<OrderModel> orders = new ArrayList<>(InstanceFactory.getInstance(OrderModel.class).findAll());
         assertNotNull(lastOrder);
         assertEquals(2, orders.size());
         assertNotEquals(orders.get(0), lastOrder);

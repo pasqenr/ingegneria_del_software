@@ -4,6 +4,7 @@ import database.DatabaseWrapper;
 import model.ArticleModel;
 import model.EntranceArticleModel;
 import model.EntranceModel;
+import factories.InstanceFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,6 +42,7 @@ public class EntranceArticleController {
      */
     private List<EntranceArticleModel> fetchAll() {
         final List<EntranceArticleModel> entranceArticles = new ArrayList<>();
+        final ArticleModel articleModelDao = InstanceFactory.getInstance(ArticleModel.class);
         final DatabaseWrapper db = new DatabaseWrapper();
         final String query = "SELECT ia.codice_articolo, ia.codice_ingresso FROM ingresso_articolo ia";
         final PreparedStatement stmt;
@@ -62,9 +64,9 @@ public class EntranceArticleController {
                 if (hasCodeChanged(lastEntranceCode, entranceCode)) { // Insert new EntranceArticleModel
                     addPreviousArticlesWithSameCode(entranceArticles, fetchedArticles, lastEntranceCode);
                     fetchedArticles.clear();
-                    fetchedArticles.add(ArticleModel.getInstance().find(articleCode));
+                    fetchedArticles.add(articleModelDao.find(articleCode));
                 } else { // Store new articles with the same entranceCode
-                    fetchedArticles.add(ArticleModel.getInstance().find(articleCode));
+                    fetchedArticles.add(articleModelDao.find(articleCode));
                 }
 
                 lastEntranceCode = entranceCode;
@@ -104,7 +106,7 @@ public class EntranceArticleController {
     private void addPreviousArticlesWithSameCode(final List<EntranceArticleModel> entranceArticles,
                                                  final List<ArticleModel> articles,
                                                  final int entranceCode) {
-        final EntranceModel entrance = EntranceModel.getInstance().find(entranceCode);
+        final EntranceModel entrance = InstanceFactory.getInstance(EntranceModel.class).find(entranceCode);
         final EntranceArticleModel entranceArticleModel = new EntranceArticleModel(articles, entrance);
 
         entranceArticles.add(entranceArticleModel);

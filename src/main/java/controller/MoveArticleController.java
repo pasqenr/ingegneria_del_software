@@ -2,6 +2,7 @@ package controller;
 
 import database.DatabaseWrapper;
 import model.ArticleModel;
+import factories.InstanceFactory;
 import model.PositionModel;
 
 import javax.swing.*;
@@ -36,7 +37,7 @@ public class MoveArticleController {
      * @return A ComboBoxModel with all the positions.
      */
     public DefaultComboBoxModel<String> getArticleCodesComboBoxModel() {
-        return new DefaultComboBoxModel<>(ArticleModel.getInstance().getArticlesCodes());
+        return new DefaultComboBoxModel<>(InstanceFactory.getInstance(ArticleModel.class).getArticlesCodes());
     }
 
     /**

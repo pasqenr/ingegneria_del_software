@@ -1,6 +1,7 @@
 package controller;
 
 import database.DatabaseWrapper;
+import factories.InstanceFactory;
 import model.*;
 
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ public class OrderController {
      * Add an Order in the database with the related article types and quantities of them.
      *
      * @param store A valid Store model.
-     * @param articleTypesNames An array of valid ArticleType names.
+     * @param articleTypesNames An array of valid ArticleTypeModel names.
      * @param quantities An array of quantities.
      */
     public void addOrder(final StoreModel store, final String[] articleTypesNames, final String[] quantities) {
@@ -27,7 +28,7 @@ public class OrderController {
         final String date = getCurrentDate();
 
         // To list
-        final List<ArticleType> articleTypesList = articleTypesToList(articleTypesNames);
+        final List<ArticleTypeModel> articleTypesList = articleTypesToList(articleTypesNames);
         final List<Integer> quantitiesList = amountsToList(quantities);
 
         // Create a new order
@@ -47,16 +48,16 @@ public class OrderController {
     }
 
     /**
-     * Returns a list of ArticleType from an array of valid ArticleType names.
+     * Returns a list of ArticleTypeModel from an array of valid ArticleTypeModel names.
      *
-     * @param articleTypesNames A valid array of ArticleType names.
-     * @return A list of ArticleType.
+     * @param articleTypesNames A valid array of ArticleTypeModel names.
+     * @return A list of ArticleTypeModel.
      */
-    private List<ArticleType> articleTypesToList(final String[] articleTypesNames) {
-        final List<ArticleType> articleTypes = new ArrayList<>();
+    private List<ArticleTypeModel> articleTypesToList(final String[] articleTypesNames) {
+        final List<ArticleTypeModel> articleTypes = new ArrayList<>();
 
         for (final String articleTypeName : articleTypesNames) {
-            articleTypes.add(ArticleType.getInstance().find(articleTypeName));
+            articleTypes.add(InstanceFactory.getInstance(ArticleTypeModel.class).find(articleTypeName));
         }
 
         return articleTypes;
@@ -90,7 +91,7 @@ public class OrderController {
      * function returns only the last part 001 as integer, so 1.
      */
     private int fetchLastOrderCodeNumber() {
-        final String lastOrderCode = OrderModel.getInstance().fetchLast().getCode();
+        final String lastOrderCode = InstanceFactory.getInstance(OrderModel.class).fetchLast().getCode();
 
         return Integer.valueOf(lastOrderCode.substring(4));
     }
@@ -106,13 +107,13 @@ public class OrderController {
     }
 
     /**
-     * Calculate the total prices for every ArticleType in the list articleTypes.
+     * Calculate the total prices for every ArticleTypeModel in the list articleTypes.
      *
      * @param articleTypes A list of ArticleTypes.
-     * @param quantities A list of quantities, one for every ArticleType.
-     * @return A list of total prices, one for every ArticleType.
+     * @param quantities A list of quantities, one for every ArticleTypeModel.
+     * @return A list of total prices, one for every ArticleTypeModel.
      */
-    private List<Float> calculateTotalPrices(final List<ArticleType> articleTypes, final List<Integer> quantities) {
+    private List<Float> calculateTotalPrices(final List<ArticleTypeModel> articleTypes, final List<Integer> quantities) {
         final List<Float> totalPrices = new ArrayList<>();
 
         for (int i = 0; i < articleTypes.size(); i++) {
@@ -125,9 +126,9 @@ public class OrderController {
     }
 
     /**
-     * Calculate the total price of a single ArticleType. To do that the function needs a list of article codes
-     * related to that ArticleType.
-     * The total price is sum(all_articles) * quantity, where all_articles are only the ones of a single ArticleType.
+     * Calculate the total price of a single ArticleTypeModel. To do that the function needs a list of article codes
+     * related to that ArticleTypeModel.
+     * The total price is sum(all_articles) * quantity, where all_articles are only the ones of a single ArticleTypeModel.
      *
      * @param articleCodes A list of valid article codes.
      * @param quantity A valid quantity.
@@ -160,7 +161,7 @@ public class OrderController {
      * @param articleType A valid articleType.
      * @return A list of articles codes related to articleType.
      */
-    private List<String> fetchArticlesCodesFromType(final ArticleType articleType) {
+    private List<String> fetchArticlesCodesFromType(final ArticleTypeModel articleType) {
         final List<String> articles = new ArrayList<>();
         final String query = "SELECT a.codice " +
                 "FROM articolo a " +

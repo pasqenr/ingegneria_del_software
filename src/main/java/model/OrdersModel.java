@@ -11,9 +11,9 @@ import java.util.List;
  * Represent a matrix of data as a table, each table with its column name.
  */
 public class OrdersModel {
-    private String[] columnNames;
+    private final String[] columnNames;
     private Object[][] data;
-    private boolean isCodeInt;
+    private final boolean isCodeInt;
 
     /**
      * Create a new OrdersModel. The table is populated with the data fetched using rs using columnNames as
@@ -67,10 +67,10 @@ public class OrdersModel {
      */
     private void populateDataTable(ResultSet rs) throws SQLException {
         int totalRows = 0;
-        List<List<Object>> results = new ArrayList<>();
+        final List<List<Object>> results = new ArrayList<>();
 
         while (rs.next()) {
-            List<Object> columns = new ArrayList<>();
+            final List<Object> columns = new ArrayList<>();
 
             for (int c = 0; c < columnNames.length; c++) {
                 if (c == 0 && isCodeInt) {
@@ -94,7 +94,7 @@ public class OrdersModel {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
 
         for (int r = 0; r < data.length; r++) {
             sb.append("[");

@@ -6,25 +6,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * Represent a Courier, table <code>spedizioniere</code>.
  */
 public class CourierModel extends Model implements GenericDAO {
-    private String name;
+    private final String name;
 
     /**
      * Create a new Courier.
      *
      * @param name A valid Courier name.
      */
-    public CourierModel(String name) {
+    public CourierModel(final String name) {
         this.name = name;
-    }
-
-    public static CourierModel getInstance() {
-        return new CourierModel(null);
     }
 
     /**
@@ -34,26 +31,19 @@ public class CourierModel extends Model implements GenericDAO {
         return name;
     }
 
-    /**
-     * @param name The new name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public CourierModel find(String name) {
         CourierModel courier = null;
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query = "SELECT s.nome " +
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query = "SELECT s.nome " +
                 "FROM spedizioniere s " +
                 "WHERE s.nome LIKE ?";
-        PreparedStatement stmt;
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);
             stmt.setString(1, name);
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
 
             rs.next();
 
@@ -68,15 +58,15 @@ public class CourierModel extends Model implements GenericDAO {
     }
 
     @Override
-    public List<CourierModel> findAll() {
-        List<CourierModel> couriers = new ArrayList<>();
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query = "SELECT s.nome FROM spedizioniere s";
-        PreparedStatement stmt;
+    public Collection<CourierModel> findAll() {
+        final Collection<CourierModel> couriers = new ArrayList<>();
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query = "SELECT s.nome FROM spedizioniere s";
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);
-            ResultSet rs = stmt.executeQuery();
+            final ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 couriers.add(buildSingleFromResult(rs));
@@ -97,8 +87,8 @@ public class CourierModel extends Model implements GenericDAO {
      * @param rs The ResultSet containing the Courier or Couriers fetched from the database.
      * @return A new Courier.
      */
-    private CourierModel buildSingleFromResult(ResultSet rs) {
-        String name;
+    private CourierModel buildSingleFromResult(final ResultSet rs) {
+        final String name;
         CourierModel courier = null;
 
         try {

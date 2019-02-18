@@ -4,14 +4,14 @@ import database.DatabaseWrapper;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Represent a (order) Fulfillment, table <code>evasione</code>.
  */
 public class FulfillmentModel extends Model implements GenericDAO {
-    private String orderCode;
-    private int leaveNumber;
+    private final String orderCode;
+    private final int leaveNumber;
 
     /**
      * Create a new Fulfillment.
@@ -19,30 +19,26 @@ public class FulfillmentModel extends Model implements GenericDAO {
      * @param orderCode An unique Order code.
      * @param leaveNumber An unique Leave number.
      */
-    public FulfillmentModel(String orderCode, int leaveNumber) {
+    public FulfillmentModel(final String orderCode, final int leaveNumber) {
         this.orderCode = orderCode;
         this.leaveNumber = leaveNumber;
     }
 
-    public static FulfillmentModel getInstance() {
-        return new FulfillmentModel(null, 0);
-    }
-
     @Override
-    public FulfillmentModel find(String id) {
+    public FulfillmentModel find(final String id) {
         return null;
     }
 
     @Override
-    public List<FulfillmentModel> findAll() {
+    public Collection<FulfillmentModel> findAll() {
         return null;
     }
 
     @Override
     public boolean store() {
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query = "INSERT INTO evasione (codice_ordine, numero_bolla) VALUES (?, ?)";
-        PreparedStatement stmt;
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query = "INSERT INTO evasione (codice_ordine, numero_bolla) VALUES (?, ?)";
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);

@@ -5,14 +5,15 @@ import database.DatabaseWrapper;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * Represente an EntranceArticle, table <code>ingresso_articolo</code>.
  */
 public class EntranceArticleModel extends Model implements GenericDAO {
-    private List<ArticleModel> articles;
-    private EntranceModel entrance;
+    private final List<ArticleModel> articles;
+    private final EntranceModel entrance;
 
     /**
      * Create a new EntranceArticle.
@@ -20,7 +21,7 @@ public class EntranceArticleModel extends Model implements GenericDAO {
      * @param articles A list of Articles.
      * @param entrance An Entrance.
      */
-    public EntranceArticleModel(List<ArticleModel> articles, EntranceModel entrance) {
+    public EntranceArticleModel(Collection<ArticleModel> articles, EntranceModel entrance) {
         this.articles = new ArrayList<>(articles);
         this.entrance = entrance;
     }
@@ -31,7 +32,7 @@ public class EntranceArticleModel extends Model implements GenericDAO {
     }
 
     @Override
-    public List<EntranceArticleModel> findAll() {
+    public Collection<EntranceArticleModel> findAll() {
         return null;
     }
 
@@ -39,7 +40,7 @@ public class EntranceArticleModel extends Model implements GenericDAO {
     public boolean store() {
         boolean result = true;
 
-        for (ArticleModel article : articles) {
+        for (final ArticleModel article : articles) {
             result = result && storeSingleArticle(article);
         }
 
@@ -53,9 +54,9 @@ public class EntranceArticleModel extends Model implements GenericDAO {
      * @return <code>true</code> if the Article was stored, <code>false</code> otherwise.
      */
     private boolean storeSingleArticle(ArticleModel article) {
-        DatabaseWrapper db = new DatabaseWrapper();
-        String query = "INSERT INTO ingresso_articolo (codice_articolo, codice_ingresso) VALUES (?, ?)";
-        PreparedStatement stmt;
+        final DatabaseWrapper db = new DatabaseWrapper();
+        final String query = "INSERT INTO ingresso_articolo (codice_articolo, codice_ingresso) VALUES (?, ?)";
+        final PreparedStatement stmt;
 
         try {
             stmt = db.getCon().prepareStatement(query);
@@ -78,7 +79,7 @@ public class EntranceArticleModel extends Model implements GenericDAO {
             return false;
         }
 
-        EntranceArticleModel other = (EntranceArticleModel)o;
+        final EntranceArticleModel other = (EntranceArticleModel)o;
 
         boolean areArticlesEquals = true;
         for (int i = 0; i < articles.size(); i++) {
@@ -91,7 +92,7 @@ public class EntranceArticleModel extends Model implements GenericDAO {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
+        final StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append("EntranceArticleModel {entrance : ");
         stringBuilder.append(entrance);

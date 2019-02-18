@@ -1,11 +1,13 @@
 package model;
 
 import database.DatabaseWrapper;
+import factories.InstanceFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -26,18 +28,14 @@ public class ArticleLeaveModel extends Model implements GenericDAO {
         this.leaveNumber = leaveNumber;
     }
 
-    public static ArticleLeaveModel getInstance() {
-        return new ArticleLeaveModel(null, 0);
-    }
-
     @Override
     public ArticleLeaveModel find(String id) {
         return null;
     }
 
     @Override
-    public List<ArticleLeaveModel> findAll() {
-        final List<ArticleLeaveModel> list = new ArrayList<>();
+    public Collection<ArticleLeaveModel> findAll() {
+        final Collection<ArticleLeaveModel> list = new ArrayList<>();
         final DatabaseWrapper db = new DatabaseWrapper();
         final String query =
                 "SELECT ua.numero_bolla, GROUP_CONCAT(ua.codice_articolo) AS codice_articoli " +
@@ -125,7 +123,7 @@ public class ArticleLeaveModel extends Model implements GenericDAO {
         final String[] array = articleCodes.split(",");
 
         for (final String s : array) {
-            articles.add(ArticleModel.getInstance().find(s));
+            articles.add(InstanceFactory.getInstance(ArticleModel.class).find(s));
         }
 
         return articles;

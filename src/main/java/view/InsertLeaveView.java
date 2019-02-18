@@ -2,6 +2,7 @@ package view;
 
 import controller.InsertLeaveController;
 import controller.TableController;
+import factories.InstanceFactory;
 import model.*;
 
 import javax.swing.*;
@@ -23,8 +24,8 @@ public class InsertLeaveView extends javax.swing.JFrame {
      */
     public InsertLeaveView() {
         i18n = ResourceBundle.getBundle("InsertLeaveView", Locale.getDefault());
-        storesList = StoreModel.getInstance().findAll();
-        courierList = CourierModel.getInstance().findAll();
+        storesList = new ArrayList<>(InstanceFactory.getInstance(StoreModel.class).findAll());
+        courierList = new ArrayList<>(InstanceFactory.getInstance(CourierModel.class).findAll());
         insertLeaveController = new InsertLeaveController();
 
         initModels();
@@ -217,7 +218,7 @@ public class InsertLeaveView extends javax.swing.JFrame {
         final int COLUMN_ARTICLE_CODE = 0;
         final String orderCode = orderNumberTextField.getText();
 
-        final OrderModel order = OrderModel.getInstance().find(orderCode);
+        final OrderModel order = InstanceFactory.getInstance(OrderModel.class).find(orderCode);
 
         if (order == null) {
             JOptionPane.showMessageDialog(this,
@@ -251,13 +252,14 @@ public class InsertLeaveView extends javax.swing.JFrame {
         final List<ArticleModel> articles = new ArrayList<>();
 
         for (String articleCode : articleCodes) {
-            articles.add(ArticleModel.getInstance().find(articleCode));
+            articles.add(InstanceFactory.getInstance(ArticleModel.class).find(articleCode));
         }
 
         final int leaveNumber = Integer.valueOf(leaveNumberTextField.getText());
         final String date = dateTextField.getText();
         final StoreModel store = StoreModel.findByName(((String)storeNameComboBox.getSelectedItem()));
-        final CourierModel courier = CourierModel.getInstance().find(((String)courierComboBox.getSelectedItem()));
+        final CourierModel courier = InstanceFactory.getInstance(CourierModel.class)
+                .find(((String)courierComboBox.getSelectedItem()));
 
         insertLeaveController.addLeave(leaveNumber, orderCode, articles, date, store, courier);
 

@@ -1,19 +1,20 @@
 package model;
 
 import database.DatabaseWrapper;
+import factories.InstanceFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Represent an Article, table <code>articolo</code>.
  */
 public class ArticleModel extends Model implements GenericDAO, Comparable {
     private final String code;
-    private final ArticleType articleType;
+    private final ArticleTypeModel articleType;
     private final String price;
     private final String productionDate;
     private final PositionModel position;
@@ -22,13 +23,13 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
      * Create a new Article.
      *
      * @param code An Article identifier.
-     * @param articleType A valid ArticleType.
+     * @param articleType A valid ArticleTypeModel.
      * @param price A valid price.
      * @param productionDate A valid production date.
      * @param position A valid Position.
      */
     public ArticleModel(String code,
-                        ArticleType articleType,
+                        ArticleTypeModel articleType,
                         String price,
                         String productionDate,
                         PositionModel position) {
@@ -39,10 +40,6 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
         this.position = position;
     }
 
-    public static ArticleModel getInstance() {
-        return new ArticleModel(null, null, null, null, null);
-    }
-
     /**
      * @return The code.
      */
@@ -50,9 +47,9 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
         return code;
     }
     /**
-     * @return The ArticleType.
+     * @return The ArticleTypeModel.
      */
-    public ArticleType getArticleType() {
+    public ArticleTypeModel getArticleType() {
         return articleType;
     }
 
@@ -104,8 +101,8 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
     }
 
     @Override
-    public List<ArticleModel> findAll() {
-        final List<ArticleModel> articlesList = new ArrayList<>();
+    public Collection<ArticleModel> findAll() {
+        final Collection<ArticleModel> articlesList = new ArrayList<>();
         final DatabaseWrapper db = new DatabaseWrapper();
         final String query = "SELECT a.codice, a.tipo_articolo, a.prezzo, a.data_produzione, a.posizione " +
                 "FROM articolo a";
@@ -136,7 +133,7 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
      */
     private ArticleModel buildSingleFromResult(ResultSet rs) {
         String code = null;
-        ArticleType articleType = null;
+        ArticleTypeModel articleType = null;
         String price = null;
         String productionDate = null;
         PositionModel position = null;
@@ -148,8 +145,8 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
             productionDate = rs.getString("data_produzione");
             String positionCode = rs.getString("posizione");
 
-            articleType = ArticleType.getInstance().find(articleName);
-            position = PositionModel.getInstance().find(positionCode);
+            articleType = InstanceFactory.getInstance(ArticleTypeModel.class).find(articleName);
+            position = InstanceFactory.getInstance(PositionModel.class).find(positionCode);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -163,7 +160,7 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
      * @return An array of Article codes.
      */
     public String[] getArticlesCodes() {
-        final List<ArticleModel> articles = ArticleModel.getInstance().findAll();
+        final Collection<ArticleModel> articles = InstanceFactory.getInstance(ArticleModel.class).findAll();
         final String[] codes = new String[articles.size()];
 
         int i = 0;

@@ -1,5 +1,6 @@
 package view;
 
+import factories.InstanceFactory;
 import model.StoreModel;
 import model.UserModel;
 import model.UserRole;
@@ -113,7 +114,7 @@ public class ManagerView extends javax.swing.JFrame {
         SwingUtilities.invokeLater(() -> new ManagerView(new
                 UserModel("mario.rossi@gmail.com",
                 UserRole.MANAGER,
-                StoreModel.getInstance().find("NEG001"))).setVisible(true));
+                InstanceFactory.getInstance(StoreModel.class).find("NEG001"))).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
