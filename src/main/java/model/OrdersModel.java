@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Represent a matrix of data as a table, each table with its column name.
  */
-public class OrdersModel {
+public class OrdersModel implements OrdersTable {
     private final String[] columnNames;
     private Object[][] data;
     private final boolean isCodeInt;
@@ -48,6 +48,7 @@ public class OrdersModel {
     /**
      * @return The internal matrix of the data.
      */
+    @Override
     public Object[][] getRawData() {
         return data;
     }
@@ -55,6 +56,7 @@ public class OrdersModel {
     /**
      * @return The TableModel of the data.
      */
+    @Override
     public TableModel getTableModel() {
         return new DefaultTableModel(data, columnNames);
     }
