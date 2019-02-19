@@ -36,6 +36,7 @@ public class SecretaryView extends javax.swing.JFrame {
         javax.swing.JTextField emailTextField = new javax.swing.JTextField();
         javax.swing.JButton insertArticleTypeButton = new javax.swing.JButton();
         javax.swing.JButton ordersFulfillmentButton = new javax.swing.JButton();
+        javax.swing.JButton viewOrderButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(i18n.getString("title"));
@@ -60,6 +61,13 @@ public class SecretaryView extends javax.swing.JFrame {
             }
         });
 
+        viewOrderButton.setText(i18n.getString("view_order"));
+        viewOrderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewOrderButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,10 +79,13 @@ public class SecretaryView extends javax.swing.JFrame {
                         .addComponent(loggedAsLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(insertArticleTypeButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ordersFulfillmentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(insertArticleTypeButton)
+                            .addComponent(ordersFulfillmentButton))
+                        .addGap(37, 37, 37)
+                        .addComponent(viewOrderButton)))
+                .addGap(0, 35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,7 +95,9 @@ public class SecretaryView extends javax.swing.JFrame {
                     .addComponent(loggedAsLabel)
                     .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(insertArticleTypeButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(insertArticleTypeButton)
+                    .addComponent(viewOrderButton))
                 .addGap(18, 18, 18)
                 .addComponent(ordersFulfillmentButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -101,6 +114,10 @@ public class SecretaryView extends javax.swing.JFrame {
     private void ordersFulfillmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersFulfillmentButtonActionPerformed
         SwingUtilities.invokeLater(() -> new OrdersFulfillmentView().setVisible(true));
     }//GEN-LAST:event_ordersFulfillmentButtonActionPerformed
+
+    private void viewOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewOrderButtonActionPerformed
+        SwingUtilities.invokeLater(() -> new SingleOrderView().setVisible(true));
+    }//GEN-LAST:event_viewOrderButtonActionPerformed
 
     /**
      * @param args the command line arguments
