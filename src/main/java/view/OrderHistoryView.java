@@ -37,6 +37,7 @@ public class OrderHistoryView extends javax.swing.JFrame {
         javax.swing.JTextField storeTextField = new javax.swing.JTextField();
         javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         javax.swing.JTable orderHistoryTable = new javax.swing.JTable();
+        javax.swing.JButton okButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(i18n.getString("title")
@@ -52,6 +53,13 @@ public class OrderHistoryView extends javax.swing.JFrame {
         orderHistoryTable.setModel(orderHistoryController.getOrdersModel().getTableModel());
         jScrollPane1.setViewportView(orderHistoryTable);
 
+        okButton.setText(i18n.getString("button_ok"));
+        okButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -66,7 +74,10 @@ public class OrderHistoryView extends javax.swing.JFrame {
                         .addComponent(storeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(storeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                        .addGap(151, 151, 151))))
+                        .addGap(151, 151, 151))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(okButton)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,12 +88,18 @@ public class OrderHistoryView extends javax.swing.JFrame {
                     .addComponent(storeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(okButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_okButtonActionPerformed
 
     /**
      * @param args the command line arguments
