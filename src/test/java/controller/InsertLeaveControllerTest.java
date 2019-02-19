@@ -1,13 +1,14 @@
 package controller;
 
-import factories.InstanceFactory;
+import factories.FactoryProducer;
 import model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static factories.FactoryProducer.FactoryType.LEAVE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InsertLeaveControllerTest extends GenericControllerTest {
     @Test
@@ -37,6 +38,6 @@ class InsertLeaveControllerTest extends GenericControllerTest {
 
         new InsertLeaveController().addLeave(leaveNumber, orderCode, articles, date, store, courier);
 
-        assertEquals(2, InstanceFactory.getInstance(LeaveModel.class).getLastId());
+        assertEquals(2, FactoryProducer.getFactory(LEAVE).getLeaveModel().getLastId());
     }
 }

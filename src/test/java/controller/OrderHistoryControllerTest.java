@@ -7,7 +7,7 @@ import util.TestUtilities;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrderHistoryControllerTest extends GenericControllerTest {
     @Test

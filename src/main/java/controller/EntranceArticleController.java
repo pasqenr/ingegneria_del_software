@@ -1,16 +1,19 @@
 package controller;
 
 import database.DatabaseWrapper;
+import factories.FactoryProducer;
 import model.ArticleModel;
 import model.EntranceArticleModel;
 import model.EntranceModel;
-import factories.InstanceFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static factories.FactoryProducer.FactoryType.ARTICLE;
+import static factories.FactoryProducer.FactoryType.ENTRANCE;
 
 /**
  * Manage the entrances of articles in the warehouse.
@@ -42,7 +45,7 @@ public class EntranceArticleController {
      */
     private List<EntranceArticleModel> fetchAll() {
         final List<EntranceArticleModel> entranceArticles = new ArrayList<>();
-        final ArticleModel articleModelDao = InstanceFactory.getInstance(ArticleModel.class);
+        final ArticleModel articleModelDao = FactoryProducer.getFactory(ARTICLE).getArticleModel();
         final DatabaseWrapper db = new DatabaseWrapper();
         final String query = "SELECT ia.codice_articolo, ia.codice_ingresso FROM ingresso_articolo ia";
         final PreparedStatement stmt;
@@ -106,7 +109,7 @@ public class EntranceArticleController {
     private void addPreviousArticlesWithSameCode(final List<EntranceArticleModel> entranceArticles,
                                                  final List<ArticleModel> articles,
                                                  final int entranceCode) {
-        final EntranceModel entrance = InstanceFactory.getInstance(EntranceModel.class).find(entranceCode);
+        final EntranceModel entrance = FactoryProducer.getFactory(ENTRANCE).getEntranceModel().find(entranceCode);
         final EntranceArticleModel entranceArticleModel = new EntranceArticleModel(articles, entrance);
 
         entranceArticles.add(entranceArticleModel);

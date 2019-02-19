@@ -1,9 +1,9 @@
 package controller;
 
-import model.ArticleTypeModel;
-import factories.InstanceFactory;
+import factories.FactoryProducer;
 import org.junit.jupiter.api.Test;
 
+import static factories.FactoryProducer.FactoryType.ARTICLE_TYPE;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InsertArticleTypeModelControllerTest extends GenericControllerTest {
@@ -33,8 +33,8 @@ class InsertArticleTypeModelControllerTest extends GenericControllerTest {
                 articleTypeMaterials,
                 articleTypeSports);
 
-        assertNotNull(InstanceFactory.getInstance(ArticleTypeModel.class).find("Guanti palmati aquagym"));
-        assertNotNull(InstanceFactory.getInstance(ArticleTypeModel.class).find("Materasso acquafitness"));
+        assertNotNull(FactoryProducer.getFactory(ARTICLE_TYPE).getArticleTypeModel().find("Guanti palmati aquagym"));
+        assertNotNull(FactoryProducer.getFactory(ARTICLE_TYPE).getArticleTypeModel().find("Materasso acquafitness"));
     }
 
     @Test

@@ -1,8 +1,8 @@
 package view;
 
 import controller.MoveArticleController;
+
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * UNUSED

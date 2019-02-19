@@ -1,8 +1,11 @@
 package controller;
 
 import database.DatabaseWrapper;
-import factories.InstanceFactory;
-import model.*;
+import factories.FactoryProducer;
+import model.ArticleTypeModel;
+import model.OrderModel;
+import model.OrderTypeArticleModel;
+import model.StoreModel;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +14,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static factories.FactoryProducer.FactoryType.ARTICLE_TYPE;
+import static factories.FactoryProducer.FactoryType.ORDER;
 
 /**
  * Manage an Order.
@@ -57,7 +63,7 @@ public class OrderController {
         final List<ArticleTypeModel> articleTypes = new ArrayList<>();
 
         for (final String articleTypeName : articleTypesNames) {
-            articleTypes.add(InstanceFactory.getInstance(ArticleTypeModel.class).find(articleTypeName));
+            articleTypes.add(FactoryProducer.getFactory(ARTICLE_TYPE).getArticleTypeModel().find(articleTypeName));
         }
 
         return articleTypes;
@@ -91,7 +97,7 @@ public class OrderController {
      * function returns only the last part 001 as integer, so 1.
      */
     private int fetchLastOrderCodeNumber() {
-        final String lastOrderCode = InstanceFactory.getInstance(OrderModel.class).fetchLast().getCode();
+        final String lastOrderCode = FactoryProducer.getFactory(ORDER).getOrderModel().fetchLast().getCode();
 
         return Integer.valueOf(lastOrderCode.substring(4));
     }

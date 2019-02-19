@@ -6,7 +6,7 @@ import util.TestUtilities;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EntranceControllerTest extends GenericControllerTest {
     @Test

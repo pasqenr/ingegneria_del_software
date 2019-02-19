@@ -1,8 +1,8 @@
 package view;
 
 import controller.MoveArticleController;
+import factories.FactoryProducer;
 import model.ArticleModel;
-import factories.InstanceFactory;
 
 import javax.swing.*;
 import java.util.Locale;
@@ -135,7 +135,8 @@ public class MoveArticleView extends javax.swing.JFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         final String articleCode = articleCodeTextField.getText();
-        article = InstanceFactory.getInstance(ArticleModel.class).find(articleCode);
+        article = FactoryProducer.getFactory(FactoryProducer.FactoryType.ARTICLE)
+                .getArticleModel().find(articleCode);
 
         if (article == null) {
             JOptionPane.showMessageDialog(this,

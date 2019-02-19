@@ -1,9 +1,12 @@
 package controller;
 
-import factories.InstanceFactory;
+import factories.FactoryProducer;
 import model.*;
 
 import java.util.List;
+
+import static factories.FactoryProducer.FactoryType.ARTICLE;
+import static factories.FactoryProducer.FactoryType.LEAVE;
 
 /**
  * Manage the insertion of a leave from the warehouse.
@@ -31,7 +34,7 @@ public class InsertLeaveController {
         leave.store();
 
         // Add all the articles to the leave
-        final int lastLeaveNumber = InstanceFactory.getInstance(LeaveModel.class).getLastId();
+        final int lastLeaveNumber = FactoryProducer.getFactory(LEAVE).getLeaveModel().getLastId();
         final ArticleLeaveModel articleLeave = new ArticleLeaveModel(articles, lastLeaveNumber);
         articleLeave.store();
 
@@ -47,7 +50,7 @@ public class InsertLeaveController {
      * @return <code>true</code> if all che table codes are in the database, <code>false</code> otherwise.
      */
     public boolean checkIsAlreadyStoredArticleCode(final String[] tableCodes) {
-        final String[] storedCodes = InstanceFactory.getInstance(ArticleModel.class).getArticlesCodes();
+        final String[] storedCodes = FactoryProducer.getFactory(ARTICLE).getArticleModel().getArticlesCodes();
         int matchCounter = 0;
 
         for (final String tableCode : tableCodes) {

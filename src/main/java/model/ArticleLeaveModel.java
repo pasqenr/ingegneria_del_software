@@ -1,7 +1,7 @@
 package model;
 
 import database.DatabaseWrapper;
-import factories.InstanceFactory;
+import factories.FactoryProducer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static factories.FactoryProducer.FactoryType.ARTICLE;
 
 /**
  * Represent the entity ArticleLeave, table <code>uscita_articolo</code>.
@@ -123,7 +125,8 @@ public class ArticleLeaveModel extends Model implements GenericDAO {
         final String[] array = articleCodes.split(",");
 
         for (final String s : array) {
-            articles.add(InstanceFactory.getInstance(ArticleModel.class).find(s));
+            final ArticleModel article = FactoryProducer.getFactory(ARTICLE).getArticleModel();
+            articles.add(article.find(s));
         }
 
         return articles;

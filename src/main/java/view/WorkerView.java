@@ -4,7 +4,6 @@ import model.UserModel;
 import model.UserRole;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
 

@@ -1,14 +1,15 @@
 package model;
 
 import database.DatabaseWrapper;
-import factories.InstanceFactory;
+import factories.FactoryProducer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+
+import static factories.FactoryProducer.FactoryType.STORE;
 
 /**
  * Represent an Order, table <code>ordine</code>.
@@ -67,7 +68,7 @@ public class OrderModel extends Model implements GenericDAO {
 
             if (rs.next()) {
                 final String date = rs.getString("data");
-                final StoreModel store = InstanceFactory.getInstance(StoreModel.class)
+                final StoreModel store = FactoryProducer.getFactory(STORE).getStoreModel()
                         .find(rs.getString("negozio"));
                 order = new OrderModel(code, date, store);
             }
@@ -95,7 +96,8 @@ public class OrderModel extends Model implements GenericDAO {
             while (rs.next()) {
                 String code = rs.getString("codice");
                 String date = rs.getString("data");
-                StoreModel store = InstanceFactory.getInstance(StoreModel.class).find(rs.getString("negozio"));
+                StoreModel store = FactoryProducer.getFactory(STORE).getStoreModel()
+                        .find(rs.getString("negozio"));
                 final OrderModel order = new OrderModel(code, date, store);
                 orders.add(order);
             }
@@ -122,7 +124,8 @@ public class OrderModel extends Model implements GenericDAO {
             if (rs.next()) {
                 String code = rs.getString("codice");
                 String date = rs.getString("data");
-                StoreModel store = InstanceFactory.getInstance(StoreModel.class).find(rs.getString("negozio"));
+                StoreModel store = FactoryProducer.getFactory(STORE).getStoreModel()
+                        .find(rs.getString("negozio"));
                 order = new OrderModel(code, date, store);
             }
         } catch (SQLException e) {

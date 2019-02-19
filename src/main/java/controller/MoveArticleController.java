@@ -1,8 +1,8 @@
 package controller;
 
 import database.DatabaseWrapper;
+import factories.FactoryProducer;
 import model.ArticleModel;
-import factories.InstanceFactory;
 import model.PositionModel;
 
 import javax.swing.*;
@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+
+import static factories.FactoryProducer.FactoryType.ARTICLE;
 
 /**
  * Manage the movement of articles inside the warehouse.
@@ -37,7 +39,8 @@ public class MoveArticleController {
      * @return A ComboBoxModel with all the positions.
      */
     public DefaultComboBoxModel<String> getArticleCodesComboBoxModel() {
-        return new DefaultComboBoxModel<>(InstanceFactory.getInstance(ArticleModel.class).getArticlesCodes());
+        final ArticleModel article = FactoryProducer.getFactory(ARTICLE).getArticleModel();
+        return new DefaultComboBoxModel<>(article.getArticlesCodes());
     }
 
     /**
@@ -75,10 +78,10 @@ public class MoveArticleController {
     }
 
     /**
-     * Returns an array of positions codes from a list of PositionModel.
+     * Returns an array of positions codes from a list of PositionFactory.
      *
-     * @param positionModels A list of PositionModel.
-     * @return An array of PositionModel codes.
+     * @param positionModels A list of PositionFactory.
+     * @return An array of PositionFactory codes.
      */
     private String[] positionModelsToStrings(final List<PositionModel> positionModels) {
         int i = 0;

@@ -1,13 +1,14 @@
 package view;
 
-import factories.InstanceFactory;
-import model.StoreModel;
+import factories.FactoryProducer;
 import model.UserModel;
 import model.UserRole;
 
 import javax.swing.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import static factories.FactoryProducer.FactoryType.STORE;
 
 public class ManagerView extends javax.swing.JFrame {
     private final ResourceBundle i18n;
@@ -114,7 +115,7 @@ public class ManagerView extends javax.swing.JFrame {
         SwingUtilities.invokeLater(() -> new ManagerView(new
                 UserModel("mario.rossi@gmail.com",
                 UserRole.MANAGER,
-                InstanceFactory.getInstance(StoreModel.class).find("NEG001"))).setVisible(true));
+                FactoryProducer.getFactory(STORE).getStoreModel().find("NEG001"))).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

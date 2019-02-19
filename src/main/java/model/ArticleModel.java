@@ -1,13 +1,15 @@
 package model;
 
 import database.DatabaseWrapper;
-import factories.InstanceFactory;
+import factories.FactoryProducer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static factories.FactoryProducer.FactoryType.*;
 
 /**
  * Represent an Article, table <code>articolo</code>.
@@ -145,8 +147,8 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
             productionDate = rs.getString("data_produzione");
             String positionCode = rs.getString("posizione");
 
-            articleType = InstanceFactory.getInstance(ArticleTypeModel.class).find(articleName);
-            position = InstanceFactory.getInstance(PositionModel.class).find(positionCode);
+            articleType = FactoryProducer.getFactory(ARTICLE_TYPE).getArticleTypeModel().find(articleName);
+            position = FactoryProducer.getFactory(POSITION).getPositionModel().find(positionCode);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -160,7 +162,7 @@ public class ArticleModel extends Model implements GenericDAO, Comparable {
      * @return An array of Article codes.
      */
     public String[] getArticlesCodes() {
-        final Collection<ArticleModel> articles = InstanceFactory.getInstance(ArticleModel.class).findAll();
+        final Collection<ArticleModel> articles = FactoryProducer.getFactory(ARTICLE).getArticleModel().findAll();
         final String[] codes = new String[articles.size()];
 
         int i = 0;

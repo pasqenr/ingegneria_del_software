@@ -1,12 +1,16 @@
 package controller;
 
-import factories.InstanceFactory;
-import model.*;
+import factories.FactoryProducer;
+import model.ArticleModel;
+import model.ArticleTypeModel;
+import model.EntranceModel;
+import model.PositionModel;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static factories.FactoryProducer.FactoryType.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InsertEntranceControllerTest extends GenericControllerTest {
@@ -24,8 +28,9 @@ class InsertEntranceControllerTest extends GenericControllerTest {
         List<ArticleModel> articles = new ArrayList<>();
 
         for (int i = 0; i < articleCodes.length; i++) {
-            ArticleTypeModel articleType = InstanceFactory.getInstance(ArticleTypeModel.class).find(articleTypes[i]);
-            PositionModel position = positionController.findFreePositionByCode(articlePositions[i]);
+            final ArticleTypeModel articleType = FactoryProducer.getFactory(ARTICLE_TYPE)
+                    .getArticleTypeModel().find(articleTypes[i]);
+            final PositionModel position = positionController.findFreePositionByCode(articlePositions[i]);
 
             assertNotNull(articleType);
             assertNotNull(position);
@@ -39,7 +44,7 @@ class InsertEntranceControllerTest extends GenericControllerTest {
 
         insertEntranceController.insertArticlesAsEntrance(articles);
 
-        final ArticleModel articleModelDao = InstanceFactory.getInstance(ArticleModel.class);
+        final ArticleModel articleModelDao = FactoryProducer.getFactory(ARTICLE).getArticleModel();
         final ArticleModel article1 = articleModelDao.find(articleCodes[0]);
         final ArticleModel article2 = articleModelDao.find(articleCodes[1]);
 
@@ -48,9 +53,10 @@ class InsertEntranceControllerTest extends GenericControllerTest {
         assertEquals(article1.getPosition().getCode(), articlePositions[0]);
         assertEquals(article2.getPosition().getCode(), articlePositions[1]);
 
-        final EntranceModel entrance = InstanceFactory.getInstance(EntranceModel.class).find(InstanceFactory.getInstance(EntranceModel.class).getGreatestCode());
+        final EntranceModel dummyEntrance = FactoryProducer.getFactory(ENTRANCE).getEntranceModel();
+        final EntranceModel entrance = dummyEntrance.find(dummyEntrance.getGreatestCode());
 
-        assertEquals(InstanceFactory.getInstance(EntranceModel.class).getGreatestCode(), 2);
+        assertEquals(dummyEntrance.getGreatestCode(), 2);
         assertNotNull(entrance);
         assertEquals(entrance.getCode(), 2);
     }

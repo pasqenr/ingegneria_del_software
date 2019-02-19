@@ -1,14 +1,15 @@
 package model;
 
 import database.DatabaseWrapper;
-import factories.InstanceFactory;
+import factories.FactoryProducer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+
+import static factories.FactoryProducer.FactoryType.LEAVE;
 
 /**
  * Represent a Leave, table <code>uscita</code>.
@@ -95,7 +96,7 @@ public class LeaveModel extends Model implements GenericDAO {
 
     @Override
     public LeaveModel find(String leaveNumber) {
-        return InstanceFactory.getInstance(LeaveModel.class).find(Integer.valueOf(leaveNumber));
+        return FactoryProducer.getFactory(LEAVE).getLeaveModel().find(Integer.valueOf(leaveNumber));
     }
 
     @Override

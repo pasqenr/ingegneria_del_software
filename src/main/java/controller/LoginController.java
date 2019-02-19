@@ -1,14 +1,15 @@
 package controller;
 
 import database.DatabaseWrapper;
-import factories.InstanceFactory;
-import model.StoreModel;
+import factories.FactoryProducer;
 import model.UserModel;
 import model.UserRole;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import static factories.FactoryProducer.FactoryType.STORE;
 
 /**
  * Manage the user login.
@@ -50,7 +51,7 @@ public class LoginController {
                     user = new UserModel(userEmail, UserRole.ofName(role));
                 } else {
                     user = new UserModel(userEmail, UserRole.ofName(role),
-                            InstanceFactory.getInstance(StoreModel.class).find(storeName));
+                            FactoryProducer.getFactory(STORE).getStoreModel().find(storeName));
                 }
             }
         } catch (SQLException e) {

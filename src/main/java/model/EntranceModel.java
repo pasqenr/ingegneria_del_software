@@ -1,7 +1,7 @@
 package model;
 
 import database.DatabaseWrapper;
-import factories.InstanceFactory;
+import factories.FactoryProducer;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+
+import static factories.FactoryProducer.FactoryType.ENTRANCE;
 
 /**
  * Represent an Entrance, table <code>ingresso</code>.
@@ -50,7 +52,7 @@ public class EntranceModel extends Model implements GenericDAO, Comparable {
 
     @Override
     public EntranceModel find(String code) {
-        return InstanceFactory.getInstance(EntranceModel.class).find(Integer.valueOf(code));
+        return FactoryProducer.getFactory(ENTRANCE).getEntranceModel().find(Integer.valueOf(code));
     }
 
     public EntranceModel find(int code) {

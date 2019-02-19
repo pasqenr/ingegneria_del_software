@@ -2,9 +2,11 @@ package controller;
 
 import model.PositionModel;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class PositionControllerTest extends GenericControllerTest {
     @Test

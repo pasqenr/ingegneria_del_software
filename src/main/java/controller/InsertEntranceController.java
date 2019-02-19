@@ -1,12 +1,15 @@
 package controller;
 
+import factories.FactoryProducer;
 import model.ArticleModel;
 import model.EntranceArticleModel;
 import model.EntranceModel;
-import factories.InstanceFactory;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static factories.FactoryProducer.FactoryType.ARTICLE;
+import static factories.FactoryProducer.FactoryType.ENTRANCE;
 
 /**
  * Manage entrance insertion in the warehouse.
@@ -48,7 +51,7 @@ public class InsertEntranceController {
      * <code>false</code> otherwise.
      */
     public boolean checkIsAlreadyStoredArticleCodes(final String[] articleCodes) {
-        final String[] storedCodes = InstanceFactory.getInstance(ArticleModel.class).getArticlesCodes();
+        final String[] storedCodes = FactoryProducer.getFactory(ARTICLE).getArticleModel().getArticlesCodes();
 
         for (final String tableCode : articleCodes) {
             for (final String storedCode : storedCodes) {
@@ -84,8 +87,9 @@ public class InsertEntranceController {
      * @return The last Entrance in the database.
      */
     private EntranceModel fetchLastEntrance() {
-        final int greatestCode = InstanceFactory.getInstance(EntranceModel.class).getGreatestCode();
+        final EntranceModel entrance = FactoryProducer.getFactory(ENTRANCE).getEntranceModel();
+        final int greatestCode = entrance.getGreatestCode();
 
-        return InstanceFactory.getInstance(EntranceModel.class).find(greatestCode);
+        return entrance.find(greatestCode);
     }
 }

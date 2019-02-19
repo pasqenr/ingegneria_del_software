@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.table.TableModel;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrderFulfillmentControllerTest extends GenericControllerTest {
     @Test

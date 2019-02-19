@@ -2,14 +2,19 @@ package view;
 
 import controller.InsertLeaveController;
 import controller.TableController;
-import factories.InstanceFactory;
-import model.*;
+import factories.FactoryProducer;
+import model.ArticleModel;
+import model.CourierModel;
+import model.OrderModel;
+import model.StoreModel;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import static factories.FactoryProducer.FactoryType.*;
 
 public class InsertLeaveView extends javax.swing.JFrame {
     private final ResourceBundle i18n;
@@ -24,8 +29,8 @@ public class InsertLeaveView extends javax.swing.JFrame {
      */
     public InsertLeaveView() {
         i18n = ResourceBundle.getBundle("InsertLeaveView", Locale.getDefault());
-        storesList = new ArrayList<>(InstanceFactory.getInstance(StoreModel.class).findAll());
-        courierList = new ArrayList<>(InstanceFactory.getInstance(CourierModel.class).findAll());
+        storesList = new ArrayList<>(FactoryProducer.getFactory(STORE).getStoreModel().findAll());
+        courierList = new ArrayList<>(FactoryProducer.getFactory(COURIER).getCourierModel().findAll());
         insertLeaveController = new InsertLeaveController();
 
         initModels();
@@ -218,7 +223,7 @@ public class InsertLeaveView extends javax.swing.JFrame {
         final int COLUMN_ARTICLE_CODE = 0;
         final String orderCode = orderNumberTextField.getText();
 
-        final OrderModel order = InstanceFactory.getInstance(OrderModel.class).find(orderCode);
+        final OrderModel order = FactoryProducer.getFactory(ORDER).getOrderModel().find(orderCode);
 
         if (order == null) {
             JOptionPane.showMessageDialog(this,
@@ -252,13 +257,13 @@ public class InsertLeaveView extends javax.swing.JFrame {
         final List<ArticleModel> articles = new ArrayList<>();
 
         for (String articleCode : articleCodes) {
-            articles.add(InstanceFactory.getInstance(ArticleModel.class).find(articleCode));
+            articles.add(FactoryProducer.getFactory(ARTICLE).getArticleModel().find(articleCode));
         }
 
         final int leaveNumber = Integer.valueOf(leaveNumberTextField.getText());
         final String date = dateTextField.getText();
         final StoreModel store = StoreModel.findByName(((String)storeNameComboBox.getSelectedItem()));
-        final CourierModel courier = InstanceFactory.getInstance(CourierModel.class)
+        final CourierModel courier = FactoryProducer.getFactory(COURIER).getCourierModel()
                 .find(((String)courierComboBox.getSelectedItem()));
 
         insertLeaveController.addLeave(leaveNumber, orderCode, articles, date, store, courier);

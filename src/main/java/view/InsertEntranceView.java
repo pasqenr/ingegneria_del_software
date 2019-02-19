@@ -1,13 +1,20 @@
 package view;
 
-import controller.*;
+import controller.InsertEntranceController;
+import controller.PositionController;
+import controller.TableController;
+import factories.FactoryProducer;
 import model.ArticleModel;
 import model.ArticleTypeModel;
-import factories.InstanceFactory;
 import model.PositionModel;
 
 import javax.swing.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import static factories.FactoryProducer.FactoryType.ARTICLE_TYPE;
 
 public class InsertEntranceView extends javax.swing.JFrame {
     private final ResourceBundle i18n;
@@ -162,7 +169,8 @@ public class InsertEntranceView extends javax.swing.JFrame {
         List<ArticleModel> articles = new ArrayList<>();
 
         for (int i = 0; i < articleCodes.length; i++) {
-            ArticleTypeModel articleType = InstanceFactory.getInstance(ArticleTypeModel.class).find(articleTypes[i]);
+            final ArticleTypeModel articleType = FactoryProducer.getFactory(ARTICLE_TYPE)
+                    .getArticleTypeModel().find(articleTypes[i]);
 
             if (articleType == null) {
                 JOptionPane.showMessageDialog(this,

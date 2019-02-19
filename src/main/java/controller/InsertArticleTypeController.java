@@ -1,11 +1,13 @@
 package controller;
 
+import factories.FactoryProducer;
 import model.ArticleTypeModel;
-import factories.InstanceFactory;
 import model.SportModel;
 
 import java.util.Collection;
-import java.util.List;
+
+import static factories.FactoryProducer.FactoryType.ARTICLE_TYPE;
+import static factories.FactoryProducer.FactoryType.SPORT;
 
 /**
  * Manage the insertion of a list of ArticleTypeModel
@@ -28,7 +30,7 @@ public class InsertArticleTypeController {
             final String name = articleTypesNames[i];
             final String description = articleTypeDescriptions[i];
             final String materials = articleTypeMaterials[i];
-            final SportModel sport = InstanceFactory.getInstance(SportModel.class).find(articleTypeSports[i]);
+            final SportModel sport = FactoryProducer.getFactory(SPORT).getSportModel().find(articleTypeSports[i]);
 
             final ArticleTypeModel articleType = new ArticleTypeModel(name, description, materials, sport);
             articleType.store();
@@ -44,11 +46,11 @@ public class InsertArticleTypeController {
      */
     public boolean areArticleTypesAlreadyStored(final String[] articleTypes) {
         int matches = 0;
-        final Collection<ArticleTypeModel> articleTypeList = InstanceFactory
-                .getInstance(ArticleTypeModel.class).findAll();
+        final Collection<ArticleTypeModel> articleTypeList = FactoryProducer.getFactory(ARTICLE_TYPE)
+                .getArticleTypeModel().findAll();
 
-        for (ArticleTypeModel articleType : articleTypeList) {
-            for (String articleCode : articleTypes) {
+        for (final ArticleTypeModel articleType : articleTypeList) {
+            for (final String articleCode : articleTypes) {
                 if (articleType.getName().equals(articleCode)) {
                     matches++;
                 }
@@ -66,10 +68,10 @@ public class InsertArticleTypeController {
      */
     public boolean areSportsValid(final String[] sportNames) {
         int matches = 0;
-        final Collection<SportModel> sports = InstanceFactory.getInstance(SportModel.class).findAll();
+        final Collection<SportModel> sports = FactoryProducer.getFactory(SPORT).getSportModel().findAll();
 
-        for (SportModel sport : sports) {
-            for (String sportName : sportNames) {
+        for (final SportModel sport : sports) {
+            for (final String sportName : sportNames) {
                 if (sport.getName().equals(sportName)) {
                     matches++;
                 }
