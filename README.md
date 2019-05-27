@@ -12,4 +12,3 @@ english and italian.
 The code was (and it is) originally hosted on GitLab and uses the integrated CI to run the tests when code changes are commited.
 The build tool is Gradle, so it's required compile and run the code. There are included files that should make the integration
 in Intellij IDEA and Eclipse easy.
-
